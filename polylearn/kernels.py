@@ -26,7 +26,13 @@ def safe_power(X, degree=2):
         Same shape as X, but (x_ret)_ij = (x)_ij ^ degree
     """
     if issparse(X):
-        return X.power(degree)
+        if hasattr(X, 'power'):
+            return X.power(degree)
+        else:
+            # old scipy
+            X = X.copy()
+            X.data **= degree
+            return X
     else:
         return X ** degree
 
