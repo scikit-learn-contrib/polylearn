@@ -8,7 +8,7 @@ machine:
     DOC_REPO: "polylearn"
 
     # The base URL for the Github page where the documentation will be hosted
-    DOC_URL: "http://vene.github.io/polylearn"
+    DOC_URL: ""
 
     # The email is to be used for commits in the Github Page
     EMAIL: "vlad@vene.ro"
