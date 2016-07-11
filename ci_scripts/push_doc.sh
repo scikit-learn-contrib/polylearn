@@ -35,13 +35,15 @@ for name in $(ls -A $HOME/$DOC_REPO); do
     esac
 done
 
-# Copy the new build docs
-mkdir $DOC_URL
-cp -R $HOME/tmp/* ./$DOC_URL/
+# Copy the new build docs  # VN: what's with the DOC_URL?
+# mkdir $DOC_URL
+# cp -R $HOME/tmp/* ./$DOC_URL/
+cp -R $HOME/tmp/* ./
 
 git config --global user.email $EMAIL
 git config --global user.name $USERNAME
-git add -f ./$DOC_URL/
+# git add -f ./$DOC_URL/
+git add -f ./
 git commit -m "$MSG"
 git push -f origin gh-pages
 if [ $? -ne 0 ]; then
