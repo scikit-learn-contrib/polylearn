@@ -1,1 +1,0 @@
-Examples of using factorization machines and polynomial networks with the polylearn library.
