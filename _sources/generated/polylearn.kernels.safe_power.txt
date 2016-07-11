@@ -1,0 +1,7 @@
+polylearn.kernels.safe_power
+============================
+
+.. currentmodule:: polylearn.kernels
+
+.. autofunction:: safe_power
+

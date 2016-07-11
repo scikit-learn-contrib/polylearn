@@ -1,0 +1,7 @@
+polylearn.kernels.homogeneous_kernel
+====================================
+
+.. currentmodule:: polylearn.kernels
+
+.. autofunction:: homogeneous_kernel
+

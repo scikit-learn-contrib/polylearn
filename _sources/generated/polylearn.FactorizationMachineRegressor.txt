@@ -1,0 +1,11 @@
+polylearn.FactorizationMachineRegressor
+=======================================
+
+.. currentmodule:: polylearn
+
+.. autoclass:: FactorizationMachineRegressor
+
+   
+   .. automethod:: __init__
+   
+

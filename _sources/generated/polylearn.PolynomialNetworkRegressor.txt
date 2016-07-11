@@ -1,0 +1,11 @@
+polylearn.PolynomialNetworkRegressor
+====================================
+
+.. currentmodule:: polylearn
+
+.. autoclass:: PolynomialNetworkRegressor
+
+   
+   .. automethod:: __init__
+   
+

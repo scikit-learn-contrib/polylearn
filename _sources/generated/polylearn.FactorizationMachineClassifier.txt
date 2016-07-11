@@ -1,0 +1,11 @@
+polylearn.FactorizationMachineClassifier
+========================================
+
+.. currentmodule:: polylearn
+
+.. autoclass:: FactorizationMachineClassifier
+
+   
+   .. automethod:: __init__
+   
+

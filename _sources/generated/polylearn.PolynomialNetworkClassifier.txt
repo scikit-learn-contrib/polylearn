@@ -1,0 +1,11 @@
+polylearn.PolynomialNetworkClassifier
+=====================================
+
+.. currentmodule:: polylearn
+
+.. autoclass:: PolynomialNetworkClassifier
+
+   
+   .. automethod:: __init__
+   
+

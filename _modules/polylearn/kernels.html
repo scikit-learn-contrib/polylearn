@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>polylearn.kernels &mdash; polylearn 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/lightning.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="polylearn 0.1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          polylearn</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../references.html">References</a></li>
+                <li><a href="../../auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../references.html">polylearn reference</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <h1>Source code for polylearn.kernels</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Author: Vlad Niculae &lt;vlad@vene.ro&gt;</span>
+<span class="c1"># License: Simplified BSD</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">polynomial_kernel</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.extmath</span> <span class="kn">import</span> <span class="n">safe_sparse_dot</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="safe_power"><a class="viewcode-back" href="../../generated/polylearn.kernels.safe_power.html#polylearn.kernels.safe_power">[docs]</a><span class="k">def</span> <span class="nf">safe_power</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Element-wise power supporting both sparse and dense data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : ndarray or sparse</span>
+<span class="sd">        The array whose entries to raise to the power.</span>
+
+<span class="sd">    degree : int, default: 2</span>
+<span class="sd">        The power to which to raise the elements.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    X_ret : ndarray or sparse</span>
+<span class="sd">        Same shape as X, but (x_ret)_ij = (x)_ij ^ degree</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">issparse</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s1">&#39;power&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">degree</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># old scipy</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">data</span> <span class="o">**=</span> <span class="n">degree</span>
+            <span class="k">return</span> <span class="n">X</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">X</span> <span class="o">**</span> <span class="n">degree</span></div>
+
+
+<span class="k">def</span> <span class="nf">_D</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The &quot;replacement&quot; part of the homogeneous polynomial kernel.</span>
+
+<span class="sd">    D[i, j] = sum_k [(X_ik * P_jk) ** degree]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">safe_sparse_dot</span><span class="p">(</span><span class="n">safe_power</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">degree</span><span class="p">),</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span> <span class="o">**</span> <span class="n">degree</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="homogeneous_kernel"><a class="viewcode-back" href="../../generated/polylearn.kernels.homogeneous_kernel.html#polylearn.kernels.homogeneous_kernel">[docs]</a><span class="k">def</span> <span class="nf">homogeneous_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convenience alias for homogeneous polynomial kernel between X and P::</span>
+
+<span class="sd">        K_P(x, p) = &lt;x, p&gt; ^ degree</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : ndarray of shape (n_samples_1, n_features)</span>
+
+<span class="sd">    Y : ndarray of shape (n_samples_2, n_features)</span>
+
+<span class="sd">    degree : int, default 2</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Gram matrix : array of shape (n_samples_1, n_samples_2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">polynomial_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="n">degree</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">coef0</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="anova_kernel"><a class="viewcode-back" href="../../generated/polylearn.kernels.anova_kernel.html#polylearn.kernels.anova_kernel">[docs]</a><span class="k">def</span> <span class="nf">anova_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;ANOVA kernel between X and P::</span>
+
+<span class="sd">        K_A(x, p) = sum_i1&gt;i2&gt;...&gt;id x_i1 p_i1 x_i2 p_i2 ... x_id p_id</span>
+
+<span class="sd">    See John Shawe-Taylor and Nello Cristianini,</span>
+<span class="sd">    Kernel Methods for Pattern Analysis section 9.2.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : ndarray of shape (n_samples_1, n_features)</span>
+
+<span class="sd">    Y : ndarray of shape (n_samples_2, n_features)</span>
+
+<span class="sd">    degree : int, default 2</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Gram matrix : array of shape (n_samples_1, n_samples_2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">degree</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">homogeneous_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">-=</span> <span class="n">_D</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">/=</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">degree</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">homogeneous_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">-=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">_D</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">_D</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">+=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">_D</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">/=</span> <span class="mi">6</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;ANOVA kernel for degree &gt;= 4 not yet &quot;</span>
+                                  <span class="s2">&quot;implemented efficiently.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">K</span></div>
+
+
+<span class="k">def</span> <span class="nf">_poly_predict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">lams</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">kernel</span> <span class="o">==</span> <span class="s2">&quot;anova&quot;</span><span class="p">:</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">anova_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kernel</span> <span class="o">==</span> <span class="s2">&quot;poly&quot;</span><span class="p">:</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">homogeneous_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">((</span><span class="s2">&quot;Unsuppported kernel: {}. Use one &quot;</span>
+                          <span class="s2">&quot;of {{&#39;anova&#39;|&#39;poly&#39;}}&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kernel</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">lams</span><span class="p">)</span>
+</pre></div>
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Vlad Niculae.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

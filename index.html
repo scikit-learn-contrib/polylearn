@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>polylearn &mdash; polylearn 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/lightning.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="polylearn 0.1.0 documentation" href="#" />
+    <link rel="next" title="Examples" href="auto_examples/index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          polylearn</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="references.html">References</a></li>
+                <li><a href="auto_examples/index.html">Examples</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">polylearn reference</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/index.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container content-container">
+  
+  <div class="section" id="polylearn">
+<h1>polylearn<a class="headerlink" href="#polylearn" title="Permalink to this headline">¶</a></h1>
+<p>A library for higher-order <strong>factorization machines</strong> and <strong>polynomial networks</strong>
+for classification and regression in Python.</p>
+<p>Factorization machines and polynomial networks are machine learning models
+that can capture <strong>feature interaction</strong> (co-occurrence) through polynomial terms.
+Because feature interactions can be very sparse, it&#8217;s common to use <strong>low rank,
+factorized representations</strong>; this way, we can learn weights even for feature
+co-occurrences that haven&#8217;t been observed at training time.</p>
+<p>Factorization machines are popular for recommender systems, as they are a
+generalization of matrix completion models.</p>
+<p>This package provides:</p>
+<ul class="simple">
+<li>direct coordinate descent algorithm for factorization machines,</li>
+<li>lifted solver for fitting polynomial networks of arbitrary degree,</li>
+<li><a class="reference external" href="http://scikit-learn.org">scikit-learn</a>-compatible API,</li>
+<li><a class="reference external" href="http://cython.org">Cython</a> implementations for computationally intensive parts.</li>
+</ul>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Binary packages are not yet available.</p>
+<p>The development version of polylearn can be installed from its git repository. In
+this case it is assumed that you have the git version control system, a working
+C++ compiler, Cython, lightning, and the numpy development libraries. In order to
+install the development version, type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vene</span><span class="o">/</span><span class="n">polylearn</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">polylearn</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
+<span class="n">sudo</span> <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>The solvers implemented are introduced in <a class="footnote-reference" href="#id4" id="id1">[1]</a>. Factorization machines are introduced
+in <a class="footnote-reference" href="#id5" id="id2">[2]</a> and polynomial networks in <a class="footnote-reference" href="#id7" id="id3">[3]</a>.</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Mathieu Blondel, Masakazu Ishihata, Akinori Fujino, Naonori Ueda.
+<em>Polynomial Networks and Factorization Machines: New Insights and
+Efficient Training Algorithms.</em>  In: Proc. of ICML 2016.
+[<a class="reference external" href="http://mblondel.org/publications/mblondel-icml2016.pdf">PDF</a>]</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Steffen Rendle. <em>Factorization machines.</em> In: Proc. of IEEE ICDM 2010.
+[<a class="reference external" href="https://www.ismll.uni-hildesheim.de/pub/pdfs/Rendle2010FM.pdf">PDF</a>]</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Roi Livni, Shai Shalev-Shwartz, Ohad Shamir.
+<em>On the computational efficiency of training neural networks.</em>
+In: Proc. of NIPS 2014.
+[<a class="reference external" href="http://arxiv.org/abs/1410.1141">arXiv</a>]</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Vlad Niculae, 2016-present</li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+</div>
+
+
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Vlad Niculae.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

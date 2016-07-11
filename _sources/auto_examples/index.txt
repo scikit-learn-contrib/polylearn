@@ -1,0 +1,54 @@
+
+
+
+.. raw:: html
+
+
+    <style type="text/css">
+    div#sidebarbutton {
+        /* hide the sidebar collapser, while ensuring vertical arrangement */
+        display: none;
+    }
+    </style>
+
+.. _examples-index:
+
+Examples
+========
+
+
+
+
+Examples of using factorization machines and polynomial networks with the polylearn library.
+
+
+
+
+.. raw:: html
+
+    <div class="thumbnailContainer" tooltip="In this example we show how to use the `warm_start` attribute to efficiently compute the regula...">
+
+.. only:: html
+
+  .. figure:: ./images/thumb/plot_regularization_path.png
+    :target: ./plot_regularization_path.html
+
+    :ref:`example_plot_regularization_path.py`
+
+
+.. raw:: html
+
+    </div>
+
+
+
+.. toctree::
+   :hidden:
+
+   ./plot_regularization_path
+
+
+.. raw:: html
+
+    <div class="clearer"></div>
+    

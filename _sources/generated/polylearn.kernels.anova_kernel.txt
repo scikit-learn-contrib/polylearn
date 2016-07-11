@@ -1,0 +1,7 @@
+polylearn.kernels.anova_kernel
+==============================
+
+.. currentmodule:: polylearn.kernels
+
+.. autofunction:: anova_kernel
+
