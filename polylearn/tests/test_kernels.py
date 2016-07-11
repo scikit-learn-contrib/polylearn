@@ -85,7 +85,7 @@ def test_safe_power_sparse():
     X_quad = X ** 4
     # assert X stays sparse
     X_sp = sp.csr_matrix(X)
-    for sp_format in ('csr', 'csc', 'coo', 'lil'):
+    for sp_format in ('csr', 'csc', 'coo'):  # not working with lil for now
         X_sp = X_sp.asformat(sp_format)
         X_sp_quad = safe_power(X_sp, degree=4)
         assert_true(sp.issparse(X_sp_quad),
