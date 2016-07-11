@@ -82,3 +82,7 @@ test_script:
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
   - path: dist\*
+
+
+cache:
+  - '%APPDATA%\pip\Cache'
