@@ -1,5 +1,18 @@
 .. -*- mode: rst -*-
 
+.. image:: https://travis-ci.org/vene/polylearn.svg?branch=master
+    :target: https://travis-ci.org/vene/polylearn
+
+.. image:: https://ci.appveyor.com/api/projects/status/g9xnar9081l3vsw7?svg=true
+    :target: https://ci.appveyor.com/project/vene/polylearn
+
+.. image:: https://coveralls.io/repos/vene/polylearn/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/r/vene/bilearn
+
+.. image:: https://circleci.com/gh/vene/polylearn.svg?style=shield&circle-token=:circle-token
+    :target: https://circleci.com/gh/vene/bilearn/tree/master
+
+
 polylearn
 =========
 
