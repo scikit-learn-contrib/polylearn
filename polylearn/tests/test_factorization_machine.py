@@ -104,11 +104,15 @@ def check_fit(degree):
 
     est = FactorizationMachineRegressor(degree=degree, n_components=5,
                                         fit_linear=None, fit_lower=None,
-                                        beta=1e-4, tol=1e-3, random_state=0)
+                                        beta=1e-3, tol=1e-2, random_state=0)
     est.fit(X, y)
     y_pred = est.predict(X)
-    assert_less_equal(mean_squared_error(y, y_pred), 1e-6,
-                      msg="Cannot learn degree {} function.".format(degree))
+    err = mean_squared_error(y, y_pred)
+
+    assert_less_equal(
+        err,
+        1e-4,
+        msg="Error {} too big for degree {}.".format(err, degree))
 
 
 def test_fit():
