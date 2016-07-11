@@ -121,7 +121,11 @@ class _PolyClassifierMixin(ClassifierMixin):
                              "calibration methods from scikit-learn instead.")
 
     def _check_X_y(self, X, y):
-        if type_of_target(y) != 'binary':
+
+        # helpful error message for sklearn < 1.17
+        is_2d = hasattr(y, 'shape') and len(y.shape) > 1 and y.shape[1] >= 2
+
+        if is_2d or type_of_target(y) != 'binary':
             raise TypeError("Only binary targets supported. For training "
                             "multiclass or multilabel models, you may use the "
                             "OneVsRest or OneVsAll metaestimators in "
