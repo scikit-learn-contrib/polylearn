@@ -7,10 +7,10 @@
     :target: https://ci.appveyor.com/project/vene/polylearn
 
 .. image:: https://coveralls.io/repos/vene/polylearn/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/r/vene/bilearn
+    :target: https://coveralls.io/r/vene/polylearn
 
 .. image:: https://circleci.com/gh/vene/polylearn.svg?style=shield&circle-token=:circle-token
-    :target: https://circleci.com/gh/vene/bilearn/tree/master
+    :target: https://circleci.com/gh/vene/polylearn/tree/master
 
 
 polylearn
