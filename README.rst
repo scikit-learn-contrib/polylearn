@@ -1,5 +1,11 @@
 .. -*- mode: rst -*-
 
+polylearn
+=========
+
+A library for higher-order **factorization machines** and **polynomial networks**
+for classification and regression in Python.
+
 .. image:: https://travis-ci.org/vene/polylearn.svg?branch=master
     :target: https://travis-ci.org/vene/polylearn
 
@@ -12,12 +18,6 @@
 .. image:: https://circleci.com/gh/vene/polylearn.svg?style=shield&circle-token=:circle-token
     :target: https://circleci.com/gh/vene/polylearn/tree/master
 
-
-polylearn
-=========
-
-A library for higher-order **factorization machines** and **polynomial networks**
-for classification and regression in Python.
 
 Factorization machines and polynomial networks are machine learning models
 that can capture **feature interaction** (co-occurrence) through polynomial terms.
