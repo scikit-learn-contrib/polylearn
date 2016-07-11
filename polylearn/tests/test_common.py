@@ -1,4 +1,4 @@
-from nose.tools import assert_raises, assert_raises_regex, assert_greater
+from nose.tools import assert_raises, assert_greater
 from nose.tools import assert_equal
 import numpy as np
 # import sklearn.utils.estimator_checks
@@ -90,7 +90,7 @@ def test_clf_float_error():
 
 def check_not_fitted(Est):
     est = Est()
-    assert_raises_regex(ValueError, "fitted", est.predict, X)
+    assert_raises(ValueError, est.predict, X)
 
 
 def test_not_fitted():

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 """Polynomial networks for regression and classification."""
 
 # Author: Vlad Niculae <vlad@vene.ro>

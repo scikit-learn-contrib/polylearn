@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # Author: Vlad Niculae <vlad@vene.ro>
 # License: Simplified BSD
 
