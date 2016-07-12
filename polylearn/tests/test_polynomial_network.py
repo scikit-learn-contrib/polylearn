@@ -10,12 +10,11 @@ from numpy.testing import assert_array_almost_equal
 from sklearn.metrics import mean_squared_error
 from sklearn.utils.testing import assert_warns_message
 
-# from polylearn import PolyRegressor, PolyClassifier
 from polylearn import PolynomialNetworkClassifier, PolynomialNetworkRegressor
 
 
-max_degree = 6
-n_components = 5
+max_degree = 5
+n_components = 3
 n_features = 7
 n_samples = 10
 
@@ -81,10 +80,9 @@ def check_fit(degree):
     y = np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0)
 
     est = PolynomialNetworkRegressor(degree=degree, n_components=n_components,
-                                     beta=1e-10, max_iter=1000, tol=1e-3,
-                                     random_state=0)
+                                     beta=0.00001, tol=1e-4, random_state=0)
     y_pred = est.fit(X, y).predict(X)
-    assert_less_equal(mean_squared_error(y, y_pred), 5e-5,
+    assert_less_equal(mean_squared_error(y, y_pred), 1e-5,
                       msg="Cannot learn degree {} function.".format(degree))
 
 
@@ -139,15 +137,14 @@ def test_random_starts():
     noisy_y += 5. * rng.randn(noisy_y.shape[0])
 
     common_settings = dict(degree=degree, n_components=n_components,
-                           fit_lower=None, fit_linear=None,
-                           beta=50, max_iter=2000, tol=0.001)
+                           beta=0.001, tol=0.01)
     scores = []
     for k in range(5):
         est = PolynomialNetworkRegressor(random_state=k, **common_settings)
         y_pred = est.fit(X, noisy_y).predict(X)
         scores.append(mean_squared_error(noisy_y, y_pred))
 
-    assert_less_equal(np.std(scores), 0.002)
+    assert_less_equal(np.std(scores), 1e-4)
 
 
 def check_same_as_slow(degree):
@@ -171,8 +168,8 @@ def check_classification_losses(loss, degree):
     y = np.sign(np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0))
 
     clf = PolynomialNetworkClassifier(degree=degree, n_components=n_components,
-                                      max_iter=1200, loss=loss, beta=1e-8,
-                                      tol=1e-3, random_state=0)
+                                      loss=loss, beta=1e-3, tol=1e-2,
+                                      random_state=0)
     clf.fit(X, y)
     assert_equal(1.0, clf.score(X, y))
 
@@ -220,33 +217,32 @@ def check_warm_start(degree):
     # (note: could not get this test to work for the exact P_.)
     # This test is very flimsy!
 
-    noisy_y = np.sign(np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0))
-    noisy_y += 0.1 * rng.randn(noisy_y.shape[0])
+    y = np.sign(np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0))
 
-    beta_low = 0.4
+    beta_low = 0.51
     beta = 0.5
-    beta_hi = 0.6
+    beta_hi = 0.49
+
     common_settings = dict(degree=degree, n_components=n_components,
-                           fit_lower=None, fit_linear=None, tol=1e-4,
-                           max_iter=200000, random_state=0)
+                           tol=1e-3, random_state=0)
     ref = PolynomialNetworkRegressor(beta=beta, **common_settings)
-    ref.fit(X, noisy_y)
+    ref.fit(X, y)
     y_pred_ref = ref.predict(X)
 
     # # (a) starting from lower beta, increasing and refitting
     from_low = PolynomialNetworkRegressor(beta=beta_low, warm_start=True,
                                           **common_settings)
-    from_low.fit(X, noisy_y)
+    from_low.fit(X, y)
     from_low.set_params(beta=beta)
-    from_low.fit(X, noisy_y)
+    from_low.fit(X, y)
     y_pred_low = from_low.predict(X)
 
     # (b) starting from higher beta, decreasing and refitting
     from_hi = PolynomialNetworkRegressor(beta=beta_hi, warm_start=True,
                                          **common_settings)
-    from_hi.fit(X, noisy_y)
+    from_hi.fit(X, y)
     from_hi.set_params(beta=beta)
-    from_hi.fit(X, noisy_y)
+    from_hi.fit(X, y)
     y_pred_hi = from_hi.predict(X)
 
     decimal = 3

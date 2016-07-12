@@ -104,7 +104,8 @@ def check_fit(degree):
 
     est = FactorizationMachineRegressor(degree=degree, n_components=5,
                                         fit_linear=None, fit_lower=None,
-                                        beta=1e-6, tol=1e-3, random_state=0)
+                                        max_iter=15000, beta=1e-6, tol=1e-3,
+                                        random_state=0)
     est.fit(X, y)
     y_pred = est.predict(X)
     err = mean_squared_error(y, y_pred)

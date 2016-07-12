@@ -9,6 +9,7 @@ import warnings
 from abc import ABCMeta, abstractmethod
 
 import numpy as np
+from sklearn.preprocessing import add_dummy_feature
 from sklearn.utils import check_random_state
 from sklearn.utils.extmath import safe_sparse_dot
 from sklearn.utils.validation import check_array
@@ -44,6 +45,12 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
         self.verbose = verbose
         self.compute_loss = compute_loss
         self.random_state = random_state
+
+    def _augment(self, X):
+        # for polynomial nets, we add a single dummy column
+        if self.fit_linear == 'augment' or self.fit_lower == 'augment':
+            X = add_dummy_feature(X, value=1)
+        return X
 
     def fit(self, X, y):
         """Fit polynomial network to training data.

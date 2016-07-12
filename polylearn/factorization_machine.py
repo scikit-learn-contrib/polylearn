@@ -7,6 +7,7 @@ import warnings
 from abc import ABCMeta, abstractmethod
 
 import numpy as np
+from sklearn.preprocessing import add_dummy_feature
 from sklearn.utils import check_random_state
 from sklearn.utils.validation import check_array
 from sklearn.utils.extmath import safe_sparse_dot, row_norms
@@ -46,6 +47,14 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
         self.verbose = verbose
         self.compute_loss = compute_loss
         self.random_state = random_state
+
+    def _augment(self, X):
+        # for factorization machines, we add a dummy column for each order
+        if self.fit_lower == 'augment':
+            k = 1 if self.fit_linear == 'augment' else 2
+            for _ in range(self.degree - k):
+                X = add_dummy_feature(X, value=1)
+        return X
 
     def fit(self, X, y):
         """Fit factorization machine to training data.

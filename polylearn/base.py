@@ -4,28 +4,15 @@
 from abc import ABCMeta
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
-from sklearn.preprocessing import LabelBinarizer, add_dummy_feature
+from sklearn.preprocessing import LabelBinarizer
 from sklearn.utils.validation import check_X_y
 from sklearn.utils.multiclass import type_of_target
 from sklearn.externals import six
-
-try:
-    from sklearn.exceptions import NotFittedError
-except ImportError:
-    class NotFittedError(ValueError, AttributeError):
-        pass
 
 from .loss import CLASSIFICATION_LOSSES, REGRESSION_LOSSES
 
 
 class _BasePoly(six.with_metaclass(ABCMeta, BaseEstimator)):
-
-    def _augment(self, X):
-        if self.fit_lower == 'augment':
-            k = 1 if self.fit_linear == 'augment' else 2
-            for _ in range(self.degree - k):
-                X = add_dummy_feature(X, value=1)
-        return X
 
     def _get_loss(self, loss):
         # classification losses
