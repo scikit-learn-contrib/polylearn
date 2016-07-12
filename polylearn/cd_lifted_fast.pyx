@@ -17,6 +17,59 @@ from lightning.impl.dataset_fast cimport ColumnDataset
 from .loss_fast cimport LossFunction
 
 
+cpdef void _fast_lifted_predict(np.ndarray[double, ndim=3, mode='c'] U,
+                                ColumnDataset X,
+                                np.ndarray[double, ndim=1] out):
+
+    # np.product(safe_sparse_dot(U, X.T), axis=0).sum(axis=0)
+    #
+    # a bit of a misnomer, since at least for dense data it's a bit slower,
+    # but it's more memory efficient.
+
+    cdef int degree = U.shape[0]
+    cdef int n_components = U.shape[1]
+
+    cdef int n_samples = X.get_n_samples()
+    cdef int n_features = X.get_n_features()
+
+    cdef double* data
+    cdef int* indices
+    cdef int n_nz
+
+    cdef int i, j, ii
+
+    cdef double *middle = <double *> malloc(n_samples * sizeof(double))
+    cdef double *inner = <double *> malloc(n_samples * sizeof(double))
+
+
+    for s in range(n_components):
+
+        for i in range(n_samples):
+            middle[i] = 1
+
+        for t in range(degree):
+            # inner = np.dot(U[t, s, :], X.T)
+
+            for i in range(n_samples):
+                inner[i] = 0
+
+            for j in range(n_features):
+                X.get_column_ptr(j, &indices, &data, &n_nz)
+                for ii in range(n_nz):
+                    i = indices[ii]
+                    inner[i] += data[ii] * U[t, s, j]
+
+            # middle *= inner
+            for i in range(n_samples):
+                middle[i] *= inner[i]
+
+        for i in range(n_samples):
+            out[i] += middle[i]
+
+    free(inner)
+    free(middle)
+
+
 cdef void _precompute(np.ndarray[double, ndim=3, mode='c'] U,
                       ColumnDataset X,
                       int s,

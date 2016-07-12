@@ -1091,6 +1091,7 @@ static CYTHON_INLINE int  __Pyx_GetBufferAndValidate(Py_buffer* buf, PyObject* o
 static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info);
 
 #define __Pyx_BufPtrCContig3d(type, buf, i0, s0, i1, s1, i2, s2) ((type)((char*)buf + i0 * s0 + i1 * s1) + i2)
+#define __Pyx_BufPtrStrided1d(type, buf, i0, s0) (type)((char*)buf + i0 * s0)
 static CYTHON_INLINE void __Pyx_ErrRestore(PyObject *type, PyObject *value, PyObject *tb);
 static CYTHON_INLINE void __Pyx_ErrFetch(PyObject **type, PyObject **value, PyObject **tb);
 
@@ -1098,7 +1099,6 @@ static void __Pyx_WriteUnraisable(const char *name, int clineno,
                                   int lineno, const char *filename,
                                   int full_traceback, int nogil);
 
-#define __Pyx_BufPtrStrided1d(type, buf, i0, s0) (type)((char*)buf + i0 * s0)
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
@@ -1370,6 +1370,7 @@ static PyTypeObject *__pyx_ptype_9lightning_4impl_12dataset_fast_CSCDataset = 0;
 static PyTypeObject *__pyx_ptype_9polylearn_9loss_fast_LossFunction = 0;
 
 /* Module declarations from 'polylearn.cd_lifted_fast' */
+static void __pyx_f_9polylearn_14cd_lifted_fast__fast_lifted_predict(PyArrayObject *, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *, PyArrayObject *, int __pyx_skip_dispatch); /*proto*/
 static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *, int, int, double *); /*proto*/
 static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *, PyArrayObject *, PyArrayObject *, double, struct __pyx_obj_9polylearn_9loss_fast_LossFunction *); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_double = { "double", NULL, sizeof(double), { 0 }, 0, 'R', 0, 0 };
@@ -1410,6 +1411,7 @@ static char __pyx_k_ii[] = "ii";
 static char __pyx_k_it[] = "it";
 static char __pyx_k_xi[] = "xi";
 static char __pyx_k_end[] = "end";
+static char __pyx_k_out[] = "out";
 static char __pyx_k_tol[] = "tol";
 static char __pyx_k_beta[] = "beta";
 static char __pyx_k_data[] = "data";
@@ -1483,6 +1485,7 @@ static PyObject *__pyx_n_s_n_nz;
 static PyObject *__pyx_n_s_n_samples;
 static PyObject *__pyx_kp_u_ndarray_is_not_C_contiguous;
 static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
+static PyObject *__pyx_n_s_out;
 static PyObject *__pyx_n_s_polylearn_cd_lifted_fast;
 static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pyx_vtable;
@@ -1500,7 +1503,8 @@ static PyObject *__pyx_kp_u_violation_sum;
 static PyObject *__pyx_n_s_xi;
 static PyObject *__pyx_n_s_y;
 static PyObject *__pyx_n_s_y_pred;
-static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_U, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X, PyArrayObject *__pyx_v_y, PyArrayObject *__pyx_v_y_pred, double __pyx_v_beta, struct __pyx_obj_9polylearn_9loss_fast_LossFunction *__pyx_v_loss, int __pyx_v_max_iter, double __pyx_v_tol, int __pyx_v_verbose, int __pyx_v_compute_loss); /* proto */
+static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__fast_lifted_predict(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_U, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X, PyArrayObject *__pyx_v_out); /* proto */
+static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast_2_cd_lifted(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_U, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X, PyArrayObject *__pyx_v_y, PyArrayObject *__pyx_v_y_pred, double __pyx_v_beta, struct __pyx_obj_9polylearn_9loss_fast_LossFunction *__pyx_v_loss, int __pyx_v_max_iter, double __pyx_v_tol, int __pyx_v_verbose, int __pyx_v_compute_loss); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_tuple__3;
@@ -1513,6 +1517,467 @@ static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_codeobj__10;
 
 /* "polylearn/cd_lifted_fast.pyx":20
+ * 
+ * 
+ * cpdef void _fast_lifted_predict(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
+ *                                 ColumnDataset X,
+ *                                 np.ndarray[double, ndim=1] out):
+ */
+
+static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_fast_lifted_predict(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static void __pyx_f_9polylearn_14cd_lifted_fast__fast_lifted_predict(PyArrayObject *__pyx_v_U, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X, PyArrayObject *__pyx_v_out, CYTHON_UNUSED int __pyx_skip_dispatch) {
+  int __pyx_v_degree;
+  int __pyx_v_n_components;
+  int __pyx_v_n_samples;
+  int __pyx_v_n_features;
+  double *__pyx_v_data;
+  int *__pyx_v_indices;
+  int __pyx_v_n_nz;
+  int __pyx_v_i;
+  int __pyx_v_j;
+  int __pyx_v_ii;
+  double *__pyx_v_middle;
+  double *__pyx_v_inner;
+  int __pyx_v_s;
+  int __pyx_v_t;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_U;
+  __Pyx_Buffer __pyx_pybuffer_U;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_out;
+  __Pyx_Buffer __pyx_pybuffer_out;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  int __pyx_t_3;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  int __pyx_t_6;
+  int __pyx_t_7;
+  int __pyx_t_8;
+  int __pyx_t_9;
+  Py_ssize_t __pyx_t_10;
+  Py_ssize_t __pyx_t_11;
+  Py_ssize_t __pyx_t_12;
+  Py_ssize_t __pyx_t_13;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_fast_lifted_predict", 0);
+  __pyx_pybuffer_U.pybuffer.buf = NULL;
+  __pyx_pybuffer_U.refcount = 0;
+  __pyx_pybuffernd_U.data = NULL;
+  __pyx_pybuffernd_U.rcbuffer = &__pyx_pybuffer_U;
+  __pyx_pybuffer_out.pybuffer.buf = NULL;
+  __pyx_pybuffer_out.refcount = 0;
+  __pyx_pybuffernd_out.data = NULL;
+  __pyx_pybuffernd_out.rcbuffer = &__pyx_pybuffer_out;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_U.diminfo[0].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_U.diminfo[0].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_U.diminfo[1].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_U.diminfo[1].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_U.diminfo[2].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_U.diminfo[2].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[2];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out.rcbuffer->pybuffer, (PyObject*)__pyx_v_out, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_out.diminfo[0].strides = __pyx_pybuffernd_out.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out.diminfo[0].shape = __pyx_pybuffernd_out.rcbuffer->pybuffer.shape[0];
+
+  /* "polylearn/cd_lifted_fast.pyx":29
+ *     # but it's more memory efficient.
+ * 
+ *     cdef int degree = U.shape[0]             # <<<<<<<<<<<<<<
+ *     cdef int n_components = U.shape[1]
+ * 
+ */
+  __pyx_v_degree = (__pyx_v_U->dimensions[0]);
+
+  /* "polylearn/cd_lifted_fast.pyx":30
+ * 
+ *     cdef int degree = U.shape[0]
+ *     cdef int n_components = U.shape[1]             # <<<<<<<<<<<<<<
+ * 
+ *     cdef int n_samples = X.get_n_samples()
+ */
+  __pyx_v_n_components = (__pyx_v_U->dimensions[1]);
+
+  /* "polylearn/cd_lifted_fast.pyx":32
+ *     cdef int n_components = U.shape[1]
+ * 
+ *     cdef int n_samples = X.get_n_samples()             # <<<<<<<<<<<<<<
+ *     cdef int n_features = X.get_n_features()
+ * 
+ */
+  __pyx_v_n_samples = ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->__pyx_base.get_n_samples(((struct __pyx_obj_9lightning_4impl_12dataset_fast_Dataset *)__pyx_v_X), 0);
+
+  /* "polylearn/cd_lifted_fast.pyx":33
+ * 
+ *     cdef int n_samples = X.get_n_samples()
+ *     cdef int n_features = X.get_n_features()             # <<<<<<<<<<<<<<
+ * 
+ *     cdef double* data
+ */
+  __pyx_v_n_features = ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->__pyx_base.get_n_features(((struct __pyx_obj_9lightning_4impl_12dataset_fast_Dataset *)__pyx_v_X), 0);
+
+  /* "polylearn/cd_lifted_fast.pyx":41
+ *     cdef int i, j, ii
+ * 
+ *     cdef double *middle = <double *> malloc(n_samples * sizeof(double))             # <<<<<<<<<<<<<<
+ *     cdef double *inner = <double *> malloc(n_samples * sizeof(double))
+ * 
+ */
+  __pyx_v_middle = ((double *)malloc((__pyx_v_n_samples * (sizeof(double)))));
+
+  /* "polylearn/cd_lifted_fast.pyx":42
+ * 
+ *     cdef double *middle = <double *> malloc(n_samples * sizeof(double))
+ *     cdef double *inner = <double *> malloc(n_samples * sizeof(double))             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_v_inner = ((double *)malloc((__pyx_v_n_samples * (sizeof(double)))));
+
+  /* "polylearn/cd_lifted_fast.pyx":45
+ * 
+ * 
+ *     for s in range(n_components):             # <<<<<<<<<<<<<<
+ * 
+ *         for i in range(n_samples):
+ */
+  __pyx_t_1 = __pyx_v_n_components;
+  for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
+    __pyx_v_s = __pyx_t_2;
+
+    /* "polylearn/cd_lifted_fast.pyx":47
+ *     for s in range(n_components):
+ * 
+ *         for i in range(n_samples):             # <<<<<<<<<<<<<<
+ *             middle[i] = 1
+ * 
+ */
+    __pyx_t_3 = __pyx_v_n_samples;
+    for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+      __pyx_v_i = __pyx_t_4;
+
+      /* "polylearn/cd_lifted_fast.pyx":48
+ * 
+ *         for i in range(n_samples):
+ *             middle[i] = 1             # <<<<<<<<<<<<<<
+ * 
+ *         for t in range(degree):
+ */
+      (__pyx_v_middle[__pyx_v_i]) = 1.0;
+    }
+
+    /* "polylearn/cd_lifted_fast.pyx":50
+ *             middle[i] = 1
+ * 
+ *         for t in range(degree):             # <<<<<<<<<<<<<<
+ *             # inner = np.dot(U[t, s, :], X.T)
+ * 
+ */
+    __pyx_t_3 = __pyx_v_degree;
+    for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+      __pyx_v_t = __pyx_t_4;
+
+      /* "polylearn/cd_lifted_fast.pyx":53
+ *             # inner = np.dot(U[t, s, :], X.T)
+ * 
+ *             for i in range(n_samples):             # <<<<<<<<<<<<<<
+ *                 inner[i] = 0
+ * 
+ */
+      __pyx_t_5 = __pyx_v_n_samples;
+      for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
+        __pyx_v_i = __pyx_t_6;
+
+        /* "polylearn/cd_lifted_fast.pyx":54
+ * 
+ *             for i in range(n_samples):
+ *                 inner[i] = 0             # <<<<<<<<<<<<<<
+ * 
+ *             for j in range(n_features):
+ */
+        (__pyx_v_inner[__pyx_v_i]) = 0.0;
+      }
+
+      /* "polylearn/cd_lifted_fast.pyx":56
+ *                 inner[i] = 0
+ * 
+ *             for j in range(n_features):             # <<<<<<<<<<<<<<
+ *                 X.get_column_ptr(j, &indices, &data, &n_nz)
+ *                 for ii in range(n_nz):
+ */
+      __pyx_t_5 = __pyx_v_n_features;
+      for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
+        __pyx_v_j = __pyx_t_6;
+
+        /* "polylearn/cd_lifted_fast.pyx":57
+ * 
+ *             for j in range(n_features):
+ *                 X.get_column_ptr(j, &indices, &data, &n_nz)             # <<<<<<<<<<<<<<
+ *                 for ii in range(n_nz):
+ *                     i = indices[ii]
+ */
+        ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->get_column_ptr(__pyx_v_X, __pyx_v_j, (&__pyx_v_indices), (&__pyx_v_data), (&__pyx_v_n_nz));
+
+        /* "polylearn/cd_lifted_fast.pyx":58
+ *             for j in range(n_features):
+ *                 X.get_column_ptr(j, &indices, &data, &n_nz)
+ *                 for ii in range(n_nz):             # <<<<<<<<<<<<<<
+ *                     i = indices[ii]
+ *                     inner[i] += data[ii] * U[t, s, j]
+ */
+        __pyx_t_7 = __pyx_v_n_nz;
+        for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
+          __pyx_v_ii = __pyx_t_8;
+
+          /* "polylearn/cd_lifted_fast.pyx":59
+ *                 X.get_column_ptr(j, &indices, &data, &n_nz)
+ *                 for ii in range(n_nz):
+ *                     i = indices[ii]             # <<<<<<<<<<<<<<
+ *                     inner[i] += data[ii] * U[t, s, j]
+ * 
+ */
+          __pyx_v_i = (__pyx_v_indices[__pyx_v_ii]);
+
+          /* "polylearn/cd_lifted_fast.pyx":60
+ *                 for ii in range(n_nz):
+ *                     i = indices[ii]
+ *                     inner[i] += data[ii] * U[t, s, j]             # <<<<<<<<<<<<<<
+ * 
+ *             # middle *= inner
+ */
+          __pyx_t_9 = __pyx_v_i;
+          __pyx_t_10 = __pyx_v_t;
+          __pyx_t_11 = __pyx_v_s;
+          __pyx_t_12 = __pyx_v_j;
+          (__pyx_v_inner[__pyx_t_9]) = ((__pyx_v_inner[__pyx_t_9]) + ((__pyx_v_data[__pyx_v_ii]) * (*__Pyx_BufPtrCContig3d(double *, __pyx_pybuffernd_U.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_U.diminfo[0].strides, __pyx_t_11, __pyx_pybuffernd_U.diminfo[1].strides, __pyx_t_12, __pyx_pybuffernd_U.diminfo[2].strides))));
+        }
+      }
+
+      /* "polylearn/cd_lifted_fast.pyx":63
+ * 
+ *             # middle *= inner
+ *             for i in range(n_samples):             # <<<<<<<<<<<<<<
+ *                 middle[i] *= inner[i]
+ * 
+ */
+      __pyx_t_5 = __pyx_v_n_samples;
+      for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
+        __pyx_v_i = __pyx_t_6;
+
+        /* "polylearn/cd_lifted_fast.pyx":64
+ *             # middle *= inner
+ *             for i in range(n_samples):
+ *                 middle[i] *= inner[i]             # <<<<<<<<<<<<<<
+ * 
+ *         for i in range(n_samples):
+ */
+        __pyx_t_7 = __pyx_v_i;
+        (__pyx_v_middle[__pyx_t_7]) = ((__pyx_v_middle[__pyx_t_7]) * (__pyx_v_inner[__pyx_v_i]));
+      }
+    }
+
+    /* "polylearn/cd_lifted_fast.pyx":66
+ *                 middle[i] *= inner[i]
+ * 
+ *         for i in range(n_samples):             # <<<<<<<<<<<<<<
+ *             out[i] += middle[i]
+ * 
+ */
+    __pyx_t_3 = __pyx_v_n_samples;
+    for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+      __pyx_v_i = __pyx_t_4;
+
+      /* "polylearn/cd_lifted_fast.pyx":67
+ * 
+ *         for i in range(n_samples):
+ *             out[i] += middle[i]             # <<<<<<<<<<<<<<
+ * 
+ *     free(inner)
+ */
+      __pyx_t_13 = __pyx_v_i;
+      *__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_out.rcbuffer->pybuffer.buf, __pyx_t_13, __pyx_pybuffernd_out.diminfo[0].strides) += (__pyx_v_middle[__pyx_v_i]);
+    }
+  }
+
+  /* "polylearn/cd_lifted_fast.pyx":69
+ *             out[i] += middle[i]
+ * 
+ *     free(inner)             # <<<<<<<<<<<<<<
+ *     free(middle)
+ * 
+ */
+  free(__pyx_v_inner);
+
+  /* "polylearn/cd_lifted_fast.pyx":70
+ * 
+ *     free(inner)
+ *     free(middle)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  free(__pyx_v_middle);
+
+  /* "polylearn/cd_lifted_fast.pyx":20
+ * 
+ * 
+ * cpdef void _fast_lifted_predict(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
+ *                                 ColumnDataset X,
+ *                                 np.ndarray[double, ndim=1] out):
+ */
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_U.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_WriteUnraisable("polylearn.cd_lifted_fast._fast_lifted_predict", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_U.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_RefNannyFinishContext();
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_fast_lifted_predict(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_fast_lifted_predict(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_U = 0;
+  struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X = 0;
+  PyArrayObject *__pyx_v_out = 0;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("_fast_lifted_predict (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_U,&__pyx_n_s_X,&__pyx_n_s_out,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_U)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_X)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("_fast_lifted_predict", 1, 3, 3, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_out)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("_fast_lifted_predict", 1, 3, 3, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_fast_lifted_predict") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v_U = ((PyArrayObject *)values[0]);
+    __pyx_v_X = ((struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *)values[1]);
+    __pyx_v_out = ((PyArrayObject *)values[2]);
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("_fast_lifted_predict", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("polylearn.cd_lifted_fast._fast_lifted_predict", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_U), __pyx_ptype_5numpy_ndarray, 1, "U", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_9lightning_4impl_12dataset_fast_ColumnDataset, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_out), __pyx_ptype_5numpy_ndarray, 1, "out", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_9polylearn_14cd_lifted_fast__fast_lifted_predict(__pyx_self, __pyx_v_U, __pyx_v_X, __pyx_v_out);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__fast_lifted_predict(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_U, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X, PyArrayObject *__pyx_v_out) {
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_U;
+  __Pyx_Buffer __pyx_pybuffer_U;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_out;
+  __Pyx_Buffer __pyx_pybuffer_out;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("_fast_lifted_predict", 0);
+  __pyx_pybuffer_U.pybuffer.buf = NULL;
+  __pyx_pybuffer_U.refcount = 0;
+  __pyx_pybuffernd_U.data = NULL;
+  __pyx_pybuffernd_U.rcbuffer = &__pyx_pybuffer_U;
+  __pyx_pybuffer_out.pybuffer.buf = NULL;
+  __pyx_pybuffer_out.refcount = 0;
+  __pyx_pybuffernd_out.data = NULL;
+  __pyx_pybuffernd_out.rcbuffer = &__pyx_pybuffer_out;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_U.diminfo[0].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_U.diminfo[0].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_U.diminfo[1].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_U.diminfo[1].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_U.diminfo[2].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_U.diminfo[2].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[2];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_out.rcbuffer->pybuffer, (PyObject*)__pyx_v_out, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_out.diminfo[0].strides = __pyx_pybuffernd_out.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_out.diminfo[0].shape = __pyx_pybuffernd_out.rcbuffer->pybuffer.shape[0];
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_9polylearn_14cd_lifted_fast__fast_lifted_predict(__pyx_v_U, __pyx_v_X, __pyx_v_out, 0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_U.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("polylearn.cd_lifted_fast._fast_lifted_predict", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_U.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_out.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "polylearn/cd_lifted_fast.pyx":73
  * 
  * 
  * cdef void _precompute(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
@@ -1557,11 +2022,11 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
   __pyx_pybuffernd_U.rcbuffer = &__pyx_pybuffer_U;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_U.diminfo[0].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_U.diminfo[0].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_U.diminfo[1].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_U.diminfo[1].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_U.diminfo[2].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_U.diminfo[2].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[2];
 
-  /* "polylearn/cd_lifted_fast.pyx":26
+  /* "polylearn/cd_lifted_fast.pyx":79
  *                       double* out):
  * 
  *     cdef int degree = U.shape[0]             # <<<<<<<<<<<<<<
@@ -1570,7 +2035,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
   __pyx_v_degree = (__pyx_v_U->dimensions[0]);
 
-  /* "polylearn/cd_lifted_fast.pyx":27
+  /* "polylearn/cd_lifted_fast.pyx":80
  * 
  *     cdef int degree = U.shape[0]
  *     cdef int n_components = U.shape[1]             # <<<<<<<<<<<<<<
@@ -1579,7 +2044,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
   __pyx_v_n_components = (__pyx_v_U->dimensions[1]);
 
-  /* "polylearn/cd_lifted_fast.pyx":29
+  /* "polylearn/cd_lifted_fast.pyx":82
  *     cdef int n_components = U.shape[1]
  * 
  *     cdef int n_samples = X.get_n_samples()             # <<<<<<<<<<<<<<
@@ -1588,7 +2053,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
   __pyx_v_n_samples = ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->__pyx_base.get_n_samples(((struct __pyx_obj_9lightning_4impl_12dataset_fast_Dataset *)__pyx_v_X), 0);
 
-  /* "polylearn/cd_lifted_fast.pyx":30
+  /* "polylearn/cd_lifted_fast.pyx":83
  * 
  *     cdef int n_samples = X.get_n_samples()
  *     cdef int n_features = X.get_n_features()             # <<<<<<<<<<<<<<
@@ -1597,7 +2062,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
   __pyx_v_n_features = ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->__pyx_base.get_n_features(((struct __pyx_obj_9lightning_4impl_12dataset_fast_Dataset *)__pyx_v_X), 0);
 
-  /* "polylearn/cd_lifted_fast.pyx":38
+  /* "polylearn/cd_lifted_fast.pyx":91
  *     cdef int i, j, ii
  * 
  *     cdef double *inner = <double *> malloc(n_samples * sizeof(double))             # <<<<<<<<<<<<<<
@@ -1606,7 +2071,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
   __pyx_v_inner = ((double *)malloc((__pyx_v_n_samples * (sizeof(double)))));
 
-  /* "polylearn/cd_lifted_fast.pyx":40
+  /* "polylearn/cd_lifted_fast.pyx":93
  *     cdef double *inner = <double *> malloc(n_samples * sizeof(double))
  * 
  *     for i in range(n_samples):             # <<<<<<<<<<<<<<
@@ -1617,7 +2082,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "polylearn/cd_lifted_fast.pyx":41
+    /* "polylearn/cd_lifted_fast.pyx":94
  * 
  *     for i in range(n_samples):
  *         out[i] = 1             # <<<<<<<<<<<<<<
@@ -1627,7 +2092,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
     (__pyx_v_out[__pyx_v_i]) = 1.0;
   }
 
-  /* "polylearn/cd_lifted_fast.pyx":43
+  /* "polylearn/cd_lifted_fast.pyx":96
  *         out[i] = 1
  * 
  *     for t_prime in range(degree):             # <<<<<<<<<<<<<<
@@ -1638,7 +2103,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_t_prime = __pyx_t_2;
 
-    /* "polylearn/cd_lifted_fast.pyx":45
+    /* "polylearn/cd_lifted_fast.pyx":98
  *     for t_prime in range(degree):
  * 
  *         if t == t_prime:             # <<<<<<<<<<<<<<
@@ -1648,7 +2113,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
     __pyx_t_3 = ((__pyx_v_t == __pyx_v_t_prime) != 0);
     if (__pyx_t_3) {
 
-      /* "polylearn/cd_lifted_fast.pyx":46
+      /* "polylearn/cd_lifted_fast.pyx":99
  * 
  *         if t == t_prime:
  *             continue             # <<<<<<<<<<<<<<
@@ -1657,7 +2122,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
       goto __pyx_L5_continue;
 
-      /* "polylearn/cd_lifted_fast.pyx":45
+      /* "polylearn/cd_lifted_fast.pyx":98
  *     for t_prime in range(degree):
  * 
  *         if t == t_prime:             # <<<<<<<<<<<<<<
@@ -1666,7 +2131,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
     }
 
-    /* "polylearn/cd_lifted_fast.pyx":48
+    /* "polylearn/cd_lifted_fast.pyx":101
  *             continue
  * 
  *         for i in range(n_samples):             # <<<<<<<<<<<<<<
@@ -1677,7 +2142,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "polylearn/cd_lifted_fast.pyx":49
+      /* "polylearn/cd_lifted_fast.pyx":102
  * 
  *         for i in range(n_samples):
  *             inner[i] = 0             # <<<<<<<<<<<<<<
@@ -1687,7 +2152,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
       (__pyx_v_inner[__pyx_v_i]) = 0.0;
     }
 
-    /* "polylearn/cd_lifted_fast.pyx":51
+    /* "polylearn/cd_lifted_fast.pyx":104
  *             inner[i] = 0
  * 
  *         for j in range(n_features):             # <<<<<<<<<<<<<<
@@ -1698,7 +2163,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_j = __pyx_t_5;
 
-      /* "polylearn/cd_lifted_fast.pyx":52
+      /* "polylearn/cd_lifted_fast.pyx":105
  * 
  *         for j in range(n_features):
  *             X.get_column_ptr(j, &indices, &data, &n_nz)             # <<<<<<<<<<<<<<
@@ -1707,7 +2172,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
       ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->get_column_ptr(__pyx_v_X, __pyx_v_j, (&__pyx_v_indices), (&__pyx_v_data), (&__pyx_v_n_nz));
 
-      /* "polylearn/cd_lifted_fast.pyx":53
+      /* "polylearn/cd_lifted_fast.pyx":106
  *         for j in range(n_features):
  *             X.get_column_ptr(j, &indices, &data, &n_nz)
  *             for ii in range(n_nz):             # <<<<<<<<<<<<<<
@@ -1718,7 +2183,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
       for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
         __pyx_v_ii = __pyx_t_7;
 
-        /* "polylearn/cd_lifted_fast.pyx":54
+        /* "polylearn/cd_lifted_fast.pyx":107
  *             X.get_column_ptr(j, &indices, &data, &n_nz)
  *             for ii in range(n_nz):
  *                 i = indices[ii]             # <<<<<<<<<<<<<<
@@ -1727,7 +2192,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
         __pyx_v_i = (__pyx_v_indices[__pyx_v_ii]);
 
-        /* "polylearn/cd_lifted_fast.pyx":55
+        /* "polylearn/cd_lifted_fast.pyx":108
  *             for ii in range(n_nz):
  *                 i = indices[ii]
  *                 inner[i] += data[ii] * U[t_prime, s, j]             # <<<<<<<<<<<<<<
@@ -1742,7 +2207,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
       }
     }
 
-    /* "polylearn/cd_lifted_fast.pyx":56
+    /* "polylearn/cd_lifted_fast.pyx":109
  *                 i = indices[ii]
  *                 inner[i] += data[ii] * U[t_prime, s, j]
  *         for i in range(n_samples):             # <<<<<<<<<<<<<<
@@ -1753,7 +2218,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_i = __pyx_t_5;
 
-      /* "polylearn/cd_lifted_fast.pyx":57
+      /* "polylearn/cd_lifted_fast.pyx":110
  *                 inner[i] += data[ii] * U[t_prime, s, j]
  *         for i in range(n_samples):
  *             out[i] *= inner[i]             # <<<<<<<<<<<<<<
@@ -1766,7 +2231,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
     __pyx_L5_continue:;
   }
 
-  /* "polylearn/cd_lifted_fast.pyx":58
+  /* "polylearn/cd_lifted_fast.pyx":111
  *         for i in range(n_samples):
  *             out[i] *= inner[i]
  *     free(inner)             # <<<<<<<<<<<<<<
@@ -1775,7 +2240,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
  */
   free(__pyx_v_inner);
 
-  /* "polylearn/cd_lifted_fast.pyx":20
+  /* "polylearn/cd_lifted_fast.pyx":73
  * 
  * 
  * cdef void _precompute(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
@@ -1798,7 +2263,7 @@ static void __pyx_f_9polylearn_14cd_lifted_fast__precompute(PyArrayObject *__pyx
   __Pyx_RefNannyFinishContext();
 }
 
-/* "polylearn/cd_lifted_fast.pyx":61
+/* "polylearn/cd_lifted_fast.pyx":114
  * 
  * 
  * cdef double _total_loss(np.ndarray[double, ndim=1] y_pred,             # <<<<<<<<<<<<<<
@@ -1853,21 +2318,21 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
   __pyx_pybuffernd_U.rcbuffer = &__pyx_pybuffer_U;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y_pred.rcbuffer->pybuffer, (PyObject*)__pyx_v_y_pred, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y_pred.rcbuffer->pybuffer, (PyObject*)__pyx_v_y_pred, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_y_pred.diminfo[0].strides = __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y_pred.diminfo[0].shape = __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_y.diminfo[0].strides = __pyx_pybuffernd_y.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y.diminfo[0].shape = __pyx_pybuffernd_y.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 114; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_U.diminfo[0].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_U.diminfo[0].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_U.diminfo[1].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_U.diminfo[1].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_U.diminfo[2].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_U.diminfo[2].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[2];
 
-  /* "polylearn/cd_lifted_fast.pyx":67
+  /* "polylearn/cd_lifted_fast.pyx":120
  *                         LossFunction loss):
  * 
  *     cdef double result = 0             # <<<<<<<<<<<<<<
@@ -1876,7 +2341,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
  */
   __pyx_v_result = 0.0;
 
-  /* "polylearn/cd_lifted_fast.pyx":68
+  /* "polylearn/cd_lifted_fast.pyx":121
  * 
  *     cdef double result = 0
  *     cdef int degree = U.shape[0]             # <<<<<<<<<<<<<<
@@ -1885,7 +2350,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
  */
   __pyx_v_degree = (__pyx_v_U->dimensions[0]);
 
-  /* "polylearn/cd_lifted_fast.pyx":69
+  /* "polylearn/cd_lifted_fast.pyx":122
  *     cdef double result = 0
  *     cdef int degree = U.shape[0]
  *     cdef int n_components = U.shape[1]             # <<<<<<<<<<<<<<
@@ -1894,7 +2359,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
  */
   __pyx_v_n_components = (__pyx_v_U->dimensions[1]);
 
-  /* "polylearn/cd_lifted_fast.pyx":70
+  /* "polylearn/cd_lifted_fast.pyx":123
  *     cdef int degree = U.shape[0]
  *     cdef int n_components = U.shape[1]
  *     cdef int n_features = U.shape[2]             # <<<<<<<<<<<<<<
@@ -1903,7 +2368,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
  */
   __pyx_v_n_features = (__pyx_v_U->dimensions[2]);
 
-  /* "polylearn/cd_lifted_fast.pyx":71
+  /* "polylearn/cd_lifted_fast.pyx":124
  *     cdef int n_components = U.shape[1]
  *     cdef int n_features = U.shape[2]
  *     cdef int n_samples = y.shape[0]             # <<<<<<<<<<<<<<
@@ -1912,7 +2377,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
  */
   __pyx_v_n_samples = (__pyx_v_y->dimensions[0]);
 
-  /* "polylearn/cd_lifted_fast.pyx":76
+  /* "polylearn/cd_lifted_fast.pyx":129
  * 
  *     # regularization
  *     for t in range(degree):             # <<<<<<<<<<<<<<
@@ -1923,7 +2388,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_t = __pyx_t_2;
 
-    /* "polylearn/cd_lifted_fast.pyx":77
+    /* "polylearn/cd_lifted_fast.pyx":130
  *     # regularization
  *     for t in range(degree):
  *         for s in range(n_components):             # <<<<<<<<<<<<<<
@@ -1934,7 +2399,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
     for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
       __pyx_v_s = __pyx_t_4;
 
-      /* "polylearn/cd_lifted_fast.pyx":78
+      /* "polylearn/cd_lifted_fast.pyx":131
  *     for t in range(degree):
  *         for s in range(n_components):
  *             for j in range(n_features):             # <<<<<<<<<<<<<<
@@ -1945,7 +2410,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
         __pyx_v_j = __pyx_t_6;
 
-        /* "polylearn/cd_lifted_fast.pyx":79
+        /* "polylearn/cd_lifted_fast.pyx":132
  *         for s in range(n_components):
  *             for j in range(n_features):
  *                 result += U[t, s, j] ** 2             # <<<<<<<<<<<<<<
@@ -1960,7 +2425,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
     }
   }
 
-  /* "polylearn/cd_lifted_fast.pyx":80
+  /* "polylearn/cd_lifted_fast.pyx":133
  *             for j in range(n_features):
  *                 result += U[t, s, j] ** 2
  *     result *= beta             # <<<<<<<<<<<<<<
@@ -1969,7 +2434,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
  */
   __pyx_v_result = (__pyx_v_result * __pyx_v_beta);
 
-  /* "polylearn/cd_lifted_fast.pyx":83
+  /* "polylearn/cd_lifted_fast.pyx":136
  * 
  *     # loss
  *     for i in range(n_samples):             # <<<<<<<<<<<<<<
@@ -1980,7 +2445,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "polylearn/cd_lifted_fast.pyx":84
+    /* "polylearn/cd_lifted_fast.pyx":137
  *     # loss
  *     for i in range(n_samples):
  *         result += loss.loss(y_pred[i], y[i])             # <<<<<<<<<<<<<<
@@ -1992,7 +2457,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
     __pyx_v_result = (__pyx_v_result + ((struct __pyx_vtabstruct_9polylearn_9loss_fast_LossFunction *)__pyx_v_loss->__pyx_vtab)->loss(__pyx_v_loss, (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_y_pred.diminfo[0].strides)), (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_y.rcbuffer->pybuffer.buf, __pyx_t_11, __pyx_pybuffernd_y.diminfo[0].strides))));
   }
 
-  /* "polylearn/cd_lifted_fast.pyx":85
+  /* "polylearn/cd_lifted_fast.pyx":138
  *     for i in range(n_samples):
  *         result += loss.loss(y_pred[i], y[i])
  *     return result             # <<<<<<<<<<<<<<
@@ -2002,7 +2467,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
   __pyx_r = __pyx_v_result;
   goto __pyx_L0;
 
-  /* "polylearn/cd_lifted_fast.pyx":61
+  /* "polylearn/cd_lifted_fast.pyx":114
  * 
  * 
  * cdef double _total_loss(np.ndarray[double, ndim=1] y_pred,             # <<<<<<<<<<<<<<
@@ -2030,7 +2495,7 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
   return __pyx_r;
 }
 
-/* "polylearn/cd_lifted_fast.pyx":88
+/* "polylearn/cd_lifted_fast.pyx":141
  * 
  * 
  * def _cd_lifted(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
@@ -2039,9 +2504,9 @@ static double __pyx_f_9polylearn_14cd_lifted_fast__total_loss(PyArrayObject *__p
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_cd_lifted(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_9polylearn_14cd_lifted_fast_1_cd_lifted = {"_cd_lifted", (PyCFunction)__pyx_pw_9polylearn_14cd_lifted_fast_1_cd_lifted, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_cd_lifted(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_3_cd_lifted(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_9polylearn_14cd_lifted_fast_3_cd_lifted = {"_cd_lifted", (PyCFunction)__pyx_pw_9polylearn_14cd_lifted_fast_3_cd_lifted, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_3_cd_lifted(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_U = 0;
   struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X = 0;
   PyArrayObject *__pyx_v_y = 0;
@@ -2086,51 +2551,51 @@ static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_cd_lifted(PyObject *__py
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_X)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y_pred)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_beta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_loss)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_max_iter)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_tol)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_verbose)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 8); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 8); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  9:
         if (likely((values[9] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_compute_loss)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 9); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, 9); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_cd_lifted") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_cd_lifted") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 10) {
       goto __pyx_L5_argtuple_error;
@@ -2150,27 +2615,27 @@ static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_cd_lifted(PyObject *__py
     __pyx_v_X = ((struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *)values[1]);
     __pyx_v_y = ((PyArrayObject *)values[2]);
     __pyx_v_y_pred = ((PyArrayObject *)values[3]);
-    __pyx_v_beta = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_beta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 92; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_beta = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_beta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_loss = ((struct __pyx_obj_9polylearn_9loss_fast_LossFunction *)values[5]);
-    __pyx_v_max_iter = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_max_iter == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_tol = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_tol == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_verbose = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_verbose == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_compute_loss = __Pyx_PyObject_IsTrue(values[9]); if (unlikely((__pyx_v_compute_loss == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 97; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_max_iter = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_max_iter == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 147; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_tol = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_tol == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 148; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_verbose = __Pyx_PyInt_As_int(values[8]); if (unlikely((__pyx_v_verbose == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_compute_loss = __Pyx_PyObject_IsTrue(values[9]); if (unlikely((__pyx_v_compute_loss == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_cd_lifted", 1, 10, 10, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("polylearn.cd_lifted_fast._cd_lifted", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_U), __pyx_ptype_5numpy_ndarray, 1, "U", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_9lightning_4impl_12dataset_fast_ColumnDataset, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 89; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 90; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y_pred), __pyx_ptype_5numpy_ndarray, 1, "y_pred", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 91; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_loss), __pyx_ptype_9polylearn_9loss_fast_LossFunction, 1, "loss", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 93; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(__pyx_self, __pyx_v_U, __pyx_v_X, __pyx_v_y, __pyx_v_y_pred, __pyx_v_beta, __pyx_v_loss, __pyx_v_max_iter, __pyx_v_tol, __pyx_v_verbose, __pyx_v_compute_loss);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_U), __pyx_ptype_5numpy_ndarray, 1, "U", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_9lightning_4impl_12dataset_fast_ColumnDataset, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y_pred), __pyx_ptype_5numpy_ndarray, 1, "y_pred", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 144; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_loss), __pyx_ptype_9polylearn_9loss_fast_LossFunction, 1, "loss", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 146; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_9polylearn_14cd_lifted_fast_2_cd_lifted(__pyx_self, __pyx_v_U, __pyx_v_X, __pyx_v_y, __pyx_v_y_pred, __pyx_v_beta, __pyx_v_loss, __pyx_v_max_iter, __pyx_v_tol, __pyx_v_verbose, __pyx_v_compute_loss);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2181,7 +2646,7 @@ static PyObject *__pyx_pw_9polylearn_14cd_lifted_fast_1_cd_lifted(PyObject *__py
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_U, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X, PyArrayObject *__pyx_v_y, PyArrayObject *__pyx_v_y_pred, double __pyx_v_beta, struct __pyx_obj_9polylearn_9loss_fast_LossFunction *__pyx_v_loss, int __pyx_v_max_iter, double __pyx_v_tol, int __pyx_v_verbose, int __pyx_v_compute_loss) {
+static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast_2_cd_lifted(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_U, struct __pyx_obj_9lightning_4impl_12dataset_fast_ColumnDataset *__pyx_v_X, PyArrayObject *__pyx_v_y, PyArrayObject *__pyx_v_y_pred, double __pyx_v_beta, struct __pyx_obj_9polylearn_9loss_fast_LossFunction *__pyx_v_loss, int __pyx_v_max_iter, double __pyx_v_tol, int __pyx_v_verbose, int __pyx_v_compute_loss) {
   int __pyx_v_n_samples;
   int __pyx_v_n_features;
   int __pyx_v_degree;
@@ -2250,21 +2715,21 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
   __pyx_pybuffernd_y_pred.rcbuffer = &__pyx_pybuffer_y_pred;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS| PyBUF_WRITABLE, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_U.rcbuffer->pybuffer, (PyObject*)__pyx_v_U, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS| PyBUF_WRITABLE, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_U.diminfo[0].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_U.diminfo[0].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_U.diminfo[1].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_U.diminfo[1].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_U.diminfo[2].strides = __pyx_pybuffernd_U.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_U.diminfo[2].shape = __pyx_pybuffernd_U.rcbuffer->pybuffer.shape[2];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_y.diminfo[0].strides = __pyx_pybuffernd_y.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y.diminfo[0].shape = __pyx_pybuffernd_y.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y_pred.rcbuffer->pybuffer, (PyObject*)__pyx_v_y_pred, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y_pred.rcbuffer->pybuffer, (PyObject*)__pyx_v_y_pred, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_y_pred.diminfo[0].strides = __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y_pred.diminfo[0].shape = __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.shape[0];
 
-  /* "polylearn/cd_lifted_fast.pyx":99
+  /* "polylearn/cd_lifted_fast.pyx":152
  *                bint compute_loss):
  * 
  *     cdef int n_samples = X.get_n_samples()             # <<<<<<<<<<<<<<
@@ -2273,7 +2738,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
   __pyx_v_n_samples = ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->__pyx_base.get_n_samples(((struct __pyx_obj_9lightning_4impl_12dataset_fast_Dataset *)__pyx_v_X), 0);
 
-  /* "polylearn/cd_lifted_fast.pyx":100
+  /* "polylearn/cd_lifted_fast.pyx":153
  * 
  *     cdef int n_samples = X.get_n_samples()
  *     cdef int n_features = X.get_n_features()             # <<<<<<<<<<<<<<
@@ -2282,7 +2747,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
   __pyx_v_n_features = ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->__pyx_base.get_n_features(((struct __pyx_obj_9lightning_4impl_12dataset_fast_Dataset *)__pyx_v_X), 0);
 
-  /* "polylearn/cd_lifted_fast.pyx":101
+  /* "polylearn/cd_lifted_fast.pyx":154
  *     cdef int n_samples = X.get_n_samples()
  *     cdef int n_features = X.get_n_features()
  *     cdef int degree = U.shape[0]             # <<<<<<<<<<<<<<
@@ -2291,7 +2756,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
   __pyx_v_degree = (__pyx_v_U->dimensions[0]);
 
-  /* "polylearn/cd_lifted_fast.pyx":102
+  /* "polylearn/cd_lifted_fast.pyx":155
  *     cdef int n_features = X.get_n_features()
  *     cdef int degree = U.shape[0]
  *     cdef int n_components = U.shape[1]             # <<<<<<<<<<<<<<
@@ -2300,7 +2765,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
   __pyx_v_n_components = (__pyx_v_U->dimensions[1]);
 
-  /* "polylearn/cd_lifted_fast.pyx":106
+  /* "polylearn/cd_lifted_fast.pyx":159
  * 
  *     cdef double sum_viol
  *     cdef bint converged = False             # <<<<<<<<<<<<<<
@@ -2309,7 +2774,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
   __pyx_v_converged = 0;
 
-  /* "polylearn/cd_lifted_fast.pyx":112
+  /* "polylearn/cd_lifted_fast.pyx":165
  *     cdef double u_old
  * 
  *     cdef double *xi = <double *> malloc(n_samples * sizeof(double))             # <<<<<<<<<<<<<<
@@ -2318,7 +2783,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
   __pyx_v_xi = ((double *)malloc((__pyx_v_n_samples * (sizeof(double)))));
 
-  /* "polylearn/cd_lifted_fast.pyx":119
+  /* "polylearn/cd_lifted_fast.pyx":172
  *     cdef int n_nz
  * 
  *     for it in range(max_iter):             # <<<<<<<<<<<<<<
@@ -2329,7 +2794,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_it = __pyx_t_2;
 
-    /* "polylearn/cd_lifted_fast.pyx":120
+    /* "polylearn/cd_lifted_fast.pyx":173
  * 
  *     for it in range(max_iter):
  *         sum_viol = 0             # <<<<<<<<<<<<<<
@@ -2338,7 +2803,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
     __pyx_v_sum_viol = 0.0;
 
-    /* "polylearn/cd_lifted_fast.pyx":121
+    /* "polylearn/cd_lifted_fast.pyx":174
  *     for it in range(max_iter):
  *         sum_viol = 0
  *         for t in range(degree):             # <<<<<<<<<<<<<<
@@ -2349,7 +2814,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
     for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
       __pyx_v_t = __pyx_t_4;
 
-      /* "polylearn/cd_lifted_fast.pyx":122
+      /* "polylearn/cd_lifted_fast.pyx":175
  *         sum_viol = 0
  *         for t in range(degree):
  *             for s in range(n_components):             # <<<<<<<<<<<<<<
@@ -2360,7 +2825,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
       for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
         __pyx_v_s = __pyx_t_6;
 
-        /* "polylearn/cd_lifted_fast.pyx":123
+        /* "polylearn/cd_lifted_fast.pyx":176
  *         for t in range(degree):
  *             for s in range(n_components):
  *                 _precompute(U, X, s, t, xi)             # <<<<<<<<<<<<<<
@@ -2369,7 +2834,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
         __pyx_f_9polylearn_14cd_lifted_fast__precompute(((PyArrayObject *)__pyx_v_U), __pyx_v_X, __pyx_v_s, __pyx_v_t, __pyx_v_xi);
 
-        /* "polylearn/cd_lifted_fast.pyx":124
+        /* "polylearn/cd_lifted_fast.pyx":177
  *             for s in range(n_components):
  *                 _precompute(U, X, s, t, xi)
  *                 for j in range(n_features):             # <<<<<<<<<<<<<<
@@ -2380,7 +2845,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
         for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
           __pyx_v_j = __pyx_t_8;
 
-          /* "polylearn/cd_lifted_fast.pyx":126
+          /* "polylearn/cd_lifted_fast.pyx":179
  *                 for j in range(n_features):
  * 
  *                     u_old = U[t, s, j]             # <<<<<<<<<<<<<<
@@ -2392,7 +2857,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
           __pyx_t_11 = __pyx_v_j;
           __pyx_v_u_old = (*__Pyx_BufPtrCContig3d(double *, __pyx_pybuffernd_U.rcbuffer->pybuffer.buf, __pyx_t_9, __pyx_pybuffernd_U.diminfo[0].strides, __pyx_t_10, __pyx_pybuffernd_U.diminfo[1].strides, __pyx_t_11, __pyx_pybuffernd_U.diminfo[2].strides));
 
-          /* "polylearn/cd_lifted_fast.pyx":127
+          /* "polylearn/cd_lifted_fast.pyx":180
  * 
  *                     u_old = U[t, s, j]
  *                     X.get_column_ptr(j, &indices, &data, &n_nz)             # <<<<<<<<<<<<<<
@@ -2401,7 +2866,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           ((struct __pyx_vtabstruct_9lightning_4impl_12dataset_fast_ColumnDataset *)__pyx_v_X->__pyx_base.__pyx_vtab)->get_column_ptr(__pyx_v_X, __pyx_v_j, (&__pyx_v_indices), (&__pyx_v_data), (&__pyx_v_n_nz));
 
-          /* "polylearn/cd_lifted_fast.pyx":129
+          /* "polylearn/cd_lifted_fast.pyx":182
  *                     X.get_column_ptr(j, &indices, &data, &n_nz)
  * 
  *                     inv_step_size = 0             # <<<<<<<<<<<<<<
@@ -2410,7 +2875,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           __pyx_v_inv_step_size = 0.0;
 
-          /* "polylearn/cd_lifted_fast.pyx":130
+          /* "polylearn/cd_lifted_fast.pyx":183
  * 
  *                     inv_step_size = 0
  *                     update = 0             # <<<<<<<<<<<<<<
@@ -2419,7 +2884,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           __pyx_v_update = 0.0;
 
-          /* "polylearn/cd_lifted_fast.pyx":132
+          /* "polylearn/cd_lifted_fast.pyx":185
  *                     update = 0
  * 
  *                     for ii in range(n_nz):             # <<<<<<<<<<<<<<
@@ -2430,7 +2895,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
           for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
             __pyx_v_ii = __pyx_t_13;
 
-            /* "polylearn/cd_lifted_fast.pyx":133
+            /* "polylearn/cd_lifted_fast.pyx":186
  * 
  *                     for ii in range(n_nz):
  *                         i = indices[ii]             # <<<<<<<<<<<<<<
@@ -2439,7 +2904,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
             __pyx_v_i = (__pyx_v_indices[__pyx_v_ii]);
 
-            /* "polylearn/cd_lifted_fast.pyx":134
+            /* "polylearn/cd_lifted_fast.pyx":187
  *                     for ii in range(n_nz):
  *                         i = indices[ii]
  *                         inv_step_size += xi[i] ** 2 * data[ii] ** 2             # <<<<<<<<<<<<<<
@@ -2448,7 +2913,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
             __pyx_v_inv_step_size = (__pyx_v_inv_step_size + (pow((__pyx_v_xi[__pyx_v_i]), 2.0) * pow((__pyx_v_data[__pyx_v_ii]), 2.0)));
 
-            /* "polylearn/cd_lifted_fast.pyx":135
+            /* "polylearn/cd_lifted_fast.pyx":188
  *                         i = indices[ii]
  *                         inv_step_size += xi[i] ** 2 * data[ii] ** 2
  *                         update += xi[i] * data[ii] * loss.dloss(y_pred[i],             # <<<<<<<<<<<<<<
@@ -2457,7 +2922,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
             __pyx_t_14 = __pyx_v_i;
 
-            /* "polylearn/cd_lifted_fast.pyx":136
+            /* "polylearn/cd_lifted_fast.pyx":189
  *                         inv_step_size += xi[i] ** 2 * data[ii] ** 2
  *                         update += xi[i] * data[ii] * loss.dloss(y_pred[i],
  *                                                                 y[i])             # <<<<<<<<<<<<<<
@@ -2466,7 +2931,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
             __pyx_t_15 = __pyx_v_i;
 
-            /* "polylearn/cd_lifted_fast.pyx":135
+            /* "polylearn/cd_lifted_fast.pyx":188
  *                         i = indices[ii]
  *                         inv_step_size += xi[i] ** 2 * data[ii] ** 2
  *                         update += xi[i] * data[ii] * loss.dloss(y_pred[i],             # <<<<<<<<<<<<<<
@@ -2476,7 +2941,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
             __pyx_v_update = (__pyx_v_update + (((__pyx_v_xi[__pyx_v_i]) * (__pyx_v_data[__pyx_v_ii])) * ((struct __pyx_vtabstruct_9polylearn_9loss_fast_LossFunction *)__pyx_v_loss->__pyx_vtab)->dloss(__pyx_v_loss, (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_y_pred.rcbuffer->pybuffer.buf, __pyx_t_14, __pyx_pybuffernd_y_pred.diminfo[0].strides)), (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_y.rcbuffer->pybuffer.buf, __pyx_t_15, __pyx_pybuffernd_y.diminfo[0].strides)))));
           }
 
-          /* "polylearn/cd_lifted_fast.pyx":138
+          /* "polylearn/cd_lifted_fast.pyx":191
  *                                                                 y[i])
  * 
  *                     inv_step_size *= loss.mu             # <<<<<<<<<<<<<<
@@ -2485,7 +2950,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           __pyx_v_inv_step_size = (__pyx_v_inv_step_size * __pyx_v_loss->mu);
 
-          /* "polylearn/cd_lifted_fast.pyx":139
+          /* "polylearn/cd_lifted_fast.pyx":192
  * 
  *                     inv_step_size *= loss.mu
  *                     inv_step_size += beta             # <<<<<<<<<<<<<<
@@ -2494,7 +2959,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           __pyx_v_inv_step_size = (__pyx_v_inv_step_size + __pyx_v_beta);
 
-          /* "polylearn/cd_lifted_fast.pyx":141
+          /* "polylearn/cd_lifted_fast.pyx":194
  *                     inv_step_size += beta
  * 
  *                     update += beta * u_old             # <<<<<<<<<<<<<<
@@ -2503,7 +2968,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           __pyx_v_update = (__pyx_v_update + (__pyx_v_beta * __pyx_v_u_old));
 
-          /* "polylearn/cd_lifted_fast.pyx":142
+          /* "polylearn/cd_lifted_fast.pyx":195
  * 
  *                     update += beta * u_old
  *                     update /= inv_step_size             # <<<<<<<<<<<<<<
@@ -2512,7 +2977,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           __pyx_v_update = (__pyx_v_update / __pyx_v_inv_step_size);
 
-          /* "polylearn/cd_lifted_fast.pyx":144
+          /* "polylearn/cd_lifted_fast.pyx":197
  *                     update /= inv_step_size
  * 
  *                     U[t, s, j] -= update             # <<<<<<<<<<<<<<
@@ -2524,7 +2989,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
           __pyx_t_18 = __pyx_v_j;
           *__Pyx_BufPtrCContig3d(double *, __pyx_pybuffernd_U.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_U.diminfo[0].strides, __pyx_t_17, __pyx_pybuffernd_U.diminfo[1].strides, __pyx_t_18, __pyx_pybuffernd_U.diminfo[2].strides) -= __pyx_v_update;
 
-          /* "polylearn/cd_lifted_fast.pyx":145
+          /* "polylearn/cd_lifted_fast.pyx":198
  * 
  *                     U[t, s, j] -= update
  *                     sum_viol += fabs(update)             # <<<<<<<<<<<<<<
@@ -2533,7 +2998,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
           __pyx_v_sum_viol = (__pyx_v_sum_viol + fabs(__pyx_v_update));
 
-          /* "polylearn/cd_lifted_fast.pyx":148
+          /* "polylearn/cd_lifted_fast.pyx":201
  * 
  *                     # synchronize predictions
  *                     for ii in range(n_nz):             # <<<<<<<<<<<<<<
@@ -2544,7 +3009,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
           for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
             __pyx_v_ii = __pyx_t_13;
 
-            /* "polylearn/cd_lifted_fast.pyx":149
+            /* "polylearn/cd_lifted_fast.pyx":202
  *                     # synchronize predictions
  *                     for ii in range(n_nz):
  *                         i = indices[ii]             # <<<<<<<<<<<<<<
@@ -2553,7 +3018,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
             __pyx_v_i = (__pyx_v_indices[__pyx_v_ii]);
 
-            /* "polylearn/cd_lifted_fast.pyx":150
+            /* "polylearn/cd_lifted_fast.pyx":203
  *                     for ii in range(n_nz):
  *                         i = indices[ii]
  *                         y_pred[i] -= data[ii] * xi[i] * update             # <<<<<<<<<<<<<<
@@ -2567,7 +3032,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
       }
     }
 
-    /* "polylearn/cd_lifted_fast.pyx":152
+    /* "polylearn/cd_lifted_fast.pyx":205
  *                         y_pred[i] -= data[ii] * xi[i] * update
  * 
  *         if verbose:             # <<<<<<<<<<<<<<
@@ -2577,18 +3042,18 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
     __pyx_t_20 = (__pyx_v_verbose != 0);
     if (__pyx_t_20) {
 
-      /* "polylearn/cd_lifted_fast.pyx":153
+      /* "polylearn/cd_lifted_fast.pyx":206
  * 
  *         if verbose:
  *             print("Iteration", it + 1, "violation sum", sum_viol, end=" ")             # <<<<<<<<<<<<<<
  *             if compute_loss:
  *                 print("loss", _total_loss(y_pred, y, U, beta, loss), end="")
  */
-      __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_it + 1)); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_21 = __Pyx_PyInt_From_long((__pyx_v_it + 1)); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_22 = PyFloat_FromDouble(__pyx_v_sum_viol); if (unlikely(!__pyx_t_22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_22 = PyFloat_FromDouble(__pyx_v_sum_viol); if (unlikely(!__pyx_t_22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_22);
-      __pyx_t_23 = PyTuple_New(4); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_23 = PyTuple_New(4); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_INCREF(__pyx_n_u_Iteration);
       __Pyx_GIVEREF(__pyx_n_u_Iteration);
@@ -2602,16 +3067,16 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
       PyTuple_SET_ITEM(__pyx_t_23, 3, __pyx_t_22);
       __pyx_t_21 = 0;
       __pyx_t_22 = 0;
-      __pyx_t_22 = PyDict_New(); if (unlikely(!__pyx_t_22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_22 = PyDict_New(); if (unlikely(!__pyx_t_22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_22);
-      if (PyDict_SetItem(__pyx_t_22, __pyx_n_s_end, __pyx_kp_u_) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-      __pyx_t_21 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_23, __pyx_t_22); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_22, __pyx_n_s_end, __pyx_kp_u_) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_21 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_23, __pyx_t_22); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_21);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
       __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-      /* "polylearn/cd_lifted_fast.pyx":154
+      /* "polylearn/cd_lifted_fast.pyx":207
  *         if verbose:
  *             print("Iteration", it + 1, "violation sum", sum_viol, end=" ")
  *             if compute_loss:             # <<<<<<<<<<<<<<
@@ -2621,16 +3086,16 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
       __pyx_t_20 = (__pyx_v_compute_loss != 0);
       if (__pyx_t_20) {
 
-        /* "polylearn/cd_lifted_fast.pyx":155
+        /* "polylearn/cd_lifted_fast.pyx":208
  *             print("Iteration", it + 1, "violation sum", sum_viol, end=" ")
  *             if compute_loss:
  *                 print("loss", _total_loss(y_pred, y, U, beta, loss), end="")             # <<<<<<<<<<<<<<
  *             print()
  * 
  */
-        __pyx_t_21 = PyFloat_FromDouble(__pyx_f_9polylearn_14cd_lifted_fast__total_loss(((PyArrayObject *)__pyx_v_y_pred), ((PyArrayObject *)__pyx_v_y), ((PyArrayObject *)__pyx_v_U), __pyx_v_beta, __pyx_v_loss)); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_21 = PyFloat_FromDouble(__pyx_f_9polylearn_14cd_lifted_fast__total_loss(((PyArrayObject *)__pyx_v_y_pred), ((PyArrayObject *)__pyx_v_y), ((PyArrayObject *)__pyx_v_U), __pyx_v_beta, __pyx_v_loss)); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_22 = PyTuple_New(2); if (unlikely(!__pyx_t_22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_22 = PyTuple_New(2); if (unlikely(!__pyx_t_22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_22);
         __Pyx_INCREF(__pyx_n_u_loss);
         __Pyx_GIVEREF(__pyx_n_u_loss);
@@ -2638,16 +3103,16 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
         __Pyx_GIVEREF(__pyx_t_21);
         PyTuple_SET_ITEM(__pyx_t_22, 1, __pyx_t_21);
         __pyx_t_21 = 0;
-        __pyx_t_21 = PyDict_New(); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_21 = PyDict_New(); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_21);
-        if (PyDict_SetItem(__pyx_t_21, __pyx_n_s_end, __pyx_kp_u__2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __pyx_t_23 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_22, __pyx_t_21); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        if (PyDict_SetItem(__pyx_t_21, __pyx_n_s_end, __pyx_kp_u__2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_23 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_22, __pyx_t_21); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 208; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_23);
         __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
         __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
-        /* "polylearn/cd_lifted_fast.pyx":154
+        /* "polylearn/cd_lifted_fast.pyx":207
  *         if verbose:
  *             print("Iteration", it + 1, "violation sum", sum_viol, end=" ")
  *             if compute_loss:             # <<<<<<<<<<<<<<
@@ -2656,18 +3121,18 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
       }
 
-      /* "polylearn/cd_lifted_fast.pyx":156
+      /* "polylearn/cd_lifted_fast.pyx":209
  *             if compute_loss:
  *                 print("loss", _total_loss(y_pred, y, U, beta, loss), end="")
  *             print()             # <<<<<<<<<<<<<<
  * 
  *         if sum_viol < tol:
  */
-      __pyx_t_23 = __Pyx_PyObject_CallNoArg(__pyx_builtin_print); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 156; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_23 = __Pyx_PyObject_CallNoArg(__pyx_builtin_print); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_23);
       __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
-      /* "polylearn/cd_lifted_fast.pyx":152
+      /* "polylearn/cd_lifted_fast.pyx":205
  *                         y_pred[i] -= data[ii] * xi[i] * update
  * 
  *         if verbose:             # <<<<<<<<<<<<<<
@@ -2676,7 +3141,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
     }
 
-    /* "polylearn/cd_lifted_fast.pyx":158
+    /* "polylearn/cd_lifted_fast.pyx":211
  *             print()
  * 
  *         if sum_viol < tol:             # <<<<<<<<<<<<<<
@@ -2686,7 +3151,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
     __pyx_t_20 = ((__pyx_v_sum_viol < __pyx_v_tol) != 0);
     if (__pyx_t_20) {
 
-      /* "polylearn/cd_lifted_fast.pyx":159
+      /* "polylearn/cd_lifted_fast.pyx":212
  * 
  *         if sum_viol < tol:
  *             if verbose:             # <<<<<<<<<<<<<<
@@ -2696,16 +3161,16 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
       __pyx_t_20 = (__pyx_v_verbose != 0);
       if (__pyx_t_20) {
 
-        /* "polylearn/cd_lifted_fast.pyx":160
+        /* "polylearn/cd_lifted_fast.pyx":213
  *         if sum_viol < tol:
  *             if verbose:
  *                 print("Converged at iteration", it + 1)             # <<<<<<<<<<<<<<
  *             converged = True
  *             break
  */
-        __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_it + 1)); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_23 = __Pyx_PyInt_From_long((__pyx_v_it + 1)); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_23);
-        __pyx_t_21 = PyTuple_New(2); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_21 = PyTuple_New(2); if (unlikely(!__pyx_t_21)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_21);
         __Pyx_INCREF(__pyx_kp_u_Converged_at_iteration);
         __Pyx_GIVEREF(__pyx_kp_u_Converged_at_iteration);
@@ -2713,12 +3178,12 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
         __Pyx_GIVEREF(__pyx_t_23);
         PyTuple_SET_ITEM(__pyx_t_21, 1, __pyx_t_23);
         __pyx_t_23 = 0;
-        __pyx_t_23 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_21, NULL); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 160; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_23 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_21, NULL); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_23);
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
         __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
 
-        /* "polylearn/cd_lifted_fast.pyx":159
+        /* "polylearn/cd_lifted_fast.pyx":212
  * 
  *         if sum_viol < tol:
  *             if verbose:             # <<<<<<<<<<<<<<
@@ -2727,7 +3192,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
       }
 
-      /* "polylearn/cd_lifted_fast.pyx":161
+      /* "polylearn/cd_lifted_fast.pyx":214
  *             if verbose:
  *                 print("Converged at iteration", it + 1)
  *             converged = True             # <<<<<<<<<<<<<<
@@ -2736,7 +3201,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
       __pyx_v_converged = 1;
 
-      /* "polylearn/cd_lifted_fast.pyx":162
+      /* "polylearn/cd_lifted_fast.pyx":215
  *                 print("Converged at iteration", it + 1)
  *             converged = True
  *             break             # <<<<<<<<<<<<<<
@@ -2745,7 +3210,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
       goto __pyx_L4_break;
 
-      /* "polylearn/cd_lifted_fast.pyx":158
+      /* "polylearn/cd_lifted_fast.pyx":211
  *             print()
  * 
  *         if sum_viol < tol:             # <<<<<<<<<<<<<<
@@ -2756,7 +3221,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
   }
   __pyx_L4_break:;
 
-  /* "polylearn/cd_lifted_fast.pyx":164
+  /* "polylearn/cd_lifted_fast.pyx":217
  *             break
  * 
  *     free(xi)             # <<<<<<<<<<<<<<
@@ -2764,19 +3229,19 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast__cd_lifted(CYTHON_UNUSED P
  */
   free(__pyx_v_xi);
 
-  /* "polylearn/cd_lifted_fast.pyx":165
+  /* "polylearn/cd_lifted_fast.pyx":218
  * 
  *     free(xi)
  *     return converged             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_23 = __Pyx_PyBool_FromLong(__pyx_v_converged); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_23 = __Pyx_PyBool_FromLong(__pyx_v_converged); if (unlikely(!__pyx_t_23)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_23);
   __pyx_r = __pyx_t_23;
   __pyx_t_23 = 0;
   goto __pyx_L0;
 
-  /* "polylearn/cd_lifted_fast.pyx":88
+  /* "polylearn/cd_lifted_fast.pyx":141
  * 
  * 
  * def _cd_lifted(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
@@ -4952,6 +5417,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
 }
 
 static PyMethodDef __pyx_methods[] = {
+  {"_fast_lifted_predict", (PyCFunction)__pyx_pw_9polylearn_14cd_lifted_fast_1_fast_lifted_predict, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -5009,6 +5475,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_n_samples, __pyx_k_n_samples, sizeof(__pyx_k_n_samples), 0, 0, 1, 1},
   {&__pyx_kp_u_ndarray_is_not_C_contiguous, __pyx_k_ndarray_is_not_C_contiguous, sizeof(__pyx_k_ndarray_is_not_C_contiguous), 0, 1, 0, 0},
   {&__pyx_kp_u_ndarray_is_not_Fortran_contiguou, __pyx_k_ndarray_is_not_Fortran_contiguou, sizeof(__pyx_k_ndarray_is_not_Fortran_contiguou), 0, 1, 0, 0},
+  {&__pyx_n_s_out, __pyx_k_out, sizeof(__pyx_k_out), 0, 0, 1, 1},
   {&__pyx_n_s_polylearn_cd_lifted_fast, __pyx_k_polylearn_cd_lifted_fast, sizeof(__pyx_k_polylearn_cd_lifted_fast), 0, 0, 1, 1},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
@@ -5029,8 +5496,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 153; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
@@ -5108,17 +5575,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "polylearn/cd_lifted_fast.pyx":88
+  /* "polylearn/cd_lifted_fast.pyx":141
  * 
  * 
  * def _cd_lifted(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
  *                ColumnDataset X,
  *                np.ndarray[double, ndim=1] y,
  */
-  __pyx_tuple__9 = PyTuple_Pack(29, __pyx_n_s_U, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_y_pred, __pyx_n_s_beta, __pyx_n_s_loss, __pyx_n_s_max_iter, __pyx_n_s_tol, __pyx_n_s_verbose, __pyx_n_s_compute_loss, __pyx_n_s_n_samples, __pyx_n_s_n_features, __pyx_n_s_degree, __pyx_n_s_n_components, __pyx_n_s_it, __pyx_n_s_t, __pyx_n_s_s, __pyx_n_s_j, __pyx_n_s_sum_viol, __pyx_n_s_converged, __pyx_n_s_inv_step_size, __pyx_n_s_update, __pyx_n_s_u_old, __pyx_n_s_xi, __pyx_n_s_data, __pyx_n_s_indices, __pyx_n_s_n_nz, __pyx_n_s_ii, __pyx_n_s_i); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__9 = PyTuple_Pack(29, __pyx_n_s_U, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_y_pred, __pyx_n_s_beta, __pyx_n_s_loss, __pyx_n_s_max_iter, __pyx_n_s_tol, __pyx_n_s_verbose, __pyx_n_s_compute_loss, __pyx_n_s_n_samples, __pyx_n_s_n_features, __pyx_n_s_degree, __pyx_n_s_n_components, __pyx_n_s_it, __pyx_n_s_t, __pyx_n_s_s, __pyx_n_s_j, __pyx_n_s_sum_viol, __pyx_n_s_converged, __pyx_n_s_inv_step_size, __pyx_n_s_update, __pyx_n_s_u_old, __pyx_n_s_xi, __pyx_n_s_data, __pyx_n_s_indices, __pyx_n_s_n_nz, __pyx_n_s_ii, __pyx_n_s_i); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(10, 0, 29, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_vlad_code_polylearn_polyle, __pyx_n_s_cd_lifted, 88, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(10, 0, 29, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_vlad_code_polylearn_polyle, __pyx_n_s_cd_lifted, 141, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5255,16 +5722,16 @@ PyMODINIT_FUNC PyInit_cd_lifted_fast(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "polylearn/cd_lifted_fast.pyx":88
+  /* "polylearn/cd_lifted_fast.pyx":141
  * 
  * 
  * def _cd_lifted(np.ndarray[double, ndim=3, mode='c'] U,             # <<<<<<<<<<<<<<
  *                ColumnDataset X,
  *                np.ndarray[double, ndim=1] y,
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9polylearn_14cd_lifted_fast_1_cd_lifted, NULL, __pyx_n_s_polylearn_cd_lifted_fast); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9polylearn_14cd_lifted_fast_3_cd_lifted, NULL, __pyx_n_s_polylearn_cd_lifted_fast); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cd_lifted, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_cd_lifted, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 141; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "polylearn/cd_lifted_fast.pyx":1

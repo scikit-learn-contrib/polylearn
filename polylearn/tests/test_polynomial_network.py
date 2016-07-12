@@ -9,9 +9,17 @@ import numpy as np
 from numpy.testing import assert_array_almost_equal
 from sklearn.metrics import mean_squared_error
 from sklearn.utils.testing import assert_warns_message
+from sklearn.utils.extmath import fast_dot
+
+from lightning.impl.dataset_fast import get_dataset
 
 from polylearn import PolynomialNetworkClassifier, PolynomialNetworkRegressor
-from polylearn.polynomial_network import _lifted_predict
+from polylearn.polynomial_network import _lifted_predict as _ds_lifted_predict
+
+
+# to shave off some test seconds, since the data is tiny, we can use this.
+def _lifted_predict(U, X):
+    return np.product(fast_dot(U, X.T), axis=0).sum(axis=0)
 
 max_degree = 5
 n_components = 3
@@ -29,7 +37,7 @@ def cd_lifted_slow(X, y, degree=2, n_components=5, beta=1., n_iter=10000,
 
     n_samples, n_features = X.shape
     rng = check_random_state(random_state)
-    U = rng.randn(degree, n_components, n_features)
+    U = 0.01 * rng.randn(degree, n_components, n_features)
 
     # homogeneous kernel
     pred = np.product(np.dot(U, X.T), axis=0).sum(axis=0)
@@ -76,13 +84,21 @@ def cd_lifted_slow(X, y, degree=2, n_components=5, beta=1., n_iter=10000,
     return U
 
 
+def test_lifted_predict():
+    y_ref = _lifted_predict(U, X)
+    ds = get_dataset(X, order='fortran')
+    y = _ds_lifted_predict(U, ds)
+    assert_array_almost_equal(y_ref, y)
+
+
 def check_fit(degree):
     y = _lifted_predict(U[:degree], X)
 
     est = PolynomialNetworkRegressor(degree=degree, n_components=n_components,
-                                     beta=0.00001, tol=1e-4, random_state=0)
+                                     max_iter=50000, beta=0.001, tol=1e-2,
+                                     random_state=0)
     y_pred = est.fit(X, y).predict(X)
-    assert_less_equal(mean_squared_error(y, y_pred), 1e-5,
+    assert_less_equal(mean_squared_error(y, y_pred), 1e-4,
                       msg="Cannot learn degree {} function.".format(degree))
 
 
@@ -137,7 +153,7 @@ def test_random_starts():
     noisy_y += 5. * rng.randn(noisy_y.shape[0])
 
     common_settings = dict(degree=degree, n_components=n_components,
-                           beta=0.001, tol=0.01)
+                           beta=0.01, tol=0.01)
     scores = []
     for k in range(5):
         est = PolynomialNetworkRegressor(random_state=k, **common_settings)
@@ -151,10 +167,15 @@ def check_same_as_slow(degree):
     y = _lifted_predict(U[:degree], X)
     reg = PolynomialNetworkRegressor(degree=degree, n_components=n_components,
                                      fit_lower=None, fit_linear=None,
-                                     beta=1e-3, tol=1e-2, random_state=0)
-    reg.fit(X, y)
-    U_fit_slow = cd_lifted_slow(X, y, degree=degree, n_components=n_components,
-                                beta=1e-3, tol=1e-2, random_state=0)
+                                     beta=1, max_iter=5, random_state=0)
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        reg.fit(X, y)
+
+        U_fit_slow = cd_lifted_slow(X, y, degree=degree,
+                                    n_components=n_components, beta=1,
+                                    random_state=0, n_iter=5)
 
     assert_array_almost_equal(reg.U_, U_fit_slow)
 
@@ -168,7 +189,7 @@ def check_classification_losses(loss, degree):
     y = np.sign(_lifted_predict(U[:degree], X))
 
     clf = PolynomialNetworkClassifier(degree=degree, n_components=n_components,
-                                      loss=loss, beta=1e-3, tol=1e-2,
+                                      loss=loss, beta=1e-4, tol=1e-2,
                                       random_state=0)
     clf.fit(X, y)
     assert_equal(1.0, clf.score(X, y))

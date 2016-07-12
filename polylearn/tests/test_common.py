@@ -1,22 +1,22 @@
 from nose.tools import assert_raises, assert_greater
 from nose.tools import assert_equal
 import numpy as np
+from numpy.testing import assert_array_almost_equal
+from scipy.sparse import csc_matrix
 from sklearn.utils.estimator_checks import check_estimator
 
 from polylearn import (PolynomialNetworkClassifier, PolynomialNetworkRegressor,
                        FactorizationMachineClassifier,
                        FactorizationMachineRegressor)
 
-# TODO: can't actually pass the test.
-# Regressor needs tweaking (augment=True, beta=20) to pass score>0.5
-# Classifier is not multi-output.
-
 
 def test_check_estimator():
-    #yield check_estimator, PolynomialNetworkClassifier
-    yield check_estimator, PolynomialNetworkRegressor
+    # TODO: classifiers that provide predict_proba but are not multiclass fail
+    # yield check_estimator, PolynomialNetworkClassifier
     # yield check_estimator, FactorizationMachineClassifier
-    # yield check_estimator, FactorizationMachineRegressor
+
+    yield check_estimator, PolynomialNetworkRegressor
+    yield check_estimator, FactorizationMachineRegressor
 
 
 X = np.array([[-10, -10], [-10, 10], [10, -10], [10, 10]])
@@ -119,3 +119,20 @@ def test_augment():
                                          fit_lower='augment', random_state=0)
     clf.fit(X_evil, y_evil)
     assert_equal(1.0, clf.score(X_evil, y_evil))
+
+
+def check_sparse(Clf):
+    X_sp = csc_matrix(X)
+    # simple y that works for both clf and regression
+    y_simple = [0, 1, 0, 1]
+    clf = Clf(tol=1e-2, random_state=0)
+    assert_array_almost_equal(clf.fit(X, y_simple).predict(X),
+                              clf.fit(X_sp, y_simple).predict(X_sp))
+
+
+def test_sparse():
+    yield check_sparse, FactorizationMachineClassifier
+    yield check_sparse, PolynomialNetworkClassifier
+    yield check_sparse, FactorizationMachineRegressor
+    yield check_sparse, PolynomialNetworkRegressor
+

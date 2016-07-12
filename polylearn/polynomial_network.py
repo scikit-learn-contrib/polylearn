@@ -24,11 +24,13 @@ except ImportError:
 from lightning.impl.dataset_fast import get_dataset
 
 from .base import _BasePoly, _PolyClassifierMixin, _PolyRegressorMixin
-from .cd_lifted_fast import _cd_lifted
+from .cd_lifted_fast import _cd_lifted, _fast_lifted_predict
 
 
-def _lifted_predict(U, X):
-    return np.product(safe_sparse_dot(U, X.T), axis=0).sum(axis=0)
+def _lifted_predict(U, dataset):
+    out = np.zeros(dataset.get_n_samples(), dtype=np.double)
+    _fast_lifted_predict(U, dataset, out)
+    return out
 
 
 class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
@@ -91,9 +93,10 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
         loss_obj = self._get_loss(self.loss)
 
         if not (self.warm_start and hasattr(self, 'U_')):
-            self.U_ = rng.randn(self.degree, self.n_components, n_features)
+            self.U_ = 0.01 * rng.randn(self.degree, self.n_components,
+                                       n_features)
 
-        y_pred = _lifted_predict(self.U_, X)
+        y_pred = _lifted_predict(self.U_, dataset)
 
         converged = _cd_lifted(self.U_, dataset, y, y_pred, self.beta,
                                loss_obj, self.max_iter, self.tol, self.verbose,
@@ -110,7 +113,7 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
 
         X = check_array(X, accept_sparse='csc', dtype=np.double)
         X = self._augment(X)
-
+        X = get_dataset(X, order='fortran')
         return _lifted_predict(self.U_, X)
 
 
