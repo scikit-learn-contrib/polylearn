@@ -140,23 +140,20 @@ degrees up to 3.</p>
 <p><strong>fit_lower</strong> : {&#8216;augment&#8217;<a href="#id1"><span class="problematic" id="id2">|</span></a>None}, default: &#8216;augment&#8217;</p>
 <blockquote>
 <div><p>Whether and how to fit lower-order, non-homogeneous terms.</p>
-<ul>
-<li><dl class="first docutils">
-<dt>&#8216;augment&#8217;: adds the required number of dummy columns (columns</dt>
-<dd><p class="first last">that are 1 everywhere) in order to capture lower-order terms.</p>
-</dd>
-</dl>
-</li>
-<li><p class="first">None: only learns weights for the degree given.</p>
-</li>
+<ul class="simple">
+<li>&#8216;augment&#8217;: adds a dummy column (1 everywhere) in order to capture</li>
+</ul>
+<p>lower-order terms. Note that this implies <code class="docutils literal"><span class="pre">fit_linear=True</span></code>.</p>
+<ul class="simple">
+<li>None: only learns weights for the degree given.</li>
 </ul>
 </div></blockquote>
-<p><strong>fit_lower</strong> : {&#8216;augment&#8217;<a href="#id3"><span class="problematic" id="id4">|</span></a>None}, default: &#8216;augment&#8217;</p>
+<p><strong>fit_linear</strong> : {&#8216;augment&#8217;<a href="#id3"><span class="problematic" id="id4">|</span></a>None}, default: &#8216;augment&#8217;</p>
 <blockquote>
 <div><p>Whether and how to fit a linear term to the model.</p>
 <ul class="simple">
 <li>&#8216;augment&#8217;: adds an extra dummy column to account for the linear
-term. This only works if <code class="docutils literal"><span class="pre">fit_lower='augment'</span></code>.</li>
+term.  Note that this implies <code class="docutils literal"><span class="pre">fit_lower=True</span></code>.</li>
 <li>None: does not learn a linear term at all.</li>
 </ul>
 </div></blockquote>

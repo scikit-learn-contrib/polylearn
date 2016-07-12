@@ -246,16 +246,16 @@
 <span class="sd">    fit_lower : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
 <span class="sd">        Whether and how to fit lower-order, non-homogeneous terms.</span>
 
-<span class="sd">        - &#39;augment&#39;: adds the required number of dummy columns (columns</span>
-<span class="sd">           that are 1 everywhere) in order to capture lower-order terms.</span>
+<span class="sd">        - &#39;augment&#39;: adds a dummy column (1 everywhere) in order to capture</span>
+<span class="sd">        lower-order terms. Note that this implies ``fit_linear=True``.</span>
 
 <span class="sd">        - None: only learns weights for the degree given.</span>
 
-<span class="sd">    fit_lower : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
+<span class="sd">    fit_linear : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
 <span class="sd">        Whether and how to fit a linear term to the model.</span>
 
 <span class="sd">        - &#39;augment&#39;: adds an extra dummy column to account for the linear</span>
-<span class="sd">          term. This only works if ``fit_lower=&#39;augment&#39;``.</span>
+<span class="sd">          term.  Note that this implies ``fit_lower=True``.</span>
 
 <span class="sd">        - None: does not learn a linear term at all.</span>
 
@@ -344,7 +344,7 @@
 
 <span class="sd">        - None: only learns weights for the degree given.</span>
 
-<span class="sd">    fit_lower : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
+<span class="sd">    fit_linear : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
 <span class="sd">        Whether and how to fit a linear term to the model.</span>
 
 <span class="sd">        - &#39;augment&#39;: adds an extra dummy column to account for the linear</span>

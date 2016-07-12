@@ -25,6 +25,6 @@ for the `beta` regularization hyperparameter.
 .. literalinclude:: plot_regularization_path.py
     :lines: 11-
 
-**Total running time of the example:**  30.57 seconds
-( 0 minutes  30.57 seconds)
+**Total running time of the example:**  30.34 seconds
+( 0 minutes  30.34 seconds)
     
