@@ -1,9 +1,9 @@
+from nose import SkipTest
 from nose.tools import assert_raises, assert_greater
 from nose.tools import assert_equal
 import numpy as np
 from numpy.testing import assert_array_almost_equal
 from scipy.sparse import csc_matrix
-from sklearn.utils.estimator_checks import check_estimator
 
 from polylearn import (PolynomialNetworkClassifier, PolynomialNetworkRegressor,
                        FactorizationMachineClassifier,
@@ -15,6 +15,11 @@ def test_check_estimator():
     # yield check_estimator, PolynomialNetworkClassifier
     # yield check_estimator, FactorizationMachineClassifier
 
+    try:
+        from sklearn.utils.estimator_checks import check_estimator
+    except ImportError:
+        raise SkipTest('Common scikit-learn tests not available. '
+                       'You must be running an older version of scikit-learn.')
     yield check_estimator, PolynomialNetworkRegressor
     yield check_estimator, FactorizationMachineRegressor
 
