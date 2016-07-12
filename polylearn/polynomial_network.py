@@ -27,6 +27,10 @@ from .base import _BasePoly, _PolyClassifierMixin, _PolyRegressorMixin
 from .cd_lifted_fast import _cd_lifted
 
 
+def _lifted_predict(U, X):
+    return np.product(safe_sparse_dot(U, X.T), axis=0).sum(axis=0)
+
+
 class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
     @abstractmethod
     def __init__(self, degree=2, loss='squared', n_components=5, beta=1,
@@ -89,7 +93,7 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
         if not (self.warm_start and hasattr(self, 'U_')):
             self.U_ = rng.randn(self.degree, self.n_components, n_features)
 
-        y_pred = np.product(safe_sparse_dot(self.U_, X.T), axis=0).sum(axis=0)
+        y_pred = _lifted_predict(self.U_, X)
 
         converged = _cd_lifted(self.U_, dataset, y, y_pred, self.beta,
                                loss_obj, self.max_iter, self.tol, self.verbose,
@@ -107,7 +111,7 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
         X = check_array(X, accept_sparse='csc', dtype=np.double)
         X = self._augment(X)
 
-        return np.product(safe_sparse_dot(self.U_, X.T), axis=0).sum(axis=0)
+        return _lifted_predict(self.U_, X)
 
 
 class PolynomialNetworkRegressor(_BasePolynomialNetwork, _PolyRegressorMixin):

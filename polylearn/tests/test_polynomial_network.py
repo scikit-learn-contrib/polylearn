@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.utils.testing import assert_warns_message
 
 from polylearn import PolynomialNetworkClassifier, PolynomialNetworkRegressor
-
+from polylearn.polynomial_network import _lifted_predict
 
 max_degree = 5
 n_components = 3
@@ -77,7 +77,7 @@ def cd_lifted_slow(X, y, degree=2, n_components=5, beta=1., n_iter=10000,
 
 
 def check_fit(degree):
-    y = np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0)
+    y = _lifted_predict(U[:degree], X)
 
     est = PolynomialNetworkRegressor(degree=degree, n_components=n_components,
                                      beta=0.00001, tol=1e-4, random_state=0)
@@ -92,7 +92,7 @@ def test_fit():
 
 
 def check_improve(degree):
-    y = np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0)
+    y = _lifted_predict(U[:degree], X)
 
     common_settings = dict(degree=degree, n_components=n_components,
                            beta=1e-10, tol=0, random_state=0)
@@ -120,7 +120,7 @@ def test_improve():
 
 def test_convergence_warning():
     degree = 4
-    y = np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0)
+    y = _lifted_predict(U[:degree], X)
 
     est = PolynomialNetworkRegressor(degree=degree, n_components=n_components,
                                      beta=1e-10, max_iter=1, tol=1e-5,
@@ -133,7 +133,7 @@ def test_random_starts():
     # using training error here, and a higher threshold.
     # We observe the lifted solver reaches rather diff. solutions.
     degree = 3
-    noisy_y = np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0)
+    noisy_y = _lifted_predict(U[:degree], X)
     noisy_y += 5. * rng.randn(noisy_y.shape[0])
 
     common_settings = dict(degree=degree, n_components=n_components,
@@ -148,7 +148,7 @@ def test_random_starts():
 
 
 def check_same_as_slow(degree):
-    y = np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0)
+    y = _lifted_predict(U[:degree], X)
     reg = PolynomialNetworkRegressor(degree=degree, n_components=n_components,
                                      fit_lower=None, fit_linear=None,
                                      beta=1e-3, tol=1e-2, random_state=0)
@@ -165,7 +165,7 @@ def test_same_as_slow():
 
 
 def check_classification_losses(loss, degree):
-    y = np.sign(np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0))
+    y = np.sign(_lifted_predict(U[:degree], X))
 
     clf = PolynomialNetworkClassifier(degree=degree, n_components=n_components,
                                       loss=loss, beta=1e-3, tol=1e-2,
@@ -181,7 +181,7 @@ def test_classification_losses():
 
 
 def check_warm_start(degree):
-    y = np.sign(np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0))
+    y = np.sign(_lifted_predict(U[:degree], X))
     # Result should be the same if:
     # (a) running 10 iterations
 
@@ -217,7 +217,7 @@ def check_warm_start(degree):
     # (note: could not get this test to work for the exact P_.)
     # This test is very flimsy!
 
-    y = np.sign(np.product(np.dot(U[:degree], X.T), axis=0).sum(axis=0))
+    y = np.sign(_lifted_predict(U[:degree], X))
 
     beta_low = 0.51
     beta = 0.5

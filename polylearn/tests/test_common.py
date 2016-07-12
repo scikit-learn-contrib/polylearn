@@ -1,7 +1,8 @@
 from nose.tools import assert_raises, assert_greater
 from nose.tools import assert_equal
 import numpy as np
-# import sklearn.utils.estimator_checks
+from sklearn.utils.estimator_checks import check_estimator
+
 from polylearn import (PolynomialNetworkClassifier, PolynomialNetworkRegressor,
                        FactorizationMachineClassifier,
                        FactorizationMachineRegressor)
@@ -10,9 +11,12 @@ from polylearn import (PolynomialNetworkClassifier, PolynomialNetworkRegressor,
 # Regressor needs tweaking (augment=True, beta=20) to pass score>0.5
 # Classifier is not multi-output.
 
-# def test_check_estimator():
-#     sklearn.utils.estimator_checks.check_estimator(PolyClassifier)
-#     sklearn.utils.estimator_checks.check_estimator(PolyRegressor)
+
+def test_check_estimator():
+    #yield check_estimator, PolynomialNetworkClassifier
+    yield check_estimator, PolynomialNetworkRegressor
+    # yield check_estimator, FactorizationMachineClassifier
+    # yield check_estimator, FactorizationMachineRegressor
 
 
 X = np.array([[-10, -10], [-10, 10], [10, -10], [10, 10]])
