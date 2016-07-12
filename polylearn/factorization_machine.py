@@ -175,7 +175,7 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
 
         - None: only learns weights for the degree given.
 
-    fit_lower : {'explicit'|'augment'|None}, default: 'explicit'
+    fit_linear : {'explicit'|'augment'|None}, default: 'explicit'
         Whether and how to fit a linear term to the model.
 
         - 'explicit': fits w in <X, w> directly using coordinate descent.
@@ -296,7 +296,7 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
 
         - None: only learns weights for the degree given.
 
-    fit_lower : {'explicit'|'augment'|None}, default: 'explicit'
+    fit_linear : {'explicit'|'augment'|None}, default: 'explicit'
         Whether and how to fit a linear term to the model.
 
         - 'explicit': fits w in <X, w> directly using coordinate descent.

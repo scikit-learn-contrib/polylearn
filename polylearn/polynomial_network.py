@@ -140,16 +140,16 @@ class PolynomialNetworkRegressor(_BasePolynomialNetwork, _PolyRegressorMixin):
     fit_lower : {'augment'|None}, default: 'augment'
         Whether and how to fit lower-order, non-homogeneous terms.
 
-        - 'augment': adds the required number of dummy columns (columns
-           that are 1 everywhere) in order to capture lower-order terms.
+        - 'augment': adds a dummy column (1 everywhere) in order to capture
+        lower-order terms. Note that this implies ``fit_linear=True``.
 
         - None: only learns weights for the degree given.
 
-    fit_lower : {'augment'|None}, default: 'augment'
+    fit_linear : {'augment'|None}, default: 'augment'
         Whether and how to fit a linear term to the model.
 
         - 'augment': adds an extra dummy column to account for the linear
-          term. This only works if ``fit_lower='augment'``.
+          term.  Note that this implies ``fit_lower=True``.
 
         - None: does not learn a linear term at all.
 
@@ -238,7 +238,7 @@ class PolynomialNetworkClassifier(_BasePolynomialNetwork,
 
         - None: only learns weights for the degree given.
 
-    fit_lower : {'augment'|None}, default: 'augment'
+    fit_linear : {'augment'|None}, default: 'augment'
         Whether and how to fit a linear term to the model.
 
         - 'augment': adds an extra dummy column to account for the linear
