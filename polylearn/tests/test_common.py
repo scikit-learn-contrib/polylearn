@@ -140,4 +140,3 @@ def test_sparse():
     yield check_sparse, PolynomialNetworkClassifier
     yield check_sparse, FactorizationMachineRegressor
     yield check_sparse, PolynomialNetworkRegressor
-

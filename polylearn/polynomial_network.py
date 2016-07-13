@@ -11,7 +11,6 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 from sklearn.preprocessing import add_dummy_feature
 from sklearn.utils import check_random_state
-from sklearn.utils.extmath import safe_sparse_dot
 from sklearn.utils.validation import check_array
 from sklearn.externals import six
 
