@@ -30,7 +30,7 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
 
     @abstractmethod
     def __init__(self, degree=2, loss='squared', n_components=2, alpha=1,
-                 beta=1, tol=1e-6, fit_lower='augment', fit_linear='explicit',
+                 beta=1, tol=1e-6, fit_lower='explicit', fit_linear='explicit',
                  warm_start=False, init_lambdas='random_signs', max_iter=10000,
                  verbose=False, compute_loss=False, random_state=None):
         self.degree = degree
@@ -165,7 +165,7 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
     tol : float, default: 1e-6
         Tolerance for the stopping condition.
 
-    fit_lower : {'explicit'|'augment'|None}, default: 'augment'
+    fit_lower : {'explicit'|'augment'|None}, default: 'explicit'
         Whether and how to fit lower-order, non-homogeneous terms.
 
         - 'explicit': fits a separate P directly for each lower order.
@@ -242,7 +242,7 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
     In: Proceedings of IEEE 2010.
     """
     def __init__(self, degree=2, n_components=2, alpha=1, beta=1, tol=1e-6,
-                 fit_lower='augment', fit_linear='explicit', warm_start=False,
+                 fit_lower='explicit', fit_linear='explicit', warm_start=False,
                  init_lambdas='random_signs', max_iter=10000, verbose=False,
                  compute_loss=False, random_state=None):
 
@@ -286,7 +286,7 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
     tol : float, default: 1e-6
         Tolerance for the stopping condition.
 
-    fit_lower : {'explicit'|'augment'|None}, default: 'augment'
+    fit_lower : {'explicit'|'augment'|None}, default: 'explicit'
         Whether and how to fit lower-order, non-homogeneous terms.
 
         - 'explicit': fits a separate P directly for each lower order.
@@ -364,7 +364,7 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
     """
 
     def __init__(self, degree=2, loss='squared_hinge', n_components=2, alpha=1,
-                 beta=1, tol=1e-6, fit_lower='augment', fit_linear='explicit',
+                 beta=1, tol=1e-6, fit_lower='explicit', fit_linear='explicit',
                  warm_start=False, init_lambdas='random_signs', max_iter=10000,
                  verbose=False, compute_loss=False, random_state=None):
 
