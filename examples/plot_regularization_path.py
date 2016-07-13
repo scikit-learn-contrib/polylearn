@@ -6,8 +6,8 @@ Plotting regularization paths using warm restarts.
 In this example we show how to use the `warm_start` attribute to efficiently
 compute the regularization path for a polynomial network when optimizing
 for the `beta` regularization hyperparameter.
-
 """
+print(__doc__)
 
 # Author: Vlad Niculae <vlad@vene.ro>
 # License: Simplified BSD
