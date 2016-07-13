@@ -136,7 +136,7 @@
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span>
+                 <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span>
                  <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;random_signs&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="n">degree</span>
@@ -271,7 +271,7 @@
 <span class="sd">    tol : float, default: 1e-6</span>
 <span class="sd">        Tolerance for the stopping condition.</span>
 
-<span class="sd">    fit_lower : {&#39;explicit&#39;|&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
+<span class="sd">    fit_lower : {&#39;explicit&#39;|&#39;augment&#39;|None}, default: &#39;explicit&#39;</span>
 <span class="sd">        Whether and how to fit lower-order, non-homogeneous terms.</span>
 
 <span class="sd">        - &#39;explicit&#39;: fits a separate P directly for each lower order.</span>
@@ -348,7 +348,7 @@
 <span class="sd">    In: Proceedings of IEEE 2010.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="FactorizationMachineRegressor.__init__"><a class="viewcode-back" href="../../generated/polylearn.FactorizationMachineRegressor.html#polylearn.FactorizationMachineRegressor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span>
-                 <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;random_signs&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
@@ -392,7 +392,7 @@
 <span class="sd">    tol : float, default: 1e-6</span>
 <span class="sd">        Tolerance for the stopping condition.</span>
 
-<span class="sd">    fit_lower : {&#39;explicit&#39;|&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
+<span class="sd">    fit_lower : {&#39;explicit&#39;|&#39;augment&#39;|None}, default: &#39;explicit&#39;</span>
 <span class="sd">        Whether and how to fit lower-order, non-homogeneous terms.</span>
 
 <span class="sd">        - &#39;explicit&#39;: fits a separate P directly for each lower order.</span>
@@ -470,7 +470,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="FactorizationMachineClassifier.__init__"><a class="viewcode-back" href="../../generated/polylearn.FactorizationMachineClassifier.html#polylearn.FactorizationMachineClassifier.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared_hinge&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span>
+                 <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span>
                  <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;random_signs&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 

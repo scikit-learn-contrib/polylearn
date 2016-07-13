@@ -113,7 +113,7 @@
 <h1>polylearn.FactorizationMachineRegressor<a class="headerlink" href="#polylearn-factorizationmachineregressor" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="polylearn.FactorizationMachineRegressor">
-<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">FactorizationMachineRegressor</code><span class="sig-paren">(</span><em>degree=2</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='augment'</em>, <em>fit_linear='explicit'</em>, <em>warm_start=False</em>, <em>init_lambdas='random_signs'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineRegressor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineRegressor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">FactorizationMachineRegressor</code><span class="sig-paren">(</span><em>degree=2</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear='explicit'</em>, <em>warm_start=False</em>, <em>init_lambdas='random_signs'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineRegressor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineRegressor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Higher order factorization machine for regression (with squared loss).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -142,7 +142,7 @@ low-rank parametrization.</p>
 <blockquote>
 <div><p>Tolerance for the stopping condition.</p>
 </div></blockquote>
-<p><strong>fit_lower</strong> : {&#8216;explicit&#8217;|&#8217;augment&#8217;<a href="#id1"><span class="problematic" id="id2">|</span></a>None}, default: &#8216;augment&#8217;</p>
+<p><strong>fit_lower</strong> : {&#8216;explicit&#8217;|&#8217;augment&#8217;<a href="#id1"><span class="problematic" id="id2">|</span></a>None}, default: &#8216;explicit&#8217;</p>
 <blockquote>
 <div><p>Whether and how to fit lower-order, non-homogeneous terms.</p>
 <ul>
@@ -256,7 +256,7 @@ In: Proceedings of IEEE 2010.</p>
 </table>
 <dl class="method">
 <dt id="polylearn.FactorizationMachineRegressor.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='augment'</em>, <em>fit_linear='explicit'</em>, <em>warm_start=False</em>, <em>init_lambdas='random_signs'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineRegressor.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineRegressor.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear='explicit'</em>, <em>warm_start=False</em>, <em>init_lambdas='random_signs'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineRegressor.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineRegressor.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
