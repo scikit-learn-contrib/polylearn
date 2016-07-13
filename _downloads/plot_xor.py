@@ -8,7 +8,7 @@ non-linearly separable XOR problem
 
 This problem is a perfect example of feature interactions. As such,
 factorization machines can model it very robustly with a very small number of
-parameters.  (In this case, (1 + n_features) * n_components = 3 * 1 params.)
+parameters.  (In this case, n_features * n_components = 2 * 1 = 2 params.)
 
 Example based on:
 http://scikit-learn.org/stable/auto_examples/svm/plot_svm_nonlinear.html
@@ -32,11 +32,11 @@ X = rng.randn(300, 2)
 y = np.logical_xor(X[:, 0] > 0, X[:, 1] > 0)
 
 # XOR is too easy for factorization machines, so add noise :)
-flip = rng.randint(300, size=20)
+flip = rng.randint(300, size=15)
 y[flip] = ~y[flip]
 
 # fit the model
-fm = FactorizationMachineClassifier(n_components=1, loss='squared_hinge',
+fm = FactorizationMachineClassifier(n_components=1, fit_linear=None,
                                     random_state=0)
 fm.fit(X, y)
 

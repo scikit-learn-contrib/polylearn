@@ -12,7 +12,7 @@ non-linearly separable XOR problem
 
 This problem is a perfect example of feature interactions. As such,
 factorization machines can model it very robustly with a very small number of
-parameters.  (In this case, (1 + n_features) * n_components = 3 * 1 params.)
+parameters.  (In this case, n_features * n_components = 2 * 1 = 2 params.)
 
 Example based on:
 http://scikit-learn.org/stable/auto_examples/svm/plot_svm_nonlinear.html
@@ -30,6 +30,6 @@ http://scikit-learn.org/stable/auto_examples/svm/plot_svm_nonlinear.html
 .. literalinclude:: plot_xor.py
     :lines: 16-
 
-**Total running time of the example:**  2.77 seconds
-( 0 minutes  2.77 seconds)
+**Total running time of the example:**  3.03 seconds
+( 0 minutes  3.03 seconds)
     
