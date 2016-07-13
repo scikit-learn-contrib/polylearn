@@ -107,11 +107,11 @@
 <span></span><span class="c1"># Author: Vlad Niculae &lt;vlad@vene.ro&gt;</span>
 <span class="c1"># License: Simplified BSD</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">polynomial_kernel</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils.extmath</span> <span class="kn">import</span> <span class="n">safe_sparse_dot</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">issparse</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="k">import</span> <span class="n">polynomial_kernel</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils.extmath</span> <span class="k">import</span> <span class="n">safe_sparse_dot</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="k">import</span> <span class="n">issparse</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
 <div class="viewcode-block" id="safe_power"><a class="viewcode-back" href="../../generated/polylearn.kernels.safe_power.html#polylearn.kernels.safe_power">[docs]</a><span class="k">def</span> <span class="nf">safe_power</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
@@ -212,7 +212,7 @@
     <span class="k">elif</span> <span class="n">kernel</span> <span class="o">==</span> <span class="s2">&quot;poly&quot;</span><span class="p">:</span>
         <span class="n">K</span> <span class="o">=</span> <span class="n">homogeneous_kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">((</span><span class="s2">&quot;Unsuppported kernel: {}. Use one &quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">((</span><span class="s2">&quot;Unsuppported kernel: </span><span class="si">{}</span><span class="s2">. Use one &quot;</span>
                           <span class="s2">&quot;of {{&#39;anova&#39;|&#39;poly&#39;}}&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kernel</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">lams</span><span class="p">)</span>
@@ -227,7 +227,7 @@
     </p>
     <p>
         &copy; Copyright 2016, Vlad Niculae.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

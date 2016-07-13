@@ -1,0 +1,35 @@
+
+
+.. _example_plot_xor.py:
+
+
+===============================================
+Factorization machine decision boundary for XOR
+===============================================
+
+Plots the decision function learned by a factorization machine for a noisy
+non-linearly separable XOR problem
+
+This problem is a perfect example of feature interactions. As such,
+factorization machines can model it very robustly with a very small number of
+parameters.  (In this case, (1 + n_features) * n_components = 3 * 1 params.)
+
+Example based on:
+http://scikit-learn.org/stable/auto_examples/svm/plot_svm_nonlinear.html
+
+
+
+.. image:: images/plot_xor_001.png
+    :align: center
+
+
+
+
+**Python source code:** :download:`plot_xor.py <plot_xor.py>`
+
+.. literalinclude:: plot_xor.py
+    :lines: 16-
+
+**Total running time of the example:**  2.77 seconds
+( 0 minutes  2.77 seconds)
+    

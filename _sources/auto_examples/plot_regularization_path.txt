@@ -13,7 +13,6 @@ for the `beta` regularization hyperparameter.
 
 
 
-
 .. image:: images/plot_regularization_path_001.png
     :align: center
 
@@ -23,8 +22,8 @@ for the `beta` regularization hyperparameter.
 **Python source code:** :download:`plot_regularization_path.py <plot_regularization_path.py>`
 
 .. literalinclude:: plot_regularization_path.py
-    :lines: 11-
+    :lines: 10-
 
-**Total running time of the example:**  30.34 seconds
-( 0 minutes  30.34 seconds)
+**Total running time of the example:**  26.76 seconds
+( 0 minutes  26.76 seconds)
     

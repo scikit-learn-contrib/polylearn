@@ -111,10 +111,10 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
-<span class="kn">from</span> <span class="nn">.externals</span> <span class="kn">import</span> <span class="n">six</span>
-<span class="kn">from</span> <span class="nn">.utils.fixes</span> <span class="kn">import</span> <span class="n">signature</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">sparse</span>
+<span class="kn">from</span> <span class="nn">.externals</span> <span class="k">import</span> <span class="n">six</span>
+<span class="kn">from</span> <span class="nn">.utils.fixes</span> <span class="k">import</span> <span class="n">signature</span>
 
 
 <span class="k">class</span> <span class="nc">ChangedBehaviorWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
@@ -122,7 +122,7 @@
 
 
 <span class="c1">##############################################################################</span>
-<span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Constructs a new estimator with the same parameters.</span>
 
 <span class="sd">    Clone does a deep copy of the model in an estimator</span>
@@ -152,11 +152,11 @@
                             <span class="s2">&quot;as it does not implement a &#39;get_params&#39; methods.&quot;</span>
                             <span class="o">%</span> <span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">estimator</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">estimator</span><span class="p">)))</span>
     <span class="n">klass</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">__class__</span>
-    <span class="n">new_object_params</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">new_object_params</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">new_object_params</span><span class="p">):</span>
-        <span class="n">new_object_params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">new_object_params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">new_object</span> <span class="o">=</span> <span class="n">klass</span><span class="p">(</span><span class="o">**</span><span class="n">new_object_params</span><span class="p">)</span>
-    <span class="n">params_set</span> <span class="o">=</span> <span class="n">new_object</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">params_set</span> <span class="o">=</span> <span class="n">new_object</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="c1"># quick sanity check of the parameters of the clone</span>
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">new_object_params</span><span class="p">:</span>
@@ -165,7 +165,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
             <span class="c1"># For most ndarrays, we do not test for complete equality</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param2</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">param1</span><span class="p">)):</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">equality_test</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">elif</span> <span class="p">(</span><span class="n">param1</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span>
                     <span class="ow">and</span> <span class="n">param1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
                     <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span>
@@ -183,7 +183,7 @@
         <span class="k">elif</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">param1</span><span class="p">):</span>
             <span class="c1"># For sparse matrices equality doesn&#39;t work</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">param2</span><span class="p">):</span>
-                <span class="n">equality_test</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">equality_test</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="k">elif</span> <span class="n">param1</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">param2</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">equality_test</span> <span class="o">=</span> <span class="p">(</span>
                     <span class="n">param1</span><span class="o">.</span><span class="n">__class__</span> <span class="o">==</span> <span class="n">param2</span><span class="o">.</span><span class="n">__class__</span>
@@ -302,7 +302,7 @@
         <span class="c1"># Extract and sort argument names excluding &#39;self&#39;</span>
         <span class="k">return</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get parameters for this estimator.</span>
 
 <span class="sd">        Parameters</span>
@@ -324,8 +324,8 @@
             <span class="c1"># when running under python3 somehow.</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;always&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
-                    <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">(</span><span class="n">record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">w</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="ow">and</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">category</span> <span class="o">==</span> <span class="ne">DeprecationWarning</span><span class="p">:</span>
                     <span class="c1"># if the parameter is deprecated, don&#39;t show it</span>
                     <span class="k">continue</span>
@@ -354,7 +354,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="p">:</span>
             <span class="c1"># Simple optimisation to gain speed (inspect is slow)</span>
             <span class="k">return</span> <span class="bp">self</span>
-        <span class="n">valid_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">valid_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
             <span class="n">split</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">split</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -379,7 +379,7 @@
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">_pprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
                                                <span class="n">offset</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">class_name</span><span class="p">),),)</span>
 
 
@@ -388,7 +388,7 @@
     <span class="sd">&quot;&quot;&quot;Mixin class for all classifiers in scikit-learn.&quot;&quot;&quot;</span>
     <span class="n">_estimator_type</span> <span class="o">=</span> <span class="s2">&quot;classifier&quot;</span>
 
-    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the mean accuracy on the given test data and labels.</span>
 
 <span class="sd">        In multi-label classification, this is the subset accuracy</span>
@@ -412,7 +412,7 @@
 <span class="sd">            Mean accuracy of self.predict(X) wrt. y.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+        <span class="kn">from</span> <span class="nn">.metrics</span> <span class="k">import</span> <span class="n">accuracy_score</span>
         <span class="k">return</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">)</span>
 
 
@@ -421,7 +421,7 @@
     <span class="sd">&quot;&quot;&quot;Mixin class for all regression estimators in scikit-learn.&quot;&quot;&quot;</span>
     <span class="n">_estimator_type</span> <span class="o">=</span> <span class="s2">&quot;regressor&quot;</span>
 
-    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the coefficient of determination R^2 of the prediction.</span>
 
 <span class="sd">        The coefficient R^2 is defined as (1 - u/v), where u is the regression</span>
@@ -449,7 +449,7 @@
 <span class="sd">            R^2 of self.predict(X) wrt. y.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
+        <span class="kn">from</span> <span class="nn">.metrics</span> <span class="k">import</span> <span class="n">r2_score</span>
         <span class="k">return</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weight</span><span class="p">,</span>
                         <span class="n">multioutput</span><span class="o">=</span><span class="s1">&#39;variance_weighted&#39;</span><span class="p">)</span>
 
@@ -459,7 +459,7 @@
     <span class="sd">&quot;&quot;&quot;Mixin class for all cluster estimators in scikit-learn.&quot;&quot;&quot;</span>
     <span class="n">_estimator_type</span> <span class="o">=</span> <span class="s2">&quot;clusterer&quot;</span>
 
-    <span class="k">def</span> <span class="nf">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Performs clustering on X and returns cluster labels.</span>
 
 <span class="sd">        Parameters</span>
@@ -524,7 +524,7 @@
 <span class="sd">        ``columns_`` attributes exist.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">.utils.validation</span> <span class="kn">import</span> <span class="n">check_array</span>
+        <span class="kn">from</span> <span class="nn">.utils.validation</span> <span class="k">import</span> <span class="n">check_array</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">accept_sparse</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">)</span>
         <span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_indices</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="n">row_ind</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">col_ind</span><span class="p">]</span>
@@ -534,7 +534,7 @@
 <span class="k">class</span> <span class="nc">TransformerMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Mixin class for all transformers in scikit-learn.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Fit to data, then transform it.</span>
 
 <span class="sd">        Fits transformer to X and y with optional parameters fit_params</span>
@@ -556,7 +556,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># non-optimized default implementation; override when a better</span>
         <span class="c1"># method is possible for a given clustering algorithm</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># fit method of arity 1 (unsupervised transformation)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -574,12 +574,12 @@
 
 <span class="k">def</span> <span class="nf">is_classifier</span><span class="p">(</span><span class="n">estimator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns True if the given estimator is (probably) a classifier.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;_estimator_type&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;classifier&quot;</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;_estimator_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;classifier&quot;</span>
 
 
 <span class="k">def</span> <span class="nf">is_regressor</span><span class="p">(</span><span class="n">estimator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns True if the given estimator is (probably) a regressor.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;_estimator_type&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;regressor&quot;</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;_estimator_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;regressor&quot;</span>
 </pre></div>
 
 </div>
@@ -591,7 +591,7 @@
     </p>
     <p>
         &copy; Copyright 2016, Vlad Niculae.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.5.<br/>
     </p>
   </div>
 </footer>

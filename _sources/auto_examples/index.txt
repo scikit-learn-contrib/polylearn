@@ -26,6 +26,31 @@ Examples of using factorization machines and polynomial networks with the polyle
 
 .. raw:: html
 
+    <div class="thumbnailContainer" tooltip="Plots the decision function learned by a factorization machine for a noisy non-linearly separab...">
+
+.. only:: html
+
+  .. figure:: ./images/thumb/plot_xor.png
+    :target: ./plot_xor.html
+
+    :ref:`example_plot_xor.py`
+
+
+.. raw:: html
+
+    </div>
+
+
+
+.. toctree::
+   :hidden:
+
+   ./plot_xor
+
+
+
+.. raw:: html
+
     <div class="thumbnailContainer" tooltip="In this example we show how to use the `warm_start` attribute to efficiently compute the regula...">
 
 .. only:: html
