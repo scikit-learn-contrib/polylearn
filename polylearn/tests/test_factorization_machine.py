@@ -140,8 +140,8 @@ def check_improve(degree):
     y = _poly_predict(X, P, lams, kernel="anova", degree=degree)
 
     est = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                        # fit_lower=None, fit_linear=False,
-                                        beta=0.001, max_iter=5, tol=0,
+                                        fit_lower=None, fit_linear=False,
+                                        beta=0.0001, max_iter=5, tol=0,
                                         random_state=0,
                                         verbose=True, compute_loss=True)
     with warnings.catch_warnings():
