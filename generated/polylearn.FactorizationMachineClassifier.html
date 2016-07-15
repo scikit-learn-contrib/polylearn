@@ -113,7 +113,7 @@
 <h1>polylearn.FactorizationMachineClassifier<a class="headerlink" href="#polylearn-factorizationmachineclassifier" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="polylearn.FactorizationMachineClassifier">
-<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">FactorizationMachineClassifier</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas='random_signs'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">FactorizationMachineClassifier</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas='ones'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Higher order factorization machine for classification.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -182,11 +182,13 @@ effects if <code class="docutils literal"><span class="pre">fit_lower</span> <sp
 <div><p>Whether to use the existing solution, if available. Useful for
 computing regularization paths or pre-initializing the model.</p>
 </div></blockquote>
-<p><strong>init_lambdas</strong> : {&#8216;ones&#8217;|&#8217;random_signs&#8217;}, default: &#8216;random_signs&#8217;</p>
+<p><strong>init_lambdas</strong> : {&#8216;ones&#8217;|&#8217;random_signs&#8217;}, default: &#8216;ones&#8217;</p>
 <blockquote>
 <div><p>How to initialize the predictive weights of each learned basis. The
 lambdas are not trained; using alternate signs can theoretically
-improve performance if the kernel degree is even.</p>
+improve performance if the kernel degree is even.  The default value
+of &#8216;ones&#8217; matches the original formulation of factorization machines
+(Rendle, 2010).</p>
 <p>To use custom values for the lambdas, <code class="docutils literal"><span class="pre">warm_start</span></code> may be used.</p>
 </div></blockquote>
 <p><strong>max_iter</strong> : int, optional, default: 10000</p>
@@ -212,15 +214,15 @@ initializing the parameters.</p>
 <tr class="field-even field"><th class="field-name">Attributes:</th><td class="field-body"><p class="first"><strong>self.P_</strong> : array, shape [n_orders, n_components, n_features]</p>
 <blockquote>
 <div><p>The learned basis functions.</p>
-<p>self.P_[0, :, :] is always available, and corresponds to
+<p><code class="docutils literal"><span class="pre">self.P_[0,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> is always available, and corresponds to
 interactions of order <code class="docutils literal"><span class="pre">self.degree</span></code>.</p>
-<p>self.P_[i, :, :] for i &gt; 0 corresponds to interactions of order
+<p><code class="docutils literal"><span class="pre">self.P_[i,</span> <span class="pre">:,</span> <span class="pre">:]</span></code> for i &gt; 0 corresponds to interactions of order
 <code class="docutils literal"><span class="pre">self.degree</span> <span class="pre">-</span> <span class="pre">i</span></code>, available only if <code class="docutils literal"><span class="pre">self.fit_lower='explicit'</span></code>.</p>
 </div></blockquote>
 <p><strong>self.w_</strong> : array, shape [n_features]</p>
 <blockquote>
 <div><p>The learned linear model, completing the FM.</p>
-<p>Only present if <code class="docutils literal"><span class="pre">self.fit_linear='explicit'</span></code></p>
+<p>Only present if <code class="docutils literal"><span class="pre">self.fit_linear</span></code> is true.</p>
 </div></blockquote>
 <p><strong>self.lams_</strong> : array, shape [n_components]</p>
 <blockquote class="last">
@@ -271,7 +273,7 @@ In: Proceedings of IEEE 2010.</p>
 </table>
 <dl class="method">
 <dt id="polylearn.FactorizationMachineClassifier.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas='random_signs'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas='ones'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">

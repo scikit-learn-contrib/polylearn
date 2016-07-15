@@ -137,7 +137,7 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;random_signs&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+                 <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;ones&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="n">degree</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
@@ -295,10 +295,12 @@
 <span class="sd">        Whether to use the existing solution, if available. Useful for</span>
 <span class="sd">        computing regularization paths or pre-initializing the model.</span>
 
-<span class="sd">    init_lambdas : {&#39;ones&#39;|&#39;random_signs&#39;}, default: &#39;random_signs&#39;</span>
+<span class="sd">    init_lambdas : {&#39;ones&#39;|&#39;random_signs&#39;}, default: &#39;ones&#39;</span>
 <span class="sd">        How to initialize the predictive weights of each learned basis. The</span>
 <span class="sd">        lambdas are not trained; using alternate signs can theoretically</span>
-<span class="sd">        improve performance if the kernel degree is even.</span>
+<span class="sd">        improve performance if the kernel degree is even.  The default value</span>
+<span class="sd">        of &#39;ones&#39; matches the original formulation of factorization machines</span>
+<span class="sd">        (Rendle, 2010).</span>
 
 <span class="sd">        To use custom values for the lambdas, ``warm_start`` may be used.</span>
 
@@ -322,16 +324,16 @@
 <span class="sd">    self.P_ : array, shape [n_orders, n_components, n_features]</span>
 <span class="sd">        The learned basis functions.</span>
 
-<span class="sd">        self.P_[0, :, :] is always available, and corresponds to</span>
+<span class="sd">        ``self.P_[0, :, :]`` is always available, and corresponds to</span>
 <span class="sd">        interactions of order ``self.degree``.</span>
 
-<span class="sd">        self.P_[i, :, :] for i &gt; 0 corresponds to interactions of order</span>
+<span class="sd">        ``self.P_[i, :, :]`` for i &gt; 0 corresponds to interactions of order</span>
 <span class="sd">        ``self.degree - i``, available only if ``self.fit_lower=&#39;explicit&#39;``.</span>
 
 <span class="sd">    self.w_ : array, shape [n_features]</span>
 <span class="sd">        The learned linear model, completing the FM.</span>
 
-<span class="sd">        Only present if ``self.fit_linear=&#39;explicit&#39;``</span>
+<span class="sd">        Only present if ``self.fit_linear`` is true.</span>
 
 <span class="sd">    self.lams_ : array, shape [n_components]</span>
 <span class="sd">        The predictive weights.</span>
@@ -350,7 +352,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="FactorizationMachineRegressor.__init__"><a class="viewcode-back" href="../../generated/polylearn.FactorizationMachineRegressor.html#polylearn.FactorizationMachineRegressor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span>
                  <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;random_signs&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;ones&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">FactorizationMachineRegressor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
@@ -416,10 +418,12 @@
 <span class="sd">        Whether to use the existing solution, if available. Useful for</span>
 <span class="sd">        computing regularization paths or pre-initializing the model.</span>
 
-<span class="sd">    init_lambdas : {&#39;ones&#39;|&#39;random_signs&#39;}, default: &#39;random_signs&#39;</span>
+<span class="sd">    init_lambdas : {&#39;ones&#39;|&#39;random_signs&#39;}, default: &#39;ones&#39;</span>
 <span class="sd">        How to initialize the predictive weights of each learned basis. The</span>
 <span class="sd">        lambdas are not trained; using alternate signs can theoretically</span>
-<span class="sd">        improve performance if the kernel degree is even.</span>
+<span class="sd">        improve performance if the kernel degree is even.  The default value</span>
+<span class="sd">        of &#39;ones&#39; matches the original formulation of factorization machines</span>
+<span class="sd">        (Rendle, 2010).</span>
 
 <span class="sd">        To use custom values for the lambdas, ``warm_start`` may be used.</span>
 
@@ -443,16 +447,16 @@
 <span class="sd">    self.P_ : array, shape [n_orders, n_components, n_features]</span>
 <span class="sd">        The learned basis functions.</span>
 
-<span class="sd">        self.P_[0, :, :] is always available, and corresponds to</span>
+<span class="sd">        ``self.P_[0, :, :]`` is always available, and corresponds to</span>
 <span class="sd">        interactions of order ``self.degree``.</span>
 
-<span class="sd">        self.P_[i, :, :] for i &gt; 0 corresponds to interactions of order</span>
+<span class="sd">        ``self.P_[i, :, :]`` for i &gt; 0 corresponds to interactions of order</span>
 <span class="sd">        ``self.degree - i``, available only if ``self.fit_lower=&#39;explicit&#39;``.</span>
 
 <span class="sd">    self.w_ : array, shape [n_features]</span>
 <span class="sd">        The learned linear model, completing the FM.</span>
 
-<span class="sd">        Only present if ``self.fit_linear=&#39;explicit&#39;``</span>
+<span class="sd">        Only present if ``self.fit_linear`` is true.</span>
 
 <span class="sd">    self.lams_ : array, shape [n_components]</span>
 <span class="sd">        The predictive weights.</span>
@@ -472,7 +476,7 @@
 
 <div class="viewcode-block" id="FactorizationMachineClassifier.__init__"><a class="viewcode-back" href="../../generated/polylearn.FactorizationMachineClassifier.html#polylearn.FactorizationMachineClassifier.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared_hinge&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;explicit&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                 <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;random_signs&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+                 <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">init_lambdas</span><span class="o">=</span><span class="s1">&#39;ones&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
                  <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">FactorizationMachineClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
