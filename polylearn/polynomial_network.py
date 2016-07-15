@@ -35,16 +35,15 @@ def _lifted_predict(U, dataset):
 class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
     @abstractmethod
     def __init__(self, degree=2, loss='squared', n_components=5, beta=1,
-                 tol=1e-6, fit_lower='augment', fit_linear='augment',
-                 warm_start=False, max_iter=10000, verbose=False,
-                 compute_loss=False, random_state=None):
+                 tol=1e-6, fit_lower='augment', warm_start=False,
+                 max_iter=10000, verbose=False, compute_loss=False,
+                 random_state=None):
         self.degree = degree
         self.loss = loss
         self.n_components = n_components
         self.beta = beta
         self.tol = tol
         self.fit_lower = fit_lower
-        self.fit_linear = fit_linear
         self.warm_start = warm_start
         self.max_iter = max_iter
         self.verbose = verbose
@@ -53,7 +52,7 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
 
     def _augment(self, X):
         # for polynomial nets, we add a single dummy column
-        if self.fit_linear == 'augment' or self.fit_lower == 'augment':
+        if self.fit_lower == 'augment':
             X = add_dummy_feature(X, value=1)
         return X
 
@@ -76,11 +75,6 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
         """
         if self.fit_lower == 'explicit':
             raise NotImplementedError('Explicit fitting of lower orders '
-                                      'not yet implemented for polynomial'
-                                      'network models.')
-
-        if self.fit_linear == 'explicit':
-            raise NotImplementedError('Explicit fitting of linear component '
                                       'not yet implemented for polynomial'
                                       'network models.')
 
@@ -140,17 +134,9 @@ class PolynomialNetworkRegressor(_BasePolynomialNetwork, _PolyRegressorMixin):
         Whether and how to fit lower-order, non-homogeneous terms.
 
         - 'augment': adds a dummy column (1 everywhere) in order to capture
-        lower-order terms. Note that this implies ``fit_linear=True``.
+        lower-order terms (including linear terms).
 
         - None: only learns weights for the degree given.
-
-    fit_linear : {'augment'|None}, default: 'augment'
-        Whether and how to fit a linear term to the model.
-
-        - 'augment': adds an extra dummy column to account for the linear
-          term.  Note that this implies ``fit_lower=True``.
-
-        - None: does not learn a linear term at all.
 
     warm_start : boolean, optional, default: False
         Whether to use the existing solution, if available. Useful for
@@ -190,12 +176,12 @@ class PolynomialNetworkRegressor(_BasePolynomialNetwork, _PolyRegressorMixin):
     """
 
     def __init__(self, degree=2, n_components=2, beta=1, tol=1e-6,
-                 fit_lower='augment', fit_linear='augment', warm_start=False,
+                 fit_lower='augment', warm_start=False,
                  max_iter=10000, verbose=False, compute_loss=False,
                  random_state=None):
 
         super(PolynomialNetworkRegressor, self).__init__(
-            degree, 'squared', n_components, beta, tol, fit_lower, fit_linear,
+            degree, 'squared', n_components, beta, tol, fit_lower,
             warm_start, max_iter, verbose, compute_loss, random_state)
 
 
@@ -232,18 +218,10 @@ class PolynomialNetworkClassifier(_BasePolynomialNetwork,
     fit_lower : {'augment'|None}, default: 'augment'
         Whether and how to fit lower-order, non-homogeneous terms.
 
-        - 'augment': adds the required number of dummy columns (columns
-           that are 1 everywhere) in order to capture lower-order terms.
+        - 'augment': adds a dummy column (1 everywhere) in order to capture
+        lower-order terms (including linear terms).
 
         - None: only learns weights for the degree given.
-
-    fit_linear : {'augment'|None}, default: 'augment'
-        Whether and how to fit a linear term to the model.
-
-        - 'augment': adds an extra dummy column to account for the linear
-          term. This only works if ``fit_lower='augment'``.
-
-        - None: does not learn a linear term at all.
 
     warm_start : boolean, optional, default: False
         Whether to use the existing solution, if available. Useful for
@@ -283,10 +261,10 @@ class PolynomialNetworkClassifier(_BasePolynomialNetwork,
     """
 
     def __init__(self, degree=2, loss='squared_hinge', n_components=2, beta=1,
-                 tol=1e-6, fit_lower='augment', fit_linear='augment',
-                 warm_start=False, max_iter=10000, verbose=False,
-                 compute_loss=False, random_state=None):
+                 tol=1e-6, fit_lower='augment', warm_start=False,
+                 max_iter=10000, verbose=False, compute_loss=False,
+                 random_state=None):
 
         super(PolynomialNetworkClassifier, self).__init__(
-            degree, loss, n_components, beta, tol, fit_lower, fit_linear,
+            degree, loss, n_components, beta, tol, fit_lower,
             warm_start, max_iter, verbose, compute_loss, random_state)

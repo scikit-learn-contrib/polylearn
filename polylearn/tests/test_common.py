@@ -30,7 +30,14 @@ y = np.array(['true', 'false', 'false', 'true'])
 
 def check_classify_xor(Clf):
     """Tests that the factorization machine can solve XOR"""
-    clf = Clf(tol=1e-2, fit_lower=None, fit_linear=None, random_state=0)
+    clf = Clf(tol=1e-2, fit_lower=None, random_state=0)
+
+    # temporary workaround until fit_linear is implemented
+    try:
+        clf.set_params(fit_linear=False)
+    except ValueError:
+        pass
+
     assert_equal(clf.fit(X, y).score(X, y), 1.0)
 
 
@@ -113,15 +120,15 @@ def test_augment():
     # The following linear separable dataset cannot be modeled with just an FM
     X_evil = np.array([[-1, -1], [1, 1]])
     y_evil = np.array([-1, 1])
-    clf = FactorizationMachineClassifier(fit_linear=None, fit_lower=None,
+    clf = FactorizationMachineClassifier(fit_linear=False, fit_lower=None,
                                          random_state=0)
     clf.fit(X_evil, y_evil)
     assert_equal(0.5, clf.score(X_evil, y_evil))
 
     # However, by adding a dummy feature (a column of all ones), the linear
     # effect can be captured.
-    clf = FactorizationMachineClassifier(fit_linear='augment',
-                                         fit_lower='augment', random_state=0)
+    clf = FactorizationMachineClassifier(fit_linear=False, fit_lower='augment',
+                                         random_state=0)
     clf.fit(X_evil, y_evil)
     assert_equal(1.0, clf.score(X_evil, y_evil))
 

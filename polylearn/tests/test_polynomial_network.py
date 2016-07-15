@@ -166,8 +166,8 @@ def test_random_starts():
 def check_same_as_slow(degree):
     y = _lifted_predict(U[:degree], X)
     reg = PolynomialNetworkRegressor(degree=degree, n_components=n_components,
-                                     fit_lower=None, fit_linear=None,
-                                     beta=1, max_iter=5, random_state=0)
+                                     fit_lower=None, beta=1, max_iter=5,
+                                     random_state=0)
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -206,8 +206,8 @@ def check_warm_start(degree):
     # Result should be the same if:
     # (a) running 10 iterations
 
-    common_settings = dict(fit_lower=None, fit_linear=None, degree=degree,
-                           n_components=2, random_state=0)
+    common_settings = dict(fit_lower=None, degree=degree, n_components=2,
+                           random_state=0)
     clf_10 = PolynomialNetworkRegressor(max_iter=10, warm_start=False,
                                         **common_settings)
     with warnings.catch_warnings():

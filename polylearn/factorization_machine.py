@@ -30,7 +30,7 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
 
     @abstractmethod
     def __init__(self, degree=2, loss='squared', n_components=2, alpha=1,
-                 beta=1, tol=1e-6, fit_lower='explicit', fit_linear='explicit',
+                 beta=1, tol=1e-6, fit_lower='explicit', fit_linear=True,
                  warm_start=False, init_lambdas='random_signs', max_iter=10000,
                  verbose=False, compute_loss=False, random_state=None):
         self.degree = degree
@@ -49,9 +49,10 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
         self.random_state = random_state
 
     def _augment(self, X):
-        # for factorization machines, we add a dummy column for each order
+        # for factorization machines, we add a dummy column for each order.
+
         if self.fit_lower == 'augment':
-            k = 1 if self.fit_linear == 'augment' else 2
+            k = 2 if self.fit_linear else 1
             for _ in range(self.degree - k):
                 X = add_dummy_feature(X, value=1)
         return X
@@ -109,7 +110,7 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
 
         converged = _cd_direct_ho(self.P_, self.w_, dataset, X_col_norms, y,
                                   y_pred, self.lams_, self.degree, self.alpha,
-                                  self.beta, self.fit_linear == 'explicit',
+                                  self.beta, self.fit_linear,
                                   self.fit_lower == 'explicit', loss_obj,
                                   self.max_iter, self.tol, self.verbose,
                                   self.compute_loss)
@@ -172,19 +173,17 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
 
         - 'augment': adds the required number of dummy columns (columns
            that are 1 everywhere) in order to capture lower-order terms.
+           Adds ``degree - 2`` columns if ``fit_linear`` is true, or
+           ``degree - 1`` columns otherwise, to account for the linear term.
 
-        - None: only learns weights for the degree given.
+        - None: only learns weights for the degree given.  If ``degree == 3``,
+          for example, the model will only have weights for third-order
+          feature interactions.
 
-    fit_linear : {'explicit'|'augment'|None}, default: 'explicit'
-        Whether and how to fit a linear term to the model.
-
-        - 'explicit': fits w in <X, w> directly using coordinate descent.
-          This works even if ``fit_lower is None``.
-
-        - 'augment': adds an extra dummy column to account for the linear
-          term. This only works if ``fit_lower='augment'``.
-
-        - None: does not learn a linear term at all.
+    fit_linear : {True|False}, default: True
+        Whether to fit an explicit linear term <w, x> to the model, using
+        coordinate descent. If False, the model can still capture linear
+        effects if ``fit_lower == 'augment'``.
 
     warm_start : boolean, optional, default: False
         Whether to use the existing solution, if available. Useful for
@@ -194,6 +193,8 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
         How to initialize the predictive weights of each learned basis. The
         lambdas are not trained; using alternate signs can theoretically
         improve performance if the kernel degree is even.
+
+        To use custom values for the lambdas, ``warm_start`` may be used.
 
     max_iter : int, optional, default: 10000
         Maximum number of passes over the dataset to perform.
@@ -242,7 +243,7 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
     In: Proceedings of IEEE 2010.
     """
     def __init__(self, degree=2, n_components=2, alpha=1, beta=1, tol=1e-6,
-                 fit_lower='explicit', fit_linear='explicit', warm_start=False,
+                 fit_lower='explicit', fit_linear=True, warm_start=False,
                  init_lambdas='random_signs', max_iter=10000, verbose=False,
                  compute_loss=False, random_state=None):
 
@@ -293,19 +294,17 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
 
         - 'augment': adds the required number of dummy columns (columns
            that are 1 everywhere) in order to capture lower-order terms.
+           Adds ``degree - 2`` columns if ``fit_linear`` is true, or
+           ``degree - 1`` columns otherwise, to account for the linear term.
 
-        - None: only learns weights for the degree given.
+        - None: only learns weights for the degree given.  If ``degree == 3``,
+          for example, the model will only have weights for third-order
+          feature interactions.
 
-    fit_linear : {'explicit'|'augment'|None}, default: 'explicit'
-        Whether and how to fit a linear term to the model.
-
-        - 'explicit': fits w in <X, w> directly using coordinate descent.
-          This works even if fit_lower is None.
-
-        - 'augment': adds an extra dummy column to account for the linear
-          term. This only works if ``fit_lower='augment'``.
-
-        - None: does not learn a linear term at all.
+    fit_linear : {True|False}, default: True
+        Whether to fit an explicit linear term <w, x> to the model, using
+        coordinate descent. If False, the model can still capture linear
+        effects if ``fit_lower == 'augment'``.
 
     warm_start : boolean, optional, default: False
         Whether to use the existing solution, if available. Useful for
@@ -315,6 +314,8 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
         How to initialize the predictive weights of each learned basis. The
         lambdas are not trained; using alternate signs can theoretically
         improve performance if the kernel degree is even.
+
+        To use custom values for the lambdas, ``warm_start`` may be used.
 
     max_iter : int, optional, default: 10000
         Maximum number of passes over the dataset to perform.
@@ -364,7 +365,7 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
     """
 
     def __init__(self, degree=2, loss='squared_hinge', n_components=2, alpha=1,
-                 beta=1, tol=1e-6, fit_lower='explicit', fit_linear='explicit',
+                 beta=1, tol=1e-6, fit_lower='explicit', fit_linear=True,
                  warm_start=False, init_lambdas='random_signs', max_iter=10000,
                  verbose=False, compute_loss=False, random_state=None):
 

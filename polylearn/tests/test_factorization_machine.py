@@ -99,6 +99,21 @@ P = rng.randn(n_components, n_features)
 lams = rng.randn(n_components)
 
 
+def test_augment():
+    """Test that augmenting the data increases the dimension as expected"""
+    y = _poly_predict(X, P, lams, kernel="anova", degree=3)
+    fm = FactorizationMachineRegressor(degree=3, fit_lower='augment',
+                                       fit_linear=True, tol=0.1)
+    fm.fit(X, y)
+    assert_equal(n_features + 1, fm.P_.shape[2],
+                 msg="Augmenting is wrong with explicit linear term.")
+
+    fm.set_params(fit_linear=False)
+    fm.fit(X, y)
+    assert_equal(n_features + 2, fm.P_.shape[2],
+                 msg="Augmenting is wrong with augmented linear term.")
+
+
 def check_fit(degree):
     y = _poly_predict(X, P, lams, kernel="anova", degree=degree)
 
@@ -151,7 +166,7 @@ def check_overfit(degree):
 
     # weak regularization, should overfit
     est = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                        fit_linear=None, fit_lower=None,
+                                        fit_linear=False, fit_lower=None,
                                         beta=1e-4, tol=0.01, random_state=0)
     y_train_pred_weak = est.fit(X_train, y_train).predict(X_train)
     y_test_pred_weak = est.predict(X_test)
@@ -192,7 +207,7 @@ def test_random_starts():
     # init_lambdas='ones' is important to reduce variance here
     reg = FactorizationMachineRegressor(degree=2, n_components=n_components,
                                         beta=5, fit_lower=None,
-                                        fit_linear=None, max_iter=2000,
+                                        fit_linear=False, max_iter=2000,
                                         init_lambdas='ones', tol=0.001)
     for k in range(10):
         reg.set_params(random_state=k)
@@ -211,7 +226,7 @@ def check_same_as_slow(degree):
     y = _poly_predict(X, P, lams, kernel="anova", degree=degree)
 
     reg = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                        fit_lower=None, fit_linear=None,
+                                        fit_lower=None, fit_linear=False,
                                         beta=1e-8, warm_start=False, tol=1e-3,
                                         max_iter=10, random_state=0)
 
@@ -234,7 +249,7 @@ def test_same_as_slow():
 def check_classification_losses(loss, degree):
     y = np.sign(_poly_predict(X, P, lams, kernel="anova", degree=degree))
     clf = FactorizationMachineClassifier(degree=degree, loss=loss, beta=1e-3,
-                                         fit_lower=None, fit_linear=None,
+                                         fit_lower=None, fit_linear=False,
                                          tol=1e-3, random_state=0)
     clf.fit(X, y)
     assert_equal(1.0, clf.score(X, y))
@@ -251,7 +266,7 @@ def check_warm_start(degree):
     # Result should be the same if:
     # (a) running 10 iterations
     clf_10 = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                           fit_lower=None, fit_linear=None,
+                                           fit_lower=None, fit_linear=False,
                                            max_iter=10, warm_start=False,
                                            random_state=0)
     with warnings.catch_warnings():
@@ -260,7 +275,7 @@ def check_warm_start(degree):
 
     # (b) running 5 iterations and 5 more
     clf_5_5 = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                            fit_lower=None, fit_linear=None,
+                                            fit_lower=None, fit_linear=False,
                                             max_iter=5, warm_start=True,
                                             random_state=0)
     with warnings.catch_warnings():
@@ -272,7 +287,7 @@ def check_warm_start(degree):
 
     # (c) running 5 iterations when starting from previous point.
     clf_5 = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                          fit_lower=None, fit_linear=None,
+                                          fit_lower=None, fit_linear=False,
                                           max_iter=5, warm_start=True,
                                           random_state=0)
     clf_5.P_ = P_fit
@@ -296,7 +311,7 @@ def check_warm_start(degree):
     beta = 0.1
     beta_hi = 1
     ref = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                        fit_linear=None, fit_lower=None,
+                                        fit_linear=False, fit_lower=None,
                                         beta=beta, max_iter=20000,
                                         random_state=0)
     ref.fit(X_train, y_train)
@@ -304,7 +319,7 @@ def check_warm_start(degree):
 
     # (a) starting from lower beta, increasing and refitting
     from_low = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                             fit_lower=None, fit_linear=None,
+                                             fit_lower=None, fit_linear=False,
                                              beta=beta_low, warm_start=True,
                                              random_state=0)
     from_low.fit(X_train, y_train)
@@ -314,7 +329,7 @@ def check_warm_start(degree):
 
     # (b) starting from higher beta, decreasing and refitting
     from_hi = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                            fit_lower=None, fit_linear=None,
+                                            fit_lower=None, fit_linear=False,
                                             beta=beta_hi, warm_start=True,
                                             random_state=0)
     from_hi.fit(X_train, y_train)
