@@ -31,7 +31,7 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
     @abstractmethod
     def __init__(self, degree=2, loss='squared', n_components=2, alpha=1,
                  beta=1, tol=1e-6, fit_lower='explicit', fit_linear=True,
-                 warm_start=False, init_lambdas='random_signs', max_iter=10000,
+                 warm_start=False, init_lambdas='ones', max_iter=10000,
                  verbose=False, compute_loss=False, random_state=None):
         self.degree = degree
         self.loss = loss
@@ -189,10 +189,12 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
         Whether to use the existing solution, if available. Useful for
         computing regularization paths or pre-initializing the model.
 
-    init_lambdas : {'ones'|'random_signs'}, default: 'random_signs'
+    init_lambdas : {'ones'|'random_signs'}, default: 'ones'
         How to initialize the predictive weights of each learned basis. The
         lambdas are not trained; using alternate signs can theoretically
-        improve performance if the kernel degree is even.
+        improve performance if the kernel degree is even.  The default value
+        of 'ones' matches the original formulation of factorization machines
+        (Rendle, 2010).
 
         To use custom values for the lambdas, ``warm_start`` may be used.
 
@@ -216,16 +218,16 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
     self.P_ : array, shape [n_orders, n_components, n_features]
         The learned basis functions.
 
-        self.P_[0, :, :] is always available, and corresponds to
+        ``self.P_[0, :, :]`` is always available, and corresponds to
         interactions of order ``self.degree``.
 
-        self.P_[i, :, :] for i > 0 corresponds to interactions of order
+        ``self.P_[i, :, :]`` for i > 0 corresponds to interactions of order
         ``self.degree - i``, available only if ``self.fit_lower='explicit'``.
 
     self.w_ : array, shape [n_features]
         The learned linear model, completing the FM.
 
-        Only present if ``self.fit_linear='explicit'``
+        Only present if ``self.fit_linear`` is true.
 
     self.lams_ : array, shape [n_components]
         The predictive weights.
@@ -244,7 +246,7 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
     """
     def __init__(self, degree=2, n_components=2, alpha=1, beta=1, tol=1e-6,
                  fit_lower='explicit', fit_linear=True, warm_start=False,
-                 init_lambdas='random_signs', max_iter=10000, verbose=False,
+                 init_lambdas='ones', max_iter=10000, verbose=False,
                  compute_loss=False, random_state=None):
 
         super(FactorizationMachineRegressor, self).__init__(
@@ -310,10 +312,12 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
         Whether to use the existing solution, if available. Useful for
         computing regularization paths or pre-initializing the model.
 
-    init_lambdas : {'ones'|'random_signs'}, default: 'random_signs'
+    init_lambdas : {'ones'|'random_signs'}, default: 'ones'
         How to initialize the predictive weights of each learned basis. The
         lambdas are not trained; using alternate signs can theoretically
-        improve performance if the kernel degree is even.
+        improve performance if the kernel degree is even.  The default value
+        of 'ones' matches the original formulation of factorization machines
+        (Rendle, 2010).
 
         To use custom values for the lambdas, ``warm_start`` may be used.
 
@@ -337,16 +341,16 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
     self.P_ : array, shape [n_orders, n_components, n_features]
         The learned basis functions.
 
-        self.P_[0, :, :] is always available, and corresponds to
+        ``self.P_[0, :, :]`` is always available, and corresponds to
         interactions of order ``self.degree``.
 
-        self.P_[i, :, :] for i > 0 corresponds to interactions of order
+        ``self.P_[i, :, :]`` for i > 0 corresponds to interactions of order
         ``self.degree - i``, available only if ``self.fit_lower='explicit'``.
 
     self.w_ : array, shape [n_features]
         The learned linear model, completing the FM.
 
-        Only present if ``self.fit_linear='explicit'``
+        Only present if ``self.fit_linear`` is true.
 
     self.lams_ : array, shape [n_components]
         The predictive weights.
@@ -366,7 +370,7 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
 
     def __init__(self, degree=2, loss='squared_hinge', n_components=2, alpha=1,
                  beta=1, tol=1e-6, fit_lower='explicit', fit_linear=True,
-                 warm_start=False, init_lambdas='random_signs', max_iter=10000,
+                 warm_start=False, init_lambdas='ones', max_iter=10000,
                  verbose=False, compute_loss=False, random_state=None):
 
         super(FactorizationMachineClassifier, self).__init__(
