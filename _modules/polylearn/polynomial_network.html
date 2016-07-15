@@ -141,16 +141,15 @@
 <span class="k">class</span> <span class="nc">_BasePolynomialNetwork</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="n">_BasePoly</span><span class="p">)):</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span>
-                 <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="n">degree</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit_lower</span> <span class="o">=</span> <span class="n">fit_lower</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fit_linear</span> <span class="o">=</span> <span class="n">fit_linear</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">warm_start</span> <span class="o">=</span> <span class="n">warm_start</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
@@ -159,7 +158,7 @@
 
     <span class="k">def</span> <span class="nf">_augment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="c1"># for polynomial nets, we add a single dummy column</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_linear</span> <span class="o">==</span> <span class="s1">&#39;augment&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_lower</span> <span class="o">==</span> <span class="s1">&#39;augment&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_lower</span> <span class="o">==</span> <span class="s1">&#39;augment&#39;</span><span class="p">:</span>
             <span class="n">X</span> <span class="o">=</span> <span class="n">add_dummy_feature</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">X</span>
 
@@ -182,11 +181,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_lower</span> <span class="o">==</span> <span class="s1">&#39;explicit&#39;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Explicit fitting of lower orders &#39;</span>
-                                      <span class="s1">&#39;not yet implemented for polynomial&#39;</span>
-                                      <span class="s1">&#39;network models.&#39;</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_linear</span> <span class="o">==</span> <span class="s1">&#39;explicit&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Explicit fitting of linear component &#39;</span>
                                       <span class="s1">&#39;not yet implemented for polynomial&#39;</span>
                                       <span class="s1">&#39;network models.&#39;</span><span class="p">)</span>
 
@@ -246,17 +240,9 @@
 <span class="sd">        Whether and how to fit lower-order, non-homogeneous terms.</span>
 
 <span class="sd">        - &#39;augment&#39;: adds a dummy column (1 everywhere) in order to capture</span>
-<span class="sd">        lower-order terms. Note that this implies ``fit_linear=True``.</span>
+<span class="sd">        lower-order terms (including linear terms).</span>
 
 <span class="sd">        - None: only learns weights for the degree given.</span>
-
-<span class="sd">    fit_linear : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
-<span class="sd">        Whether and how to fit a linear term to the model.</span>
-
-<span class="sd">        - &#39;augment&#39;: adds an extra dummy column to account for the linear</span>
-<span class="sd">          term.  Note that this implies ``fit_lower=True``.</span>
-
-<span class="sd">        - None: does not learn a linear term at all.</span>
 
 <span class="sd">    warm_start : boolean, optional, default: False</span>
 <span class="sd">        Whether to use the existing solution, if available. Useful for</span>
@@ -296,12 +282,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PolynomialNetworkRegressor.__init__"><a class="viewcode-back" href="../../generated/polylearn.PolynomialNetworkRegressor.html#polylearn.PolynomialNetworkRegressor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span>
-                 <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">PolynomialNetworkRegressor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
-            <span class="n">degree</span><span class="p">,</span> <span class="s1">&#39;squared&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">fit_lower</span><span class="p">,</span> <span class="n">fit_linear</span><span class="p">,</span>
+            <span class="n">degree</span><span class="p">,</span> <span class="s1">&#39;squared&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">fit_lower</span><span class="p">,</span>
             <span class="n">warm_start</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">compute_loss</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span></div></div>
 
 
@@ -338,18 +324,10 @@
 <span class="sd">    fit_lower : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
 <span class="sd">        Whether and how to fit lower-order, non-homogeneous terms.</span>
 
-<span class="sd">        - &#39;augment&#39;: adds the required number of dummy columns (columns</span>
-<span class="sd">           that are 1 everywhere) in order to capture lower-order terms.</span>
+<span class="sd">        - &#39;augment&#39;: adds a dummy column (1 everywhere) in order to capture</span>
+<span class="sd">        lower-order terms (including linear terms).</span>
 
 <span class="sd">        - None: only learns weights for the degree given.</span>
-
-<span class="sd">    fit_linear : {&#39;augment&#39;|None}, default: &#39;augment&#39;</span>
-<span class="sd">        Whether and how to fit a linear term to the model.</span>
-
-<span class="sd">        - &#39;augment&#39;: adds an extra dummy column to account for the linear</span>
-<span class="sd">          term. This only works if ``fit_lower=&#39;augment&#39;``.</span>
-
-<span class="sd">        - None: does not learn a linear term at all.</span>
 
 <span class="sd">    warm_start : boolean, optional, default: False</span>
 <span class="sd">        Whether to use the existing solution, if available. Useful for</span>
@@ -389,12 +367,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="PolynomialNetworkClassifier.__init__"><a class="viewcode-back" href="../../generated/polylearn.PolynomialNetworkClassifier.html#polylearn.PolynomialNetworkClassifier.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared_hinge&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                 <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">fit_linear</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span>
-                 <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">PolynomialNetworkClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
-            <span class="n">degree</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">fit_lower</span><span class="p">,</span> <span class="n">fit_linear</span><span class="p">,</span>
+            <span class="n">degree</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">fit_lower</span><span class="p">,</span>
             <span class="n">warm_start</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">compute_loss</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span></div></div>
 </pre></div>
 

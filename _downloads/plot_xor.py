@@ -36,7 +36,7 @@ flip = rng.randint(300, size=15)
 y[flip] = ~y[flip]
 
 # fit the model
-fm = FactorizationMachineClassifier(n_components=1, fit_linear=None,
+fm = FactorizationMachineClassifier(n_components=1, fit_linear=False,
                                     random_state=0)
 fm.fit(X, y)
 
