@@ -118,7 +118,7 @@ def check_fit(degree):
     y = _poly_predict(X, P, lams, kernel="anova", degree=degree)
 
     est = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                        fit_linear=None, fit_lower=None,
+                                        fit_linear=False, fit_lower=None,
                                         max_iter=15000, beta=1e-6, tol=1e-3,
                                         random_state=0)
     est.fit(X, y)
@@ -140,14 +140,17 @@ def check_improve(degree):
     y = _poly_predict(X, P, lams, kernel="anova", degree=degree)
 
     est = FactorizationMachineRegressor(degree=degree, n_components=5,
-                                        fit_lower="explicit", beta=0.001,
-                                        max_iter=5, tol=0, random_state=0)
+                                        # fit_lower=None, fit_linear=False,
+                                        beta=0.001, max_iter=5, tol=0,
+                                        random_state=0,
+                                        verbose=True, compute_loss=True)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         y_pred_5 = est.fit(X, y).predict(X)
         est.set_params(max_iter=10)
         y_pred_10 = est.fit(X, y).predict(X)
 
+    print(mean_squared_error(y, y_pred_10), mean_squared_error(y, y_pred_5))
     assert_less_equal(mean_squared_error(y, y_pred_10),
                       mean_squared_error(y, y_pred_5),
                       msg="More iterations do not improve fit.")
