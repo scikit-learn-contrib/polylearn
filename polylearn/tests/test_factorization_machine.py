@@ -142,15 +142,13 @@ def check_improve(degree):
     est = FactorizationMachineRegressor(degree=degree, n_components=5,
                                         fit_lower=None, fit_linear=False,
                                         beta=0.0001, max_iter=5, tol=0,
-                                        random_state=0,
-                                        verbose=True, compute_loss=True)
+                                        random_state=0)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         y_pred_5 = est.fit(X, y).predict(X)
         est.set_params(max_iter=10)
         y_pred_10 = est.fit(X, y).predict(X)
 
-    print(mean_squared_error(y, y_pred_10), mean_squared_error(y, y_pred_5))
     assert_less_equal(mean_squared_error(y, y_pred_10),
                       mean_squared_error(y, y_pred_5),
                       msg="More iterations do not improve fit.")
