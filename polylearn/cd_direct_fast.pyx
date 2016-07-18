@@ -23,15 +23,15 @@ cdef void _precompute(ColumnDataset X,
                       int s,
                       int degree):
 
-    cdef int n_samples = X.get_n_samples()
-    cdef int n_features = P.shape[2]
+    cdef unsigned int n_samples = X.get_n_samples()
+    cdef unsigned int n_features = P.shape[2]
     
     # Data pointers
     cdef double* data
     cdef int* indices
     cdef int n_nz
     
-    cdef int i, j, ii
+    cdef unsigned int i, j, ii
 
     for i in range(n_samples):
         out[i] = 0
@@ -52,13 +52,13 @@ cdef inline double _update(int* indices,
                            LossFunction loss,
                            double* d1,
                            double* d2,
-                           int degree,
+                           unsigned int degree,
                            double lam,
                            double beta):
 
     cdef double l1_reg = 2 * beta * fabs(lam)
     
-    cdef int i, ii
+    cdef unsigned int i, ii
 
     cdef double inv_step_size
 
@@ -136,22 +136,22 @@ cdef inline double _update(int* indices,
 
 
 cdef inline double _cd_direct_epoch(double[:, :, ::1] P,
-                             int order,
+                             unsigned int order,
                              ColumnDataset X,
                              double[:] y,
                              double[:] y_pred,
                              double[:] lams,
                              double* d1,
                              double* d2,
-                             int degree,
+                             unsigned int degree,
                              double beta,
                              LossFunction loss):
 
-    cdef int s, j
+    cdef unsigned int s, j
     cdef double p_old, update, offset
     cdef double sum_viol = 0
-    cdef int n_components = P.shape[1]
-    cdef int n_features = P.shape[2]
+    cdef unsigned int n_components = P.shape[1]
+    cdef unsigned int n_features = P.shape[2]
 
     # Data pointers
     cdef double* data
@@ -201,19 +201,19 @@ def _cd_direct_ho(double[:, :, ::1] P,
                   double[:] y,
                   double[:] y_pred,
                   double[:] lams,
-                  int degree,
+                  unsigned int degree,
                   double alpha,
                   double beta,
                   bint fit_linear,
                   bint fit_lower,
                   LossFunction loss,
-                  int max_iter,
+                  unsigned int max_iter,
                   double tol,
-                  int verbose,
+                  unsigned int verbose,
                   bint compute_loss):
 
-    cdef int n_samples = X.get_n_samples()
-    cdef int it
+    cdef unsigned int n_samples = X.get_n_samples()
+    cdef unsigned int it
 
     cdef double viol
     cdef bint converged = False
