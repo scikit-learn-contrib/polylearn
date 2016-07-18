@@ -8,22 +8,23 @@
 # License: BSD
 
 from libc.math cimport fabs
-cimport numpy as np
+
 from lightning.impl.dataset_fast cimport ColumnDataset
+
 from .loss_fast cimport LossFunction
 
 
-cpdef double _cd_linear_epoch(np.ndarray[double, ndim=1] w,
+cpdef double _cd_linear_epoch(double[:] w,
                               ColumnDataset X,
-                              np.ndarray[double, ndim=1] y,
-                              np.ndarray[double, ndim=1] y_pred,
-                              np.ndarray[double, ndim=1] col_norm_sq,
+                              double[:] y,
+                              double[:] y_pred,
+                              double[:] col_norm_sq,
                               double alpha,
                               LossFunction loss):
 
-    cdef int i, j, ii
+    cdef Py_ssize_t i, j, ii
     cdef double sum_viol = 0
-    cdef int n_features = w.shape[0]
+    cdef Py_ssize_t n_features = w.shape[0]
     cdef double update = 0
     cdef double inv_step_size
 

@@ -28,8 +28,6 @@ environment:
       PYTHON_ARCH: "64"
       MINICONDA: "C:\\Miniconda35-x64"
 
-
-
 install:
   # Miniconda is pre-installed in the worker build
   - "SET PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"

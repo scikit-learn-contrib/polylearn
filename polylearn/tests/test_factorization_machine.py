@@ -2,10 +2,8 @@
 # License: Simplified BSD
 
 import warnings
-import ctypes
 
 from nose.tools import assert_less_equal, assert_equal
-from nose import SkipTest
 
 import numpy as np
 from numpy.testing import assert_array_almost_equal
@@ -219,24 +217,19 @@ def test_random_starts():
 
 
 def check_same_as_slow(degree):
-
-    # XXX: test fails under windows 32bit, presumably numerical issues.
-    if ctypes.sizeof(ctypes.c_voidp) < 8:
-        raise SkipTest("Numerical inconsistencies on Win32")
-
     y = _poly_predict(X, P, lams, kernel="anova", degree=degree)
 
     reg = FactorizationMachineRegressor(degree=degree, n_components=5,
                                         fit_lower=None, fit_linear=False,
-                                        beta=1e-8, warm_start=False, tol=1e-3,
-                                        max_iter=10, random_state=0)
+                                        beta=1, warm_start=False, tol=1e-3,
+                                        max_iter=5, random_state=0)
 
     with warnings.catch_warnings():
         warnings.simplefilter('ignore')
         reg.fit(X, y)
 
         P_fit_slow = cd_direct_slow(X, y, lams=reg.lams_, degree=degree,
-                                    n_components=5, beta=1e-8, n_iter=10,
+                                    n_components=5, beta=1, n_iter=5,
                                     tol=1e-3, random_state=0)
 
     assert_array_almost_equal(reg.P_[0, :, :], P_fit_slow, decimal=4)

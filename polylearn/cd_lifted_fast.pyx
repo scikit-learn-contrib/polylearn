@@ -10,33 +10,31 @@
 from libc.stdlib cimport malloc, free
 from libc.math cimport fabs
 
-cimport numpy as np
-
 from lightning.impl.dataset_fast cimport ColumnDataset
 
 from .loss_fast cimport LossFunction
 
 
-cpdef void _fast_lifted_predict(np.ndarray[double, ndim=3, mode='c'] U,
+cpdef void _fast_lifted_predict(double[:, :, ::1] U,
                                 ColumnDataset X,
-                                np.ndarray[double, ndim=1] out):
+                                double[:] out):
 
     # np.product(safe_sparse_dot(U, X.T), axis=0).sum(axis=0)
     #
     # a bit of a misnomer, since at least for dense data it's a bit slower,
     # but it's more memory efficient.
 
-    cdef int degree = U.shape[0]
-    cdef int n_components = U.shape[1]
+    cdef Py_ssize_t degree = U.shape[0]
+    cdef Py_ssize_t n_components = U.shape[1]
 
-    cdef int n_samples = X.get_n_samples()
-    cdef int n_features = X.get_n_features()
+    cdef Py_ssize_t n_samples = X.get_n_samples()
+    cdef Py_ssize_t n_features = X.get_n_features()
 
     cdef double* data
     cdef int* indices
     cdef int n_nz
 
-    cdef int i, j, ii
+    cdef Py_ssize_t i, j, ii
 
     cdef double *middle = <double *> malloc(n_samples * sizeof(double))
     cdef double *inner = <double *> malloc(n_samples * sizeof(double))
@@ -70,23 +68,23 @@ cpdef void _fast_lifted_predict(np.ndarray[double, ndim=3, mode='c'] U,
     free(middle)
 
 
-cdef void _precompute(np.ndarray[double, ndim=3, mode='c'] U,
+cdef void _precompute(double[:, :, ::1] U,
                       ColumnDataset X,
-                      int s,
-                      int t,
+                      Py_ssize_t s,
+                      Py_ssize_t t,
                       double* out):
 
-    cdef int degree = U.shape[0]
-    cdef int n_components = U.shape[1]
+    cdef Py_ssize_t degree = U.shape[0]
+    cdef Py_ssize_t n_components = U.shape[1]
 
-    cdef int n_samples = X.get_n_samples()
-    cdef int n_features = X.get_n_features()
+    cdef Py_ssize_t n_samples = X.get_n_samples()
+    cdef Py_ssize_t n_features = X.get_n_features()
 
     cdef double* data
     cdef int* indices
     cdef int n_nz
 
-    cdef int i, j, ii
+    cdef Py_ssize_t i, j, ii
 
     cdef double *inner = <double *> malloc(n_samples * sizeof(double))
 
@@ -111,49 +109,22 @@ cdef void _precompute(np.ndarray[double, ndim=3, mode='c'] U,
     free(inner)
 
 
-cdef double _total_loss(np.ndarray[double, ndim=1] y_pred,
-                        np.ndarray[double, ndim=1] y,
-                        np.ndarray[double, ndim=3, mode='c'] U,
-                        double beta,
-                        LossFunction loss):
-
-    cdef double result = 0
-    cdef int degree = U.shape[0]
-    cdef int n_components = U.shape[1]
-    cdef int n_features = U.shape[2]
-    cdef int n_samples = y.shape[0]
-
-    cdef int i, t, s, j
-
-    # regularization
-    for t in range(degree):
-        for s in range(n_components):
-            for j in range(n_features):
-                result += U[t, s, j] ** 2
-    result *= beta
-
-    # loss
-    for i in range(n_samples):
-        result += loss.loss(y_pred[i], y[i])
-    return result
-
-
-def _cd_lifted(np.ndarray[double, ndim=3, mode='c'] U,
+def _cd_lifted(double[:, :, ::1] U,
                ColumnDataset X,
-               np.ndarray[double, ndim=1] y,
-               np.ndarray[double, ndim=1] y_pred,
+               double[:] y,
+               double[:] y_pred,
                double beta,
                LossFunction loss,
                int max_iter,
                double tol,
-               int verbose,
-               bint compute_loss):
+               int verbose):
 
-    cdef int n_samples = X.get_n_samples()
-    cdef int n_features = X.get_n_features()
-    cdef int degree = U.shape[0]
-    cdef int n_components = U.shape[1]
-    cdef int it, t, s, j
+    cdef Py_ssize_t n_samples = X.get_n_samples()
+    cdef Py_ssize_t n_features = X.get_n_features()
+    cdef Py_ssize_t degree = U.shape[0]
+    cdef Py_ssize_t n_components = U.shape[1]
+    cdef Py_ssize_t t, s, j
+    cdef unsigned int it
 
     cdef double sum_viol
     cdef bint converged = False
@@ -203,10 +174,7 @@ def _cd_lifted(np.ndarray[double, ndim=3, mode='c'] U,
                         y_pred[i] -= data[ii] * xi[i] * update
 
         if verbose:
-            print("Iteration", it + 1, "violation sum", sum_viol, end=" ")
-            if compute_loss:
-                print("loss", _total_loss(y_pred, y, U, beta, loss), end="")
-            print()
+            print("Iteration", it + 1, "violation sum", sum_viol)
 
         if sum_viol < tol:
             if verbose:
