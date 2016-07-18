@@ -85,6 +85,11 @@ cdef inline double _update(int* indices,
 
     update += l1_reg * p_js
     update /= inv_step_size
+
+    # maybe this fixes win32?
+    if fabs(update) < 1e-12:
+        update = 0
+
     return update
 
 
