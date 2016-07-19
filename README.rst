@@ -9,7 +9,7 @@ for classification and regression in Python.
 .. image:: https://travis-ci.org/vene/polylearn.svg?branch=master
     :target: https://travis-ci.org/vene/polylearn
 
-.. image:: https://ci.appveyor.com/api/projects/status/g9xnar9081l3vsw7?svg=true
+.. image:: https://ci.appveyor.com/api/projects/status/g9xnar9081l3vsw7/branch/master?svg=true
     :target: https://ci.appveyor.com/project/vene/polylearn
 
 .. image:: https://coveralls.io/repos/vene/polylearn/badge.svg?branch=master&service=github
