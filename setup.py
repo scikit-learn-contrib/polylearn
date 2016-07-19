@@ -13,7 +13,7 @@ except ImportError:
 
 
 DISTNAME = 'polylearn'
-DESCRIPTION = ("Higher-order factorization machines and polynomial networks "
+DESCRIPTION = ("Factorization machines and polynomial networks "
                "for classification and regression in Python.")
 LONG_DESCRIPTION = open('README.rst').read()
 MAINTAINER = 'Vlad Niculae'

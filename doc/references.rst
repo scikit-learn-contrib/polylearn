@@ -6,8 +6,8 @@ polylearn reference
 
 .. _factorization_machine:
 
-(Higher Order) Factorization Machines
--------------------------------------
+Factorization Machines
+----------------------
 
 .. automodule:: polylearn.factorization_machine
    :no-members:

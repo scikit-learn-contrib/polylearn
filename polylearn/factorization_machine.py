@@ -143,7 +143,7 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
 
 class FactorizationMachineRegressor(_BaseFactorizationMachine,
                                     _PolyRegressorMixin):
-    """Higher order factorization machine for regression (with squared loss).
+    """Factorization machine for regression (with squared loss).
 
     Parameters
     ----------
@@ -257,7 +257,7 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
 
 class FactorizationMachineClassifier(_BaseFactorizationMachine,
                                      _PolyClassifierMixin):
-    """Higher order factorization machine for classification.
+    """Factorization machine for classification.
 
     Parameters
     ----------

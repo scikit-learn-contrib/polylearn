@@ -3,7 +3,7 @@
 polylearn
 =========
 
-A library for higher-order **factorization machines** and **polynomial networks**
+A library for **factorization machines** and **polynomial networks**
 for classification and regression in Python.
 
 .. image:: https://travis-ci.org/scikit-learn-contrib/polylearn.svg?branch=master
