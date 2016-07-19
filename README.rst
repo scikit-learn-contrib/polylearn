@@ -12,12 +12,11 @@ for classification and regression in Python.
 .. image:: https://ci.appveyor.com/api/projects/status/g9xnar9081l3vsw7/branch/master?svg=true
     :target: https://ci.appveyor.com/project/vene/polylearn
 
-.. image:: https://coveralls.io/repos/vene/polylearn/badge.svg?branch=master&service=github
-    :target: https://coveralls.io/r/vene/polylearn
+.. image:: https://coveralls.io/repos/scikit-learn-contrib/polylearn/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/r/scikit-learn-contrib/polylearn
 
-.. image:: https://circleci.com/gh/vene/polylearn.svg?style=shield&circle-token=:circle-token
-    :target: https://circleci.com/gh/vene/polylearn/tree/master
-
+.. image:: https://circleci.com/gh/scikit-learn-contrib/polylearn.svg/tree/master?style=shield&circle-token=:circle-token
+    :target: https://circleci.com/gh/scikit-learn-contrib/polylearn/
 
 Factorization machines and polynomial networks are machine learning models
 that can capture **feature interaction** (co-occurrence) through polynomial terms.
