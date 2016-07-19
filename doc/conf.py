@@ -142,7 +142,6 @@ html_theme = 'bootstrap'
 html_theme_options = {
     'navbar_links': [
         # ('Introduction', 'intro'),
-        ('Github repo', 'https://github.com/scikit-learn-contrib/polylearn/'),
         ('References', 'references'),
         ('Examples', 'auto_examples/index'),
     ],
