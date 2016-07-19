@@ -18,20 +18,20 @@ from .cd_linear_fast cimport _cd_linear_epoch
 
 cdef void _precompute(ColumnDataset X,
                       double[:, :, ::1] P,
-                      int order,
+                      Py_ssize_t order,
                       double* out,
-                      int s,
-                      int degree):
+                      Py_ssize_t s,
+                      Py_ssize_t degree):
 
-    cdef unsigned int n_samples = X.get_n_samples()
-    cdef unsigned int n_features = P.shape[2]
+    cdef Py_ssize_t n_samples = X.get_n_samples()
+    cdef Py_ssize_t n_features = P.shape[2]
     
     # Data pointers
     cdef double* data
     cdef int* indices
     cdef int n_nz
     
-    cdef unsigned int i, j, ii
+    cdef Py_ssize_t i, j, ii
 
     for i in range(n_samples):
         out[i] = 0
@@ -52,13 +52,13 @@ cdef inline double _update(int* indices,
                            LossFunction loss,
                            double* d1,
                            double* d2,
-                           unsigned int degree,
+                           Py_ssize_t degree,
                            double lam,
                            double beta):
 
     cdef double l1_reg = 2 * beta * fabs(lam)
     
-    cdef unsigned int i, ii
+    cdef Py_ssize_t i, ii
 
     cdef double inv_step_size
 
@@ -93,65 +93,23 @@ cdef inline double _update(int* indices,
     return update
 
 
-# cdef double _total_loss(np.ndarray[double, ndim=1] y,
-#                         np.ndarray[double, ndim=1] y_pred,
-#                         np.ndarray[double, ndim=3, mode='c'] P,
-#                         np.ndarray[double, ndim=1] lams,
-#                         np.ndarray[double, ndim=1] w,
-#                         double alpha,
-#                         double beta,
-#                         LossFunction loss):
-#
-#     cdef double result = 0
-#     cdef double linear = 0
-#     cdef double row_norm
-#
-#     cdef int n_orders = P.shape[0]
-#     cdef int n_components = P.shape[1]
-#     cdef int n_features = P.shape[2]
-#     cdef int n_samples = y.shape[0]
-#
-#     cdef int i, s, j
-#
-#     # regularization
-#     for o in range(n_orders):
-#         for s in range(n_components):
-#             row_norm = 0
-#             for j in range(n_features):
-#                 row_norm += P[o, s, j] ** 2
-#             result += row_norm * lams[s]
-#     result *= beta
-#
-#     for j in range(n_features):
-#         linear += w[j] ** 2
-#
-#     linear *= alpha
-#
-#     result += linear
-#
-#     for i in range(n_samples):
-#         result += loss.loss(y_pred[i], y[i])
-#
-#     return result
-
-
 cdef inline double _cd_direct_epoch(double[:, :, ::1] P,
-                             unsigned int order,
+                             Py_ssize_t order,
                              ColumnDataset X,
                              double[:] y,
                              double[:] y_pred,
                              double[:] lams,
                              double* d1,
                              double* d2,
-                             unsigned int degree,
+                             Py_ssize_t degree,
                              double beta,
                              LossFunction loss):
 
-    cdef unsigned int s, j
+    cdef Py_ssize_t s, j
     cdef double p_old, update, offset
     cdef double sum_viol = 0
-    cdef unsigned int n_components = P.shape[1]
-    cdef unsigned int n_features = P.shape[2]
+    cdef Py_ssize_t n_components = P.shape[1]
+    cdef Py_ssize_t n_features = P.shape[2]
 
     # Data pointers
     cdef double* data
@@ -201,19 +159,19 @@ def _cd_direct_ho(double[:, :, ::1] P,
                   double[:] y,
                   double[:] y_pred,
                   double[:] lams,
-                  unsigned int degree,
+                  Py_ssize_t degree,
                   double alpha,
                   double beta,
                   bint fit_linear,
                   bint fit_lower,
                   LossFunction loss,
-                  unsigned int max_iter,
+                  Py_ssize_t max_iter,
                   double tol,
-                  unsigned int verbose,
+                  int verbose,
                   bint compute_loss):
 
-    cdef unsigned int n_samples = X.get_n_samples()
-    cdef unsigned int it
+    cdef Py_ssize_t n_samples = X.get_n_samples()
+    cdef Py_ssize_t it
 
     cdef double viol
     cdef bint converged = False
@@ -238,11 +196,7 @@ def _cd_direct_ho(double[:, :, ::1] P,
                                  degree, beta, loss)
 
         if verbose:
-            print("Iteration", it + 1, "violation sum", viol, end=" ")
-            # if compute_loss:
-            #     print("loss", _total_loss(y_pred, y, P, lams, w, alpha, beta,
-            #                               loss), end="")
-            print()
+            print("Iteration", it + 1, "violation sum", viol)
 
         if viol < tol:
             if verbose:
