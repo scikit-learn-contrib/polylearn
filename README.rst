@@ -6,7 +6,7 @@ polylearn
 A library for **factorization machines** and **polynomial networks**
 for classification and regression in Python.
 
-`Github repository. <https://github.com/scikit-learn-contrib/polylearn/>_`
+`Github repository. <https://github.com/scikit-learn-contrib/polylearn/>`_
 
 .. image:: https://travis-ci.org/scikit-learn-contrib/polylearn.svg?branch=master
     :target: https://travis-ci.org/scikit-learn-contrib/polylearn
