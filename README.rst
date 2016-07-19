@@ -15,7 +15,7 @@ for classification and regression in Python.
 .. image:: https://coveralls.io/repos/scikit-learn-contrib/polylearn/badge.svg?branch=master&service=github
     :target: https://coveralls.io/r/scikit-learn-contrib/polylearn
 
-.. image:: https://circleci.com/gh/scikit-learn-contrib/tree/master/polylearn.svg?style=shield&circle-token=:circle-token
+.. image:: https://circleci.com/gh/scikit-learn-contrib/polylearn/tree/master.svg?style=shield&circle-token=:circle-token
     :target: https://circleci.com/gh/scikit-learn-contrib/polylearn/
 
 Factorization machines and polynomial networks are machine learning models
