@@ -6,8 +6,8 @@ polylearn
 A library for higher-order **factorization machines** and **polynomial networks**
 for classification and regression in Python.
 
-.. image:: https://travis-ci.org/vene/polylearn.svg?branch=master
-    :target: https://travis-ci.org/vene/polylearn
+.. image:: https://travis-ci.org/scikit-learn-contrib/polylearn.svg?branch=master
+    :target: https://travis-ci.org/scikit-learn-contrib/polylearn
 
 .. image:: https://ci.appveyor.com/api/projects/status/g9xnar9081l3vsw7/branch/master?svg=true
     :target: https://ci.appveyor.com/project/vene/polylearn
@@ -45,7 +45,7 @@ this case it is assumed that you have the git version control system, a working
 C++ compiler, Cython, lightning, and the numpy development libraries. In order to
 install the development version, type::
 
-   git clone https://github.com/vene/polylearn.git
+   git clone https://github.com/scikit-learn-contrib/polylearn.git
    cd polylearn
    python setup.py build
    sudo python setup.py install

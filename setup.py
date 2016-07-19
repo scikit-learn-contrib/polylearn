@@ -18,9 +18,9 @@ DESCRIPTION = ("Higher-order factorization machines and polynomial networks "
 LONG_DESCRIPTION = open('README.rst').read()
 MAINTAINER = 'Vlad Niculae'
 MAINTAINER_EMAIL = 'vlad@vene.ro'
-URL = 'https://github.com/vene/polylearn'
+URL = 'https://contrib.scikit-learn.org/polylearn'
 LICENSE = 'Simplified BSD'
-DOWNLOAD_URL = 'https://github.com/vene/polylearn'
+DOWNLOAD_URL = 'https://github.com/scikit-learn-contrib/polylearn'
 VERSION = '0.1.dev0'
 
 
