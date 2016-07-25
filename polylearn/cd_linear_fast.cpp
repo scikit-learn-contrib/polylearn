@@ -1579,7 +1579,7 @@ static double __pyx_f_9polylearn_14cd_linear_fast__cd_linear_epoch(PyArrayObject
  *         for ii in range(n_nz):
  *             i = indices[ii]             # <<<<<<<<<<<<<<
  *             update += loss.dloss(y_pred[i], y[i]) * data[ii]
- *         update += 2 * alpha * w[j]
+ *         update += alpha * w[j]
  */
       __pyx_v_i = (__pyx_v_indices[__pyx_v_ii]);
 
@@ -1587,7 +1587,7 @@ static double __pyx_f_9polylearn_14cd_linear_fast__cd_linear_epoch(PyArrayObject
  *         for ii in range(n_nz):
  *             i = indices[ii]
  *             update += loss.dloss(y_pred[i], y[i]) * data[ii]             # <<<<<<<<<<<<<<
- *         update += 2 * alpha * w[j]
+ *         update += alpha * w[j]
  * 
  */
       __pyx_t_5 = __pyx_v_i;
@@ -1598,26 +1598,26 @@ static double __pyx_f_9polylearn_14cd_linear_fast__cd_linear_epoch(PyArrayObject
     /* "polylearn/cd_linear_fast.pyx":42
  *             i = indices[ii]
  *             update += loss.dloss(y_pred[i], y[i]) * data[ii]
- *         update += 2 * alpha * w[j]             # <<<<<<<<<<<<<<
+ *         update += alpha * w[j]             # <<<<<<<<<<<<<<
  * 
  *         # compute second derivative upper bound
  */
     __pyx_t_7 = __pyx_v_j;
-    __pyx_v_update = (__pyx_v_update + ((2.0 * __pyx_v_alpha) * (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_w.rcbuffer->pybuffer.buf, __pyx_t_7, __pyx_pybuffernd_w.diminfo[0].strides))));
+    __pyx_v_update = (__pyx_v_update + (__pyx_v_alpha * (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_w.rcbuffer->pybuffer.buf, __pyx_t_7, __pyx_pybuffernd_w.diminfo[0].strides))));
 
     /* "polylearn/cd_linear_fast.pyx":45
  * 
  *         # compute second derivative upper bound
- *         inv_step_size = loss.mu * col_norm_sq[j] + 2 * alpha             # <<<<<<<<<<<<<<
+ *         inv_step_size = loss.mu * col_norm_sq[j] + alpha             # <<<<<<<<<<<<<<
  *         update /= inv_step_size
  * 
  */
     __pyx_t_8 = __pyx_v_j;
-    __pyx_v_inv_step_size = ((__pyx_v_loss->mu * (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_col_norm_sq.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_col_norm_sq.diminfo[0].strides))) + (2.0 * __pyx_v_alpha));
+    __pyx_v_inv_step_size = ((__pyx_v_loss->mu * (*__Pyx_BufPtrStrided1d(double *, __pyx_pybuffernd_col_norm_sq.rcbuffer->pybuffer.buf, __pyx_t_8, __pyx_pybuffernd_col_norm_sq.diminfo[0].strides))) + __pyx_v_alpha);
 
     /* "polylearn/cd_linear_fast.pyx":46
  *         # compute second derivative upper bound
- *         inv_step_size = loss.mu * col_norm_sq[j] + 2 * alpha
+ *         inv_step_size = loss.mu * col_norm_sq[j] + alpha
  *         update /= inv_step_size             # <<<<<<<<<<<<<<
  * 
  *         w[j] -= update
