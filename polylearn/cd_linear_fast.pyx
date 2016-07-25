@@ -21,9 +21,9 @@ cpdef double _cd_linear_epoch(double[:] w,
                               double alpha,
                               LossFunction loss):
 
-    cdef int i, j, ii
+    cdef Py_ssize_t i, j, ii
     cdef double sum_viol = 0
-    cdef int n_features = w.shape[0]
+    cdef Py_ssize_t n_features = w.shape[0]
     cdef double update = 0
     cdef double inv_step_size
 

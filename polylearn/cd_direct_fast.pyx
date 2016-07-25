@@ -21,7 +21,7 @@ cdef void _precompute(ColumnDataset X,
                       Py_ssize_t order,
                       double* out,
                       Py_ssize_t s,
-                      Py_ssize_t degree):
+                      unsigned int degree):
 
     cdef Py_ssize_t n_samples = X.get_n_samples()
     cdef Py_ssize_t n_features = P.shape[2]
@@ -52,7 +52,7 @@ cdef inline double _update(int* indices,
                            LossFunction loss,
                            double* d1,
                            double* d2,
-                           Py_ssize_t degree,
+                           unsigned int degree,
                            double lam,
                            double beta):
 
@@ -94,16 +94,16 @@ cdef inline double _update(int* indices,
 
 
 cdef inline double _cd_direct_epoch(double[:, :, ::1] P,
-                             Py_ssize_t order,
-                             ColumnDataset X,
-                             double[:] y,
-                             double[:] y_pred,
-                             double[:] lams,
-                             double* d1,
-                             double* d2,
-                             Py_ssize_t degree,
-                             double beta,
-                             LossFunction loss):
+                                    Py_ssize_t order,
+                                    ColumnDataset X,
+                                    double[:] y,
+                                    double[:] y_pred,
+                                    double[:] lams,
+                                    double* d1,
+                                    double* d2,
+                                    unsigned int degree,
+                                    double beta,
+                                    LossFunction loss):
 
     cdef Py_ssize_t s, j
     cdef double p_old, update, offset
@@ -159,19 +159,19 @@ def _cd_direct_ho(double[:, :, ::1] P,
                   double[:] y,
                   double[:] y_pred,
                   double[:] lams,
-                  Py_ssize_t degree,
+                  unsigned int degree,
                   double alpha,
                   double beta,
                   bint fit_linear,
                   bint fit_lower,
                   LossFunction loss,
-                  Py_ssize_t max_iter,
+                  unsigned int max_iter,
                   double tol,
                   int verbose,
                   bint compute_loss):
 
     cdef Py_ssize_t n_samples = X.get_n_samples()
-    cdef Py_ssize_t it
+    cdef unsigned int it
 
     cdef double viol
     cdef bint converged = False
