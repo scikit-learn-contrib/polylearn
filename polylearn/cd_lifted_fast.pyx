@@ -119,8 +119,7 @@ def _cd_lifted(double[:, :, ::1] U,
                LossFunction loss,
                int max_iter,
                double tol,
-               int verbose,
-               bint compute_loss):
+               int verbose):
 
     cdef Py_ssize_t n_samples = X.get_n_samples()
     cdef Py_ssize_t n_features = X.get_n_features()

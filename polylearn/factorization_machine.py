@@ -32,7 +32,7 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
     def __init__(self, degree=2, loss='squared', n_components=2, alpha=1,
                  beta=1, tol=1e-6, fit_lower='explicit', fit_linear=True,
                  warm_start=False, init_lambdas='ones', max_iter=10000,
-                 verbose=False, compute_loss=False, random_state=None):
+                 verbose=False, random_state=None):
         self.degree = degree
         self.loss = loss
         self.n_components = n_components
@@ -45,7 +45,6 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
         self.init_lambdas = init_lambdas
         self.max_iter = max_iter
         self.verbose = verbose
-        self.compute_loss = compute_loss
         self.random_state = random_state
 
     def _augment(self, X):
@@ -112,8 +111,7 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
                                   y_pred, self.lams_, self.degree, self.alpha,
                                   self.beta, self.fit_linear,
                                   self.fit_lower == 'explicit', loss_obj,
-                                  self.max_iter, self.tol, self.verbose,
-                                  self.compute_loss)
+                                  self.max_iter, self.tol, self.verbose)
         if not converged:
             warnings.warn("Objective did not converge. Increase max_iter.")
 
@@ -204,10 +202,6 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
     verbose : boolean, optional, default: False
         Whether to print debugging information.
 
-    compute_loss : boolean, optional, default: False
-        Whether to compute the training loss at every iteration. Slows down
-        runtime but may be useful for debugging convergence issues.
-
     random_state : int seed, RandomState instance, or None (default)
         The seed of the pseudo random number generator to use for
         initializing the parameters.
@@ -247,12 +241,12 @@ class FactorizationMachineRegressor(_BaseFactorizationMachine,
     def __init__(self, degree=2, n_components=2, alpha=1, beta=1, tol=1e-6,
                  fit_lower='explicit', fit_linear=True, warm_start=False,
                  init_lambdas='ones', max_iter=10000, verbose=False,
-                 compute_loss=False, random_state=None):
+                 random_state=None):
 
         super(FactorizationMachineRegressor, self).__init__(
             degree, 'squared', n_components, alpha, beta, tol, fit_lower,
             fit_linear, warm_start, init_lambdas, max_iter, verbose,
-            compute_loss, random_state)
+            random_state)
 
 
 class FactorizationMachineClassifier(_BaseFactorizationMachine,
@@ -327,10 +321,6 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
     verbose : boolean, optional, default: False
         Whether to print debugging information.
 
-    compute_loss : boolean, optional, default: False
-        Whether to compute the training loss at every iteration. Slows down
-        runtime but may be useful for debugging convergence issues.
-
     random_state : int seed, RandomState instance, or None (default)
         The seed of the pseudo random number generator to use for
         initializing the parameters.
@@ -371,9 +361,9 @@ class FactorizationMachineClassifier(_BaseFactorizationMachine,
     def __init__(self, degree=2, loss='squared_hinge', n_components=2, alpha=1,
                  beta=1, tol=1e-6, fit_lower='explicit', fit_linear=True,
                  warm_start=False, init_lambdas='ones', max_iter=10000,
-                 verbose=False, compute_loss=False, random_state=None):
+                 verbose=False, random_state=None):
 
         super(FactorizationMachineClassifier, self).__init__(
             degree, loss, n_components, alpha, beta, tol, fit_lower,
             fit_linear, warm_start, init_lambdas, max_iter, verbose,
-            compute_loss, random_state)
+            random_state)

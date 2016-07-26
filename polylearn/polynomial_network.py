@@ -36,8 +36,7 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
     @abstractmethod
     def __init__(self, degree=2, loss='squared', n_components=5, beta=1,
                  tol=1e-6, fit_lower='augment', warm_start=False,
-                 max_iter=10000, verbose=False, compute_loss=False,
-                 random_state=None):
+                 max_iter=10000, verbose=False, random_state=None):
         self.degree = degree
         self.loss = loss
         self.n_components = n_components
@@ -47,7 +46,6 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
         self.warm_start = warm_start
         self.max_iter = max_iter
         self.verbose = verbose
-        self.compute_loss = compute_loss
         self.random_state = random_state
 
     def _augment(self, X):
@@ -92,8 +90,7 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
         y_pred = _lifted_predict(self.U_, dataset)
 
         converged = _cd_lifted(self.U_, dataset, y, y_pred, self.beta,
-                               loss_obj, self.max_iter, self.tol, self.verbose,
-                               self.compute_loss)
+                               loss_obj, self.max_iter, self.tol, self.verbose)
 
         if not converged:
             warnings.warn("Objective did not converge. Increase max_iter.")
@@ -148,10 +145,6 @@ class PolynomialNetworkRegressor(_BasePolynomialNetwork, _PolyRegressorMixin):
     verbose : boolean, optional, default: False
         Whether to print debugging information.
 
-    compute_loss : boolean, optional, default: False
-        Whether to compute the training loss at every iteration. Slows down
-        runtime but may be useful for debugging convergence issues.
-
     random_state : int seed, RandomState instance, or None (default)
         The seed of the pseudo random number generator to use for
         initializing the parameters.
@@ -177,12 +170,11 @@ class PolynomialNetworkRegressor(_BasePolynomialNetwork, _PolyRegressorMixin):
 
     def __init__(self, degree=2, n_components=2, beta=1, tol=1e-6,
                  fit_lower='augment', warm_start=False,
-                 max_iter=10000, verbose=False, compute_loss=False,
-                 random_state=None):
+                 max_iter=10000, verbose=False, random_state=None):
 
         super(PolynomialNetworkRegressor, self).__init__(
             degree, 'squared', n_components, beta, tol, fit_lower,
-            warm_start, max_iter, verbose, compute_loss, random_state)
+            warm_start, max_iter, verbose, random_state)
 
 
 class PolynomialNetworkClassifier(_BasePolynomialNetwork,
@@ -233,10 +225,6 @@ class PolynomialNetworkClassifier(_BasePolynomialNetwork,
     verbose : boolean, optional, default: False
         Whether to print debugging information.
 
-    compute_loss : boolean, optional, default: False
-        Whether to compute the training loss at every iteration. Slows down
-        runtime but may be useful for debugging convergence issues.
-
     random_state : int seed, RandomState instance, or None (default)
         The seed of the pseudo random number generator to use for
         initializing the parameters.
@@ -262,9 +250,8 @@ class PolynomialNetworkClassifier(_BasePolynomialNetwork,
 
     def __init__(self, degree=2, loss='squared_hinge', n_components=2, beta=1,
                  tol=1e-6, fit_lower='augment', warm_start=False,
-                 max_iter=10000, verbose=False, compute_loss=False,
-                 random_state=None):
+                 max_iter=10000, verbose=False, random_state=None):
 
         super(PolynomialNetworkClassifier, self).__init__(
             degree, loss, n_components, beta, tol, fit_lower,
-            warm_start, max_iter, verbose, compute_loss, random_state)
+            warm_start, max_iter, verbose, random_state)

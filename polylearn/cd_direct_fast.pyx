@@ -86,10 +86,6 @@ cdef inline double _update(int* indices,
     update += l1_reg * p_js
     update /= inv_step_size
 
-    # maybe this fixes win32?
-    if fabs(update) < 1e-12:
-        update = 0
-
     return update
 
 
@@ -167,8 +163,7 @@ def _cd_direct_ho(double[:, :, ::1] P,
                   LossFunction loss,
                   unsigned int max_iter,
                   double tol,
-                  int verbose,
-                  bint compute_loss):
+                  int verbose):
 
     cdef Py_ssize_t n_samples = X.get_n_samples()
     cdef unsigned int it
