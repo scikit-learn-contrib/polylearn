@@ -228,7 +228,7 @@ def check_same_as_slow(degree):
 
     reg = FactorizationMachineRegressor(degree=degree, n_components=5,
                                         fit_lower=None, fit_linear=False,
-                                        beta=1e-8, warm_start=False, tol=1e-3,
+                                        beta=1, warm_start=False, tol=1e-3,
                                         max_iter=10, random_state=0)
 
     with warnings.catch_warnings():
@@ -236,7 +236,7 @@ def check_same_as_slow(degree):
         reg.fit(X, y)
 
         P_fit_slow = cd_direct_slow(X, y, lams=reg.lams_, degree=degree,
-                                    n_components=5, beta=1e-8, n_iter=10,
+                                    n_components=5, beta=1, n_iter=10,
                                     tol=1e-3, random_state=0)
 
     assert_array_almost_equal(reg.P_[0, :, :], P_fit_slow, decimal=4)
