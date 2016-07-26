@@ -231,8 +231,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #define __Pyx_PyNumber_Divide(x,y)         PyNumber_TrueDivide(x,y)
   #define __Pyx_PyNumber_InPlaceDivide(x,y)  PyNumber_InPlaceTrueDivide(x,y)
 #else
-  #define __Pyx_PyNumber_Divide(x,y)         PyNumber_Divide(x,y)
-  #define __Pyx_PyNumber_InPlaceDivide(x,y)  PyNumber_InPlaceDivide(x,y)
+  #define __Pyx_PyNumber_Divide(x,y)         PyNumber_TrueDivide(x,y)
+  #define __Pyx_PyNumber_InPlaceDivide(x,y)  PyNumber_InPlaceTrueDivide(x,y)
 #endif
 
 #ifndef __PYX_EXTERN_C
@@ -475,7 +475,7 @@ struct __pyx_obj_9polylearn_9loss_fast_LossFunction {
 };
 
 
-/* "polylearn/loss_fast.pyx":12
+/* "polylearn/loss_fast.pyx":15
  * 
  * 
  * cdef class Squared(LossFunction):             # <<<<<<<<<<<<<<
@@ -487,7 +487,7 @@ struct __pyx_obj_9polylearn_9loss_fast_Squared {
 };
 
 
-/* "polylearn/loss_fast.pyx":25
+/* "polylearn/loss_fast.pyx":28
  * 
  * 
  * cdef class Logistic(LossFunction):             # <<<<<<<<<<<<<<
@@ -499,7 +499,7 @@ struct __pyx_obj_9polylearn_9loss_fast_Logistic {
 };
 
 
-/* "polylearn/loss_fast.pyx":51
+/* "polylearn/loss_fast.pyx":54
  * 
  * 
  * cdef class SquaredHinge(LossFunction):             # <<<<<<<<<<<<<<
@@ -512,7 +512,7 @@ struct __pyx_obj_9polylearn_9loss_fast_SquaredHinge {
 
 
 
-/* "polylearn/loss_fast.pyx":3
+/* "polylearn/loss_fast.pyx":6
  * from libc.math cimport log, exp
  * 
  * cdef class LossFunction:             # <<<<<<<<<<<<<<
@@ -527,7 +527,7 @@ struct __pyx_vtabstruct_9polylearn_9loss_fast_LossFunction {
 static struct __pyx_vtabstruct_9polylearn_9loss_fast_LossFunction *__pyx_vtabptr_9polylearn_9loss_fast_LossFunction;
 
 
-/* "polylearn/loss_fast.pyx":12
+/* "polylearn/loss_fast.pyx":15
  * 
  * 
  * cdef class Squared(LossFunction):             # <<<<<<<<<<<<<<
@@ -541,7 +541,7 @@ struct __pyx_vtabstruct_9polylearn_9loss_fast_Squared {
 static struct __pyx_vtabstruct_9polylearn_9loss_fast_Squared *__pyx_vtabptr_9polylearn_9loss_fast_Squared;
 
 
-/* "polylearn/loss_fast.pyx":25
+/* "polylearn/loss_fast.pyx":28
  * 
  * 
  * cdef class Logistic(LossFunction):             # <<<<<<<<<<<<<<
@@ -555,7 +555,7 @@ struct __pyx_vtabstruct_9polylearn_9loss_fast_Logistic {
 static struct __pyx_vtabstruct_9polylearn_9loss_fast_Logistic *__pyx_vtabptr_9polylearn_9loss_fast_Logistic;
 
 
-/* "polylearn/loss_fast.pyx":51
+/* "polylearn/loss_fast.pyx":54
  * 
  * 
  * cdef class SquaredHinge(LossFunction):             # <<<<<<<<<<<<<<
@@ -744,7 +744,7 @@ static PyObject *__pyx_tp_new_9polylearn_9loss_fast_Squared(PyTypeObject *t, PyO
 static PyObject *__pyx_tp_new_9polylearn_9loss_fast_Logistic(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_9polylearn_9loss_fast_SquaredHinge(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 
-/* "polylearn/loss_fast.pyx":5
+/* "polylearn/loss_fast.pyx":8
  * cdef class LossFunction:
  * 
  *      cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -761,20 +761,20 @@ static double __pyx_f_9polylearn_9loss_fast_12LossFunction_loss(CYTHON_UNUSED st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("loss", 0);
 
-  /* "polylearn/loss_fast.pyx":6
+  /* "polylearn/loss_fast.pyx":9
  * 
  *      cdef double loss(self, double p, double y):
  *          raise NotImplementedError()             # <<<<<<<<<<<<<<
  * 
  *      cdef double dloss(self, double p, double y):
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "polylearn/loss_fast.pyx":5
+  /* "polylearn/loss_fast.pyx":8
  * cdef class LossFunction:
  * 
  *      cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -791,7 +791,7 @@ static double __pyx_f_9polylearn_9loss_fast_12LossFunction_loss(CYTHON_UNUSED st
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":8
+/* "polylearn/loss_fast.pyx":11
  *          raise NotImplementedError()
  * 
  *      cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -808,20 +808,20 @@ static double __pyx_f_9polylearn_9loss_fast_12LossFunction_dloss(CYTHON_UNUSED s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("dloss", 0);
 
-  /* "polylearn/loss_fast.pyx":9
+  /* "polylearn/loss_fast.pyx":12
  * 
  *      cdef double dloss(self, double p, double y):
  *          raise NotImplementedError()             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_CallNoArg(__pyx_builtin_NotImplementedError); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "polylearn/loss_fast.pyx":8
+  /* "polylearn/loss_fast.pyx":11
  *          raise NotImplementedError()
  * 
  *      cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -838,7 +838,7 @@ static double __pyx_f_9polylearn_9loss_fast_12LossFunction_dloss(CYTHON_UNUSED s
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":15
+/* "polylearn/loss_fast.pyx":18
  *     """Squared loss: L(p, y) = 0.5 * (y - p)"""
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -867,7 +867,7 @@ static int __pyx_pf_9polylearn_9loss_fast_7Squared___init__(struct __pyx_obj_9po
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "polylearn/loss_fast.pyx":16
+  /* "polylearn/loss_fast.pyx":19
  * 
  *     def __init__(self):
  *         self.mu = 1             # <<<<<<<<<<<<<<
@@ -876,7 +876,7 @@ static int __pyx_pf_9polylearn_9loss_fast_7Squared___init__(struct __pyx_obj_9po
  */
   __pyx_v_self->__pyx_base.mu = 1.0;
 
-  /* "polylearn/loss_fast.pyx":15
+  /* "polylearn/loss_fast.pyx":18
  *     """Squared loss: L(p, y) = 0.5 * (y - p)"""
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -890,7 +890,7 @@ static int __pyx_pf_9polylearn_9loss_fast_7Squared___init__(struct __pyx_obj_9po
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":18
+/* "polylearn/loss_fast.pyx":21
  *         self.mu = 1
  * 
  *     cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -903,7 +903,7 @@ static double __pyx_f_9polylearn_9loss_fast_7Squared_loss(CYTHON_UNUSED struct _
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("loss", 0);
 
-  /* "polylearn/loss_fast.pyx":19
+  /* "polylearn/loss_fast.pyx":22
  * 
  *     cdef double loss(self, double p, double y):
  *         return 0.5 * (p - y) ** 2             # <<<<<<<<<<<<<<
@@ -913,7 +913,7 @@ static double __pyx_f_9polylearn_9loss_fast_7Squared_loss(CYTHON_UNUSED struct _
   __pyx_r = (0.5 * pow((__pyx_v_p - __pyx_v_y), 2.0));
   goto __pyx_L0;
 
-  /* "polylearn/loss_fast.pyx":18
+  /* "polylearn/loss_fast.pyx":21
  *         self.mu = 1
  * 
  *     cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -927,7 +927,7 @@ static double __pyx_f_9polylearn_9loss_fast_7Squared_loss(CYTHON_UNUSED struct _
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":21
+/* "polylearn/loss_fast.pyx":24
  *         return 0.5 * (p - y) ** 2
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -940,7 +940,7 @@ static double __pyx_f_9polylearn_9loss_fast_7Squared_dloss(CYTHON_UNUSED struct 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dloss", 0);
 
-  /* "polylearn/loss_fast.pyx":22
+  /* "polylearn/loss_fast.pyx":25
  * 
  *     cdef double dloss(self, double p, double y):
  *         return p - y             # <<<<<<<<<<<<<<
@@ -950,7 +950,7 @@ static double __pyx_f_9polylearn_9loss_fast_7Squared_dloss(CYTHON_UNUSED struct 
   __pyx_r = (__pyx_v_p - __pyx_v_y);
   goto __pyx_L0;
 
-  /* "polylearn/loss_fast.pyx":21
+  /* "polylearn/loss_fast.pyx":24
  *         return 0.5 * (p - y) ** 2
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -964,7 +964,7 @@ static double __pyx_f_9polylearn_9loss_fast_7Squared_dloss(CYTHON_UNUSED struct 
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":28
+/* "polylearn/loss_fast.pyx":31
  *     """Logistic loss: L(p, y) = log(1 + exp(-yp))"""
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -993,7 +993,7 @@ static int __pyx_pf_9polylearn_9loss_fast_8Logistic___init__(struct __pyx_obj_9p
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "polylearn/loss_fast.pyx":29
+  /* "polylearn/loss_fast.pyx":32
  * 
  *     def __init__(self):
  *         self.mu = 0.25             # <<<<<<<<<<<<<<
@@ -1002,7 +1002,7 @@ static int __pyx_pf_9polylearn_9loss_fast_8Logistic___init__(struct __pyx_obj_9p
  */
   __pyx_v_self->__pyx_base.mu = 0.25;
 
-  /* "polylearn/loss_fast.pyx":28
+  /* "polylearn/loss_fast.pyx":31
  *     """Logistic loss: L(p, y) = log(1 + exp(-yp))"""
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1016,7 +1016,7 @@ static int __pyx_pf_9polylearn_9loss_fast_8Logistic___init__(struct __pyx_obj_9p
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":31
+/* "polylearn/loss_fast.pyx":34
  *         self.mu = 0.25
  * 
  *     cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1031,7 +1031,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("loss", 0);
 
-  /* "polylearn/loss_fast.pyx":32
+  /* "polylearn/loss_fast.pyx":35
  * 
  *     cdef double loss(self, double p, double y):
  *         cdef double z = p * y             # <<<<<<<<<<<<<<
@@ -1040,7 +1040,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
  */
   __pyx_v_z = (__pyx_v_p * __pyx_v_y);
 
-  /* "polylearn/loss_fast.pyx":34
+  /* "polylearn/loss_fast.pyx":37
  *         cdef double z = p * y
  *         # log(1 + exp(-z))
  *         if z > 18:             # <<<<<<<<<<<<<<
@@ -1050,7 +1050,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
   __pyx_t_1 = ((__pyx_v_z > 18.0) != 0);
   if (__pyx_t_1) {
 
-    /* "polylearn/loss_fast.pyx":35
+    /* "polylearn/loss_fast.pyx":38
  *         # log(1 + exp(-z))
  *         if z > 18:
  *             return exp(-z)             # <<<<<<<<<<<<<<
@@ -1060,7 +1060,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
     __pyx_r = exp((-__pyx_v_z));
     goto __pyx_L0;
 
-    /* "polylearn/loss_fast.pyx":34
+    /* "polylearn/loss_fast.pyx":37
  *         cdef double z = p * y
  *         # log(1 + exp(-z))
  *         if z > 18:             # <<<<<<<<<<<<<<
@@ -1069,7 +1069,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
  */
   }
 
-  /* "polylearn/loss_fast.pyx":36
+  /* "polylearn/loss_fast.pyx":39
  *         if z > 18:
  *             return exp(-z)
  *         if z < -18:             # <<<<<<<<<<<<<<
@@ -1079,7 +1079,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
   __pyx_t_1 = ((__pyx_v_z < -18.0) != 0);
   if (__pyx_t_1) {
 
-    /* "polylearn/loss_fast.pyx":37
+    /* "polylearn/loss_fast.pyx":40
  *             return exp(-z)
  *         if z < -18:
  *             return -z             # <<<<<<<<<<<<<<
@@ -1089,7 +1089,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
     __pyx_r = (-__pyx_v_z);
     goto __pyx_L0;
 
-    /* "polylearn/loss_fast.pyx":36
+    /* "polylearn/loss_fast.pyx":39
  *         if z > 18:
  *             return exp(-z)
  *         if z < -18:             # <<<<<<<<<<<<<<
@@ -1098,7 +1098,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
  */
   }
 
-  /* "polylearn/loss_fast.pyx":38
+  /* "polylearn/loss_fast.pyx":41
  *         if z < -18:
  *             return -z
  *         return log(1.0 + exp(-z))             # <<<<<<<<<<<<<<
@@ -1108,7 +1108,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
   __pyx_r = log((1.0 + exp((-__pyx_v_z))));
   goto __pyx_L0;
 
-  /* "polylearn/loss_fast.pyx":31
+  /* "polylearn/loss_fast.pyx":34
  *         self.mu = 0.25
  * 
  *     cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1122,7 +1122,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":40
+/* "polylearn/loss_fast.pyx":43
  *         return log(1.0 + exp(-z))
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1135,14 +1135,9 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
   double __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
-  double __pyx_t_2;
-  double __pyx_t_3;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("dloss", 0);
 
-  /* "polylearn/loss_fast.pyx":41
+  /* "polylearn/loss_fast.pyx":44
  * 
  *     cdef double dloss(self, double p, double y):
  *         cdef double z = p * y             # <<<<<<<<<<<<<<
@@ -1151,7 +1146,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
  */
   __pyx_v_z = (__pyx_v_p * __pyx_v_y);
 
-  /* "polylearn/loss_fast.pyx":44
+  /* "polylearn/loss_fast.pyx":47
  *         # cdef double tau = 1 / (1 + exp(-z))
  *         # return y * (tau - 1)
  *         if z > 18.0:             # <<<<<<<<<<<<<<
@@ -1161,7 +1156,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
   __pyx_t_1 = ((__pyx_v_z > 18.0) != 0);
   if (__pyx_t_1) {
 
-    /* "polylearn/loss_fast.pyx":45
+    /* "polylearn/loss_fast.pyx":48
  *         # return y * (tau - 1)
  *         if z > 18.0:
  *             return -y * exp(-z)             # <<<<<<<<<<<<<<
@@ -1171,7 +1166,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
     __pyx_r = ((-__pyx_v_y) * exp((-__pyx_v_z)));
     goto __pyx_L0;
 
-    /* "polylearn/loss_fast.pyx":44
+    /* "polylearn/loss_fast.pyx":47
  *         # cdef double tau = 1 / (1 + exp(-z))
  *         # return y * (tau - 1)
  *         if z > 18.0:             # <<<<<<<<<<<<<<
@@ -1180,7 +1175,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
  */
   }
 
-  /* "polylearn/loss_fast.pyx":46
+  /* "polylearn/loss_fast.pyx":49
  *         if z > 18.0:
  *             return -y * exp(-z)
  *         if z < -18.0:             # <<<<<<<<<<<<<<
@@ -1190,7 +1185,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
   __pyx_t_1 = ((__pyx_v_z < -18.0) != 0);
   if (__pyx_t_1) {
 
-    /* "polylearn/loss_fast.pyx":47
+    /* "polylearn/loss_fast.pyx":50
  *             return -y * exp(-z)
  *         if z < -18.0:
  *             return -y             # <<<<<<<<<<<<<<
@@ -1200,7 +1195,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
     __pyx_r = (-__pyx_v_y);
     goto __pyx_L0;
 
-    /* "polylearn/loss_fast.pyx":46
+    /* "polylearn/loss_fast.pyx":49
  *         if z > 18.0:
  *             return -y * exp(-z)
  *         if z < -18.0:             # <<<<<<<<<<<<<<
@@ -1209,23 +1204,17 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
  */
   }
 
-  /* "polylearn/loss_fast.pyx":48
+  /* "polylearn/loss_fast.pyx":51
  *         if z < -18.0:
  *             return -y
  *         return -y / (exp(z) + 1.0)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_t_2 = (-__pyx_v_y);
-  __pyx_t_3 = (exp(__pyx_v_z) + 1.0);
-  if (unlikely(__pyx_t_3 == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  __pyx_r = (__pyx_t_2 / __pyx_t_3);
+  __pyx_r = ((-__pyx_v_y) / (exp(__pyx_v_z) + 1.0));
   goto __pyx_L0;
 
-  /* "polylearn/loss_fast.pyx":40
+  /* "polylearn/loss_fast.pyx":43
  *         return log(1.0 + exp(-z))
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1234,15 +1223,12 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
  */
 
   /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_WriteUnraisable("polylearn.loss_fast.Logistic.dloss", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
-  __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":54
+/* "polylearn/loss_fast.pyx":57
  *     """Squared hinge loss: L(p, y) = max(1 - yp, 0)"""
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1271,7 +1257,7 @@ static int __pyx_pf_9polylearn_9loss_fast_12SquaredHinge___init__(struct __pyx_o
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "polylearn/loss_fast.pyx":55
+  /* "polylearn/loss_fast.pyx":58
  * 
  *     def __init__(self):
  *         self.mu = 2             # <<<<<<<<<<<<<<
@@ -1280,7 +1266,7 @@ static int __pyx_pf_9polylearn_9loss_fast_12SquaredHinge___init__(struct __pyx_o
  */
   __pyx_v_self->__pyx_base.mu = 2.0;
 
-  /* "polylearn/loss_fast.pyx":54
+  /* "polylearn/loss_fast.pyx":57
  *     """Squared hinge loss: L(p, y) = max(1 - yp, 0)"""
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -1294,7 +1280,7 @@ static int __pyx_pf_9polylearn_9loss_fast_12SquaredHinge___init__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":57
+/* "polylearn/loss_fast.pyx":60
  *         self.mu = 2
  * 
  *     cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1309,7 +1295,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss(CYTHON_UNUSED st
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("loss", 0);
 
-  /* "polylearn/loss_fast.pyx":58
+  /* "polylearn/loss_fast.pyx":61
  * 
  *     cdef double loss(self, double p, double y):
  *         cdef double z = 1 - p * y             # <<<<<<<<<<<<<<
@@ -1318,7 +1304,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss(CYTHON_UNUSED st
  */
   __pyx_v_z = (1.0 - (__pyx_v_p * __pyx_v_y));
 
-  /* "polylearn/loss_fast.pyx":59
+  /* "polylearn/loss_fast.pyx":62
  *     cdef double loss(self, double p, double y):
  *         cdef double z = 1 - p * y
  *         if z > 0:             # <<<<<<<<<<<<<<
@@ -1328,7 +1314,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss(CYTHON_UNUSED st
   __pyx_t_1 = ((__pyx_v_z > 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "polylearn/loss_fast.pyx":60
+    /* "polylearn/loss_fast.pyx":63
  *         cdef double z = 1 - p * y
  *         if z > 0:
  *             return z * z             # <<<<<<<<<<<<<<
@@ -1338,7 +1324,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss(CYTHON_UNUSED st
     __pyx_r = (__pyx_v_z * __pyx_v_z);
     goto __pyx_L0;
 
-    /* "polylearn/loss_fast.pyx":59
+    /* "polylearn/loss_fast.pyx":62
  *     cdef double loss(self, double p, double y):
  *         cdef double z = 1 - p * y
  *         if z > 0:             # <<<<<<<<<<<<<<
@@ -1347,7 +1333,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss(CYTHON_UNUSED st
  */
   }
 
-  /* "polylearn/loss_fast.pyx":61
+  /* "polylearn/loss_fast.pyx":64
  *         if z > 0:
  *             return z * z
  *         return 0.0             # <<<<<<<<<<<<<<
@@ -1357,7 +1343,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss(CYTHON_UNUSED st
   __pyx_r = 0.0;
   goto __pyx_L0;
 
-  /* "polylearn/loss_fast.pyx":57
+  /* "polylearn/loss_fast.pyx":60
  *         self.mu = 2
  * 
  *     cdef double loss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1371,7 +1357,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss(CYTHON_UNUSED st
   return __pyx_r;
 }
 
-/* "polylearn/loss_fast.pyx":63
+/* "polylearn/loss_fast.pyx":66
  *         return 0.0
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1386,7 +1372,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_dloss(CYTHON_UNUSED s
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("dloss", 0);
 
-  /* "polylearn/loss_fast.pyx":64
+  /* "polylearn/loss_fast.pyx":67
  * 
  *     cdef double dloss(self, double p, double y):
  *         cdef double z = 1 - p * y             # <<<<<<<<<<<<<<
@@ -1395,7 +1381,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_dloss(CYTHON_UNUSED s
  */
   __pyx_v_z = (1.0 - (__pyx_v_p * __pyx_v_y));
 
-  /* "polylearn/loss_fast.pyx":65
+  /* "polylearn/loss_fast.pyx":68
  *     cdef double dloss(self, double p, double y):
  *         cdef double z = 1 - p * y
  *         if z > 0:             # <<<<<<<<<<<<<<
@@ -1405,7 +1391,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_dloss(CYTHON_UNUSED s
   __pyx_t_1 = ((__pyx_v_z > 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "polylearn/loss_fast.pyx":66
+    /* "polylearn/loss_fast.pyx":69
  *         cdef double z = 1 - p * y
  *         if z > 0:
  *             return -2 * y * z             # <<<<<<<<<<<<<<
@@ -1414,7 +1400,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_dloss(CYTHON_UNUSED s
     __pyx_r = ((-2.0 * __pyx_v_y) * __pyx_v_z);
     goto __pyx_L0;
 
-    /* "polylearn/loss_fast.pyx":65
+    /* "polylearn/loss_fast.pyx":68
  *     cdef double dloss(self, double p, double y):
  *         cdef double z = 1 - p * y
  *         if z > 0:             # <<<<<<<<<<<<<<
@@ -1423,7 +1409,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_dloss(CYTHON_UNUSED s
  */
   }
 
-  /* "polylearn/loss_fast.pyx":67
+  /* "polylearn/loss_fast.pyx":70
  *         if z > 0:
  *             return -2 * y * z
  *         return 0.0             # <<<<<<<<<<<<<<
@@ -1431,7 +1417,7 @@ static double __pyx_f_9polylearn_9loss_fast_12SquaredHinge_dloss(CYTHON_UNUSED s
   __pyx_r = 0.0;
   goto __pyx_L0;
 
-  /* "polylearn/loss_fast.pyx":63
+  /* "polylearn/loss_fast.pyx":66
  *         return 0.0
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
@@ -1773,7 +1759,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_NotImplementedError = __Pyx_GetBuiltinName(__pyx_n_s_NotImplementedError); if (!__pyx_builtin_NotImplementedError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -1882,40 +1868,40 @@ PyMODINIT_FUNC PyInit_loss_fast(void)
   __pyx_vtabptr_9polylearn_9loss_fast_LossFunction = &__pyx_vtable_9polylearn_9loss_fast_LossFunction;
   __pyx_vtable_9polylearn_9loss_fast_LossFunction.loss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_12LossFunction_loss;
   __pyx_vtable_9polylearn_9loss_fast_LossFunction.dloss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_12LossFunction_dloss;
-  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_LossFunction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_LossFunction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_9polylearn_9loss_fast_LossFunction.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_LossFunction.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_LossFunction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "LossFunction", (PyObject *)&__pyx_type_9polylearn_9loss_fast_LossFunction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 3; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_LossFunction.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_LossFunction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "LossFunction", (PyObject *)&__pyx_type_9polylearn_9loss_fast_LossFunction) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_9polylearn_9loss_fast_LossFunction = &__pyx_type_9polylearn_9loss_fast_LossFunction;
   __pyx_vtabptr_9polylearn_9loss_fast_Squared = &__pyx_vtable_9polylearn_9loss_fast_Squared;
   __pyx_vtable_9polylearn_9loss_fast_Squared.__pyx_base = *__pyx_vtabptr_9polylearn_9loss_fast_LossFunction;
   __pyx_vtable_9polylearn_9loss_fast_Squared.__pyx_base.loss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_7Squared_loss;
   __pyx_vtable_9polylearn_9loss_fast_Squared.__pyx_base.dloss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_7Squared_dloss;
   __pyx_type_9polylearn_9loss_fast_Squared.tp_base = __pyx_ptype_9polylearn_9loss_fast_LossFunction;
-  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_Squared) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_Squared) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_9polylearn_9loss_fast_Squared.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_Squared.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_Squared) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "Squared", (PyObject *)&__pyx_type_9polylearn_9loss_fast_Squared) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_Squared.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_Squared) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "Squared", (PyObject *)&__pyx_type_9polylearn_9loss_fast_Squared) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_9polylearn_9loss_fast_Squared = &__pyx_type_9polylearn_9loss_fast_Squared;
   __pyx_vtabptr_9polylearn_9loss_fast_Logistic = &__pyx_vtable_9polylearn_9loss_fast_Logistic;
   __pyx_vtable_9polylearn_9loss_fast_Logistic.__pyx_base = *__pyx_vtabptr_9polylearn_9loss_fast_LossFunction;
   __pyx_vtable_9polylearn_9loss_fast_Logistic.__pyx_base.loss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_8Logistic_loss;
   __pyx_vtable_9polylearn_9loss_fast_Logistic.__pyx_base.dloss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_8Logistic_dloss;
   __pyx_type_9polylearn_9loss_fast_Logistic.tp_base = __pyx_ptype_9polylearn_9loss_fast_LossFunction;
-  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_Logistic) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_Logistic) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_9polylearn_9loss_fast_Logistic.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_Logistic.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_Logistic) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "Logistic", (PyObject *)&__pyx_type_9polylearn_9loss_fast_Logistic) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 25; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_Logistic.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_Logistic) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "Logistic", (PyObject *)&__pyx_type_9polylearn_9loss_fast_Logistic) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_9polylearn_9loss_fast_Logistic = &__pyx_type_9polylearn_9loss_fast_Logistic;
   __pyx_vtabptr_9polylearn_9loss_fast_SquaredHinge = &__pyx_vtable_9polylearn_9loss_fast_SquaredHinge;
   __pyx_vtable_9polylearn_9loss_fast_SquaredHinge.__pyx_base = *__pyx_vtabptr_9polylearn_9loss_fast_LossFunction;
   __pyx_vtable_9polylearn_9loss_fast_SquaredHinge.__pyx_base.loss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_12SquaredHinge_loss;
   __pyx_vtable_9polylearn_9loss_fast_SquaredHinge.__pyx_base.dloss = (double (*)(struct __pyx_obj_9polylearn_9loss_fast_LossFunction *, double, double))__pyx_f_9polylearn_9loss_fast_12SquaredHinge_dloss;
   __pyx_type_9polylearn_9loss_fast_SquaredHinge.tp_base = __pyx_ptype_9polylearn_9loss_fast_LossFunction;
-  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_SquaredHinge) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_9polylearn_9loss_fast_SquaredHinge) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_9polylearn_9loss_fast_SquaredHinge.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_SquaredHinge.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_SquaredHinge) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "SquaredHinge", (PyObject *)&__pyx_type_9polylearn_9loss_fast_SquaredHinge) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_9polylearn_9loss_fast_SquaredHinge.tp_dict, __pyx_vtabptr_9polylearn_9loss_fast_SquaredHinge) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "SquaredHinge", (PyObject *)&__pyx_type_9polylearn_9loss_fast_SquaredHinge) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_9polylearn_9loss_fast_SquaredHinge = &__pyx_type_9polylearn_9loss_fast_SquaredHinge;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
@@ -1926,9 +1912,9 @@ PyMODINIT_FUNC PyInit_loss_fast(void)
   #endif
 
   /* "polylearn/loss_fast.pyx":1
- * from libc.math cimport log, exp             # <<<<<<<<<<<<<<
+ * # cython: language_level=3             # <<<<<<<<<<<<<<
+ * # cython: cdivision=True
  * 
- * cdef class LossFunction:
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);

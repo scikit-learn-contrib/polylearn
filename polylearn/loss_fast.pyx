@@ -1,3 +1,6 @@
+# cython: language_level=3
+# cython: cdivision=True
+
 from libc.math cimport log, exp
 
 cdef class LossFunction:
