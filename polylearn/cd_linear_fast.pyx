@@ -8,8 +8,9 @@
 # License: BSD
 
 from libc.math cimport fabs
-cimport numpy as np
+
 from lightning.impl.dataset_fast cimport ColumnDataset
+
 from .loss_fast cimport LossFunction
 
 
