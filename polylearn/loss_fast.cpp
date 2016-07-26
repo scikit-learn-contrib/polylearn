@@ -1127,7 +1127,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_loss(CYTHON_UNUSED struct 
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
  *         cdef double z = p * y
- *         #cdef double tau = 1 / (1 + exp(-z))
+ *         # cdef double tau = 1 / (1 + exp(-z))
  */
 
 static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct __pyx_obj_9polylearn_9loss_fast_Logistic *__pyx_v_self, double __pyx_v_p, double __pyx_v_y) {
@@ -1146,14 +1146,14 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
  * 
  *     cdef double dloss(self, double p, double y):
  *         cdef double z = p * y             # <<<<<<<<<<<<<<
- *         #cdef double tau = 1 / (1 + exp(-z))
- *         #return y * (tau - 1)
+ *         # cdef double tau = 1 / (1 + exp(-z))
+ *         # return y * (tau - 1)
  */
   __pyx_v_z = (__pyx_v_p * __pyx_v_y);
 
   /* "polylearn/loss_fast.pyx":44
- *         #cdef double tau = 1 / (1 + exp(-z))
- *         #return y * (tau - 1)
+ *         # cdef double tau = 1 / (1 + exp(-z))
+ *         # return y * (tau - 1)
  *         if z > 18.0:             # <<<<<<<<<<<<<<
  *             return -y * exp(-z)
  *         if z < -18.0:
@@ -1162,7 +1162,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
   if (__pyx_t_1) {
 
     /* "polylearn/loss_fast.pyx":45
- *         #return y * (tau - 1)
+ *         # return y * (tau - 1)
  *         if z > 18.0:
  *             return -y * exp(-z)             # <<<<<<<<<<<<<<
  *         if z < -18.0:
@@ -1172,8 +1172,8 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
     goto __pyx_L0;
 
     /* "polylearn/loss_fast.pyx":44
- *         #cdef double tau = 1 / (1 + exp(-z))
- *         #return y * (tau - 1)
+ *         # cdef double tau = 1 / (1 + exp(-z))
+ *         # return y * (tau - 1)
  *         if z > 18.0:             # <<<<<<<<<<<<<<
  *             return -y * exp(-z)
  *         if z < -18.0:
@@ -1230,7 +1230,7 @@ static double __pyx_f_9polylearn_9loss_fast_8Logistic_dloss(CYTHON_UNUSED struct
  * 
  *     cdef double dloss(self, double p, double y):             # <<<<<<<<<<<<<<
  *         cdef double z = p * y
- *         #cdef double tau = 1 / (1 + exp(-z))
+ *         # cdef double tau = 1 / (1 + exp(-z))
  */
 
   /* function exit code */

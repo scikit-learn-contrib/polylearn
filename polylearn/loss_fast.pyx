@@ -39,8 +39,8 @@ cdef class Logistic(LossFunction):
 
     cdef double dloss(self, double p, double y):
         cdef double z = p * y
-        #cdef double tau = 1 / (1 + exp(-z))
-        #return y * (tau - 1)
+        # cdef double tau = 1 / (1 + exp(-z))
+        # return y * (tau - 1)
         if z > 18.0:
             return -y * exp(-z)
         if z < -18.0:
