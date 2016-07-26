@@ -15,6 +15,10 @@ from lightning.impl.dataset_fast cimport ColumnDataset
 from .loss_fast cimport LossFunction
 
 
+cdef inline double _sq(double x):
+    return x * x
+
+
 cpdef void _fast_lifted_predict(double[:, :, ::1] U,
                                 ColumnDataset X,
                                 double[:] out):
@@ -155,7 +159,7 @@ def _cd_lifted(double[:, :, ::1] U,
 
                     for ii in range(n_nz):
                         i = indices[ii]
-                        inv_step_size += xi[i] ** 2 * data[ii] ** 2
+                        inv_step_size += _sq(xi[i]) * _sq(data[ii])
                         update += xi[i] * data[ii] * loss.dloss(y_pred[i],
                                                                 y[i])
 
