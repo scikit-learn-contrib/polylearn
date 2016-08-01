@@ -75,14 +75,14 @@ cdef inline double _update(int* indices,
         if degree == 2:
             grad_y = d1[i] - p_js * data[ii]
         elif degree == 3:
-            grad_y = 0.5 * (_sq(d1[i]) - d2[i])
+            grad_y = 0.5 * (d1[i] ** 2 - d2[i])
             grad_y -= p_js * data[ii] * d1[i]
-            grad_y += p_js * p_js * _sq(data[ii])
+            grad_y += p_js * p_js * (data[ii] ** 2)
 
         grad_y *= lam * data[ii]
 
         update += loss.dloss(y_pred[i], y[i]) * grad_y
-        inv_step_size += _sq(grad_y)
+        inv_step_size += grad_y ** 2
 
     inv_step_size *= loss.mu
     inv_step_size += l1_reg
@@ -140,12 +140,12 @@ cdef inline double _cd_direct_epoch(double[:, :, ::1] P,
                 if degree == 2:
                     offset = d1[i] - p_old * data[ii]
                 else:
-                    offset = _sq(d1[i]) - d2[i]
+                    offset = d1[i] ** 2 - d2[i]
                     offset *= 0.5
                     offset -= p_old * data[ii] * d1[i]
-                    offset += _sq(p_old) * _sq(data[ii])
+                    offset += p_old ** 2 * data[ii] ** 2
 
-                    d2[i] -= (_sq(p_old) - _sq(P[order, s, j])) * _sq(data[ii])
+                    d2[i] -= (p_old ** 2 - P[order, s, j] ** 2) * data[ii] ** 2
 
                 d1[i] -= update * data[ii]
                 y_pred[i] -= offset * lams[s] * update * data[ii]
