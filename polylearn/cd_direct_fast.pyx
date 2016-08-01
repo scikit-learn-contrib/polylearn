@@ -16,10 +16,6 @@ from .loss_fast cimport LossFunction
 from .cd_linear_fast cimport _cd_linear_epoch
 
 
-cdef inline double _sq(double x):
-    return x * x
-
-
 cdef void _precompute(ColumnDataset X,
                       double[:, :, ::1] P,
                       Py_ssize_t order,
