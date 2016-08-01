@@ -64,7 +64,7 @@ cdef inline double _update(int* indices,
     
     cdef Py_ssize_t i, ii
 
-    cdef double inv_step_size
+    cdef double inv_step_size = 0
 
     cdef double grad_y
     cdef double update = 0
