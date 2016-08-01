@@ -221,8 +221,8 @@ def test_random_starts():
 def check_same_as_slow(degree):
 
     # XXX: test fails under windows 32bit, presumably numerical issues.
-    if ctypes.sizeof(ctypes.c_voidp) < 8:
-        raise SkipTest("Numerical inconsistencies on Win32")
+    # if ctypes.sizeof(ctypes.c_voidp) < 8:
+    #     raise SkipTest("Numerical inconsistencies on Win32")
 
     y = _poly_predict(X, P, lams, kernel="anova", degree=degree)
 
