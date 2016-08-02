@@ -142,8 +142,7 @@
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="n">degree</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">n_components</span>
@@ -153,7 +152,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">warm_start</span> <span class="o">=</span> <span class="n">warm_start</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">compute_loss</span> <span class="o">=</span> <span class="n">compute_loss</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
 
     <span class="k">def</span> <span class="nf">_augment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
@@ -198,8 +196,7 @@
         <span class="n">y_pred</span> <span class="o">=</span> <span class="n">_lifted_predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U_</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
 
         <span class="n">converged</span> <span class="o">=</span> <span class="n">_cd_lifted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U_</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span>
-                               <span class="n">loss_obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
-                               <span class="bp">self</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">)</span>
+                               <span class="n">loss_obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">converged</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Objective did not converge. Increase max_iter.&quot;</span><span class="p">)</span>
@@ -254,10 +251,6 @@
 <span class="sd">    verbose : boolean, optional, default: False</span>
 <span class="sd">        Whether to print debugging information.</span>
 
-<span class="sd">    compute_loss : boolean, optional, default: False</span>
-<span class="sd">        Whether to compute the training loss at every iteration. Slows down</span>
-<span class="sd">        runtime but may be useful for debugging convergence issues.</span>
-
 <span class="sd">    random_state : int seed, RandomState instance, or None (default)</span>
 <span class="sd">        The seed of the pseudo random number generator to use for</span>
 <span class="sd">        initializing the parameters.</span>
@@ -283,12 +276,11 @@
 
 <div class="viewcode-block" id="PolynomialNetworkRegressor.__init__"><a class="viewcode-back" href="../../generated/polylearn.PolynomialNetworkRegressor.html#polylearn.PolynomialNetworkRegressor.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span>
                  <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">PolynomialNetworkRegressor</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">degree</span><span class="p">,</span> <span class="s1">&#39;squared&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">fit_lower</span><span class="p">,</span>
-            <span class="n">warm_start</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">compute_loss</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span></div></div>
+            <span class="n">warm_start</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="PolynomialNetworkClassifier"><a class="viewcode-back" href="../../generated/polylearn.PolynomialNetworkClassifier.html#polylearn.PolynomialNetworkClassifier">[docs]</a><span class="k">class</span> <span class="nc">PolynomialNetworkClassifier</span><span class="p">(</span><span class="n">_BasePolynomialNetwork</span><span class="p">,</span>
@@ -339,10 +331,6 @@
 <span class="sd">    verbose : boolean, optional, default: False</span>
 <span class="sd">        Whether to print debugging information.</span>
 
-<span class="sd">    compute_loss : boolean, optional, default: False</span>
-<span class="sd">        Whether to compute the training loss at every iteration. Slows down</span>
-<span class="sd">        runtime but may be useful for debugging convergence issues.</span>
-
 <span class="sd">    random_state : int seed, RandomState instance, or None (default)</span>
 <span class="sd">        The seed of the pseudo random number generator to use for</span>
 <span class="sd">        initializing the parameters.</span>
@@ -368,12 +356,11 @@
 
 <div class="viewcode-block" id="PolynomialNetworkClassifier.__init__"><a class="viewcode-back" href="../../generated/polylearn.PolynomialNetworkClassifier.html#polylearn.PolynomialNetworkClassifier.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared_hinge&#39;</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="n">fit_lower</span><span class="o">=</span><span class="s1">&#39;augment&#39;</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">compute_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                 <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">PolynomialNetworkClassifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">degree</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">n_components</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">fit_lower</span><span class="p">,</span>
-            <span class="n">warm_start</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">compute_loss</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span></div></div>
+            <span class="n">warm_start</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">verbose</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span></div></div>
 </pre></div>
 
 </div>

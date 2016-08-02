@@ -113,7 +113,7 @@
 <h1>polylearn.PolynomialNetworkClassifier<a class="headerlink" href="#polylearn-polynomialnetworkclassifier" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="polylearn.PolynomialNetworkClassifier">
-<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">PolynomialNetworkClassifier</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='augment'</em>, <em>warm_start=False</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/polynomial_network.html#PolynomialNetworkClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.PolynomialNetworkClassifier" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">PolynomialNetworkClassifier</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='augment'</em>, <em>warm_start=False</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/polynomial_network.html#PolynomialNetworkClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.PolynomialNetworkClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Polynomial network for classification.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -169,11 +169,6 @@ computing regularization paths or pre-initializing the model.</p>
 <p><strong>verbose</strong> : boolean, optional, default: False</p>
 <blockquote>
 <div><p>Whether to print debugging information.</p>
-</div></blockquote>
-<p><strong>compute_loss</strong> : boolean, optional, default: False</p>
-<blockquote>
-<div><p>Whether to compute the training loss at every iteration. Slows down
-runtime but may be useful for debugging convergence issues.</p>
 </div></blockquote>
 <p><strong>random_state</strong> : int seed, RandomState instance, or None (default)</p>
 <blockquote>
@@ -231,7 +226,7 @@ In: Proceedings of NIPS 2014.</p>
 </table>
 <dl class="method">
 <dt id="polylearn.PolynomialNetworkClassifier.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='augment'</em>, <em>warm_start=False</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>compute_loss=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/polynomial_network.html#PolynomialNetworkClassifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.PolynomialNetworkClassifier.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='augment'</em>, <em>warm_start=False</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/polynomial_network.html#PolynomialNetworkClassifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.PolynomialNetworkClassifier.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
