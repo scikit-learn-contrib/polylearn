@@ -7,17 +7,17 @@
 # Author: Vlad Niculae
 # License: BSD
 
-from libc.stdlib cimport malloc, free
 from libc.math cimport fabs
+from cython.view cimport array
 
 from lightning.impl.dataset_fast cimport ColumnDataset
 
 from .loss_fast cimport LossFunction
 
 
-cpdef void _fast_lifted_predict(double[:, :, ::1] U,
-                                ColumnDataset X,
-                                double[:] out):
+def _fast_lifted_predict(double[:, :, ::1] U,
+                         ColumnDataset X,
+                         double[:] out):
 
     # np.product(safe_sparse_dot(U, X.T), axis=0).sum(axis=0)
     #
@@ -36,9 +36,8 @@ cpdef void _fast_lifted_predict(double[:, :, ::1] U,
 
     cdef Py_ssize_t i, j, ii
 
-    cdef double *middle = <double *> malloc(n_samples * sizeof(double))
-    cdef double *inner = <double *> malloc(n_samples * sizeof(double))
-
+    cdef double[:] middle = array((n_samples,), sizeof(double), 'd')
+    cdef double[:] inner = array((n_samples,), sizeof(double), 'd')
 
     for s in range(n_components):
 
@@ -64,15 +63,13 @@ cpdef void _fast_lifted_predict(double[:, :, ::1] U,
         for i in range(n_samples):
             out[i] += middle[i]
 
-    free(inner)
-    free(middle)
-
 
 cdef void _precompute(double[:, :, ::1] U,
                       ColumnDataset X,
                       Py_ssize_t s,
                       Py_ssize_t t,
-                      double* out):
+                      double[:] out,
+                      double[:] tmp):
 
     cdef Py_ssize_t degree = U.shape[0]
     cdef Py_ssize_t n_components = U.shape[1]
@@ -86,8 +83,6 @@ cdef void _precompute(double[:, :, ::1] U,
 
     cdef Py_ssize_t i, j, ii
 
-    cdef double *inner = <double *> malloc(n_samples * sizeof(double))
-
     for i in range(n_samples):
         out[i] = 1
 
@@ -97,16 +92,15 @@ cdef void _precompute(double[:, :, ::1] U,
             continue
 
         for i in range(n_samples):
-            inner[i] = 0
+            tmp[i] = 0
 
         for j in range(n_features):
             X.get_column_ptr(j, &indices, &data, &n_nz)
             for ii in range(n_nz):
                 i = indices[ii]
-                inner[i] += data[ii] * U[t_prime, s, j]
+                tmp[i] += data[ii] * U[t_prime, s, j]
         for i in range(n_samples):
-            out[i] *= inner[i]
-    free(inner)
+            out[i] *= tmp[i]
 
 
 def _cd_lifted(double[:, :, ::1] U,
@@ -124,7 +118,7 @@ def _cd_lifted(double[:, :, ::1] U,
     cdef Py_ssize_t degree = U.shape[0]
     cdef Py_ssize_t n_components = U.shape[1]
     cdef Py_ssize_t t, s, j
-    cdef unsigned int it
+    cdef int it
 
     cdef double sum_viol
     cdef bint converged = False
@@ -133,7 +127,8 @@ def _cd_lifted(double[:, :, ::1] U,
     cdef double update
     cdef double u_old
 
-    cdef double *xi = <double *> malloc(n_samples * sizeof(double))
+    cdef double[:] xi = array((n_samples,), sizeof(double), 'd')
+    cdef double[:] tmp = array((n_samples,), sizeof(double), 'd')
 
     # Data pointers
     cdef double* data
@@ -144,7 +139,7 @@ def _cd_lifted(double[:, :, ::1] U,
         sum_viol = 0
         for t in range(degree):
             for s in range(n_components):
-                _precompute(U, X, s, t, xi)
+                _precompute(U, X, s, t, xi, tmp)
                 for j in range(n_features):
 
                     u_old = U[t, s, j]
@@ -182,5 +177,4 @@ def _cd_lifted(double[:, :, ::1] U,
             converged = True
             break
 
-    free(xi)
     return converged

@@ -498,10 +498,10 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "polylearn\\cd_linear_fast.pyx",
-  "polylearn\\stringsource",
+  "polylearn/cd_linear_fast.pyx",
+  "stringsource",
   "dataset_fast.pxd",
-  "polylearn\\loss_fast.pxd",
+  "polylearn/loss_fast.pxd",
 };
 /* MemviewSliceStruct.proto */
 struct __pyx_memoryview_obj;
