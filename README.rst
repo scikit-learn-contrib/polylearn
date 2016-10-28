@@ -31,8 +31,8 @@ generalization of matrix completion models.
 
 This package provides:
 
-- direct coordinate descent algorithm for factorization machines,
-- lifted solver for fitting polynomial networks of arbitrary degree,
+- coordinate descent algorithm for fitting factorization machines of degree 2 or 3,
+- coordinate descent algorithm for fitting polynomial networks of arbitrary degree,
 - `scikit-learn <http://scikit-learn.org>`_-compatible API,
 - `Cython <http://cython.org>`_ implementations for computationally intensive parts.
 
