@@ -107,11 +107,11 @@ class _BaseFactorizationMachine(six.with_metaclass(ABCMeta, _BasePoly)):
 
         y_pred = self._get_output(X)
 
-        converged = _cd_direct_ho(self.P_, self.w_, dataset, X_col_norms, y,
-                                  y_pred, self.lams_, self.degree, self.alpha,
-                                  self.beta, self.fit_linear,
-                                  self.fit_lower == 'explicit', loss_obj,
-                                  self.max_iter, self.tol, self.verbose)
+        converged, self.n_iter_ = _cd_direct_ho(
+            self.P_, self.w_, dataset, X_col_norms, y, y_pred,
+            self.lams_, self.degree, self.alpha, self.beta, self.fit_linear,
+            self.fit_lower == 'explicit', loss_obj, self.max_iter,
+            self.tol, self.verbose)
         if not converged:
             warnings.warn("Objective did not converge. Increase max_iter.")
 

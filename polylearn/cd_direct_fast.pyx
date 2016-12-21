@@ -195,4 +195,4 @@ def _cd_direct_ho(double[:, :, ::1] P not None,
             converged = True
             break
 
-    return converged
+    return converged, it

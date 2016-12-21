@@ -177,4 +177,4 @@ def _cd_lifted(double[:, :, ::1] U,
             converged = True
             break
 
-    return converged
+    return converged, it

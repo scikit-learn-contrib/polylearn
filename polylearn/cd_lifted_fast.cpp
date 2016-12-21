@@ -3147,7 +3147,7 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast_2_cd_lifted(CYTHON_UNUSED 
  *             converged = True
  *             break             # <<<<<<<<<<<<<<
  * 
- *     return converged
+ *     return converged, it
  */
       goto __pyx_L4_break;
 
@@ -3165,13 +3165,23 @@ static PyObject *__pyx_pf_9polylearn_14cd_lifted_fast_2_cd_lifted(CYTHON_UNUSED 
   /* "polylearn/cd_lifted_fast.pyx":180
  *             break
  * 
- *     return converged             # <<<<<<<<<<<<<<
+ *     return converged, it             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_v_converged); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_r = __pyx_t_2;
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_it); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_3);
   __pyx_t_2 = 0;
+  __pyx_t_3 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* "polylearn/cd_lifted_fast.pyx":106

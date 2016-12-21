@@ -89,8 +89,9 @@ class _BasePolynomialNetwork(six.with_metaclass(ABCMeta, _BasePoly)):
 
         y_pred = _lifted_predict(self.U_, dataset)
 
-        converged = _cd_lifted(self.U_, dataset, y, y_pred, self.beta,
-                               loss_obj, self.max_iter, self.tol, self.verbose)
+        converged, self.n_iter_ = _cd_lifted(
+            self.U_, dataset, y, y_pred, self.beta, loss_obj, self.max_iter,
+            self.tol, self.verbose)
 
         if not converged:
             warnings.warn("Objective did not converge. Increase max_iter.")
