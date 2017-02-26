@@ -30,6 +30,6 @@ http://scikit-learn.org/stable/auto_examples/svm/plot_svm_nonlinear.html
 .. literalinclude:: plot_xor.py
     :lines: 16-
 
-**Total running time of the example:**  3.05 seconds
-( 0 minutes  3.05 seconds)
+**Total running time of the example:**  2.96 seconds
+( 0 minutes  2.96 seconds)
     

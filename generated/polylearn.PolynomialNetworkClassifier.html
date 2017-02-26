@@ -22,7 +22,8 @@
         VERSION:     '0.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -34,8 +35,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="polylearn 0.1.0 documentation" href="../index.html" />
-    <link rel="up" title="polylearn reference" href="../references.html" />
     <link rel="next" title="polylearn.PolynomialNetworkRegressor" href="polylearn.PolynomialNetworkRegressor.html" />
     <link rel="prev" title="polylearn.FactorizationMachineRegressor" href="polylearn.FactorizationMachineRegressor.html" />
 <meta charset='utf-8'>
@@ -89,7 +88,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/generated/polylearn.PolynomialNetworkClassifier.txt"
+  <a href="../_sources/generated/polylearn.PolynomialNetworkClassifier.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -221,7 +220,7 @@ In: Proceedings of NIPS 2014.</p>
 <tr class="row-even"><td><a class="reference internal" href="#polylearn.PolynomialNetworkClassifier.score" title="polylearn.PolynomialNetworkClassifier.score"><code class="xref py py-obj docutils literal"><span class="pre">score</span></code></a>(X,&nbsp;y[,&nbsp;sample_weight])</td>
 <td>Returns the mean accuracy on the given test data and labels.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#polylearn.PolynomialNetworkClassifier.set_params" title="polylearn.PolynomialNetworkClassifier.set_params"><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code></a>(\*\*params)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#polylearn.PolynomialNetworkClassifier.set_params" title="polylearn.PolynomialNetworkClassifier.set_params"><code class="xref py py-obj docutils literal"><span class="pre">set_params</span></code></a>(**params)</td>
 <td>Set the parameters of this estimator.</td>
 </tr>
 </tbody>
@@ -292,7 +291,7 @@ and n_features is the number of features.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>deep: boolean, optional</strong> :</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>deep</strong> : boolean, optional</p>
 <blockquote>
 <div><p>If True, will return the parameters for this estimator and
 contained subobjects that are estimators.</p>
@@ -425,7 +424,7 @@ component of a nested object.</p>
     </p>
     <p>
         &copy; Copyright 2016, Vlad Niculae.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
     </p>
   </div>
 </footer>

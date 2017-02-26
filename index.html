@@ -22,7 +22,8 @@
         VERSION:     '0.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -34,7 +35,6 @@
     <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="polylearn 0.1.0 documentation" href="#" />
     <link rel="next" title="Examples" href="auto_examples/index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -87,7 +87,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/index.txt"
+  <a href="_sources/index.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -136,15 +136,39 @@ generalization of matrix completion models.</p>
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>Binary packages are not yet available.</p>
 <p>The development version of polylearn can be installed from its git repository. In
-this case it is assumed that you have the git version control system, a working
-C++ compiler, Cython, lightning, and the numpy development libraries. In order to
-install the development version, type:</p>
+this case it is assumed that you have a working
+C++ compiler.</p>
+<ol class="arabic">
+<li><p class="first">Obtain the sources by:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">scikit</span><span class="o">-</span><span class="n">learn</span><span class="o">-</span><span class="n">contrib</span><span class="o">/</span><span class="n">polylearn</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">polylearn</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>or, if <cite>git</cite> is unavailable, <a class="reference external" href="https://github.com/scikit-learn-contrib/polylearn/archive/master.zip">download as a ZIP from GitHub</a>.</p>
+<ol class="arabic" start="2">
+<li><p class="first">Install the dependencies:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># via pip</span>
+
+<span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span> <span class="n">scipy</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">nose</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">sklearn</span><span class="o">-</span><span class="n">contrib</span><span class="o">-</span><span class="n">lightning</span>
+
+
+<span class="c1"># via conda</span>
+
+<span class="n">conda</span> <span class="n">install</span> <span class="n">numpy</span> <span class="n">scipy</span> <span class="n">scikit</span><span class="o">-</span><span class="n">learn</span> <span class="n">nose</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">sklearn</span><span class="o">-</span><span class="n">contrib</span><span class="o">-</span><span class="n">lightning</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Build and install polylearn:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">polylearn</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build</span>
 <span class="n">sudo</span> <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
+</li>
+</ol>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
@@ -196,7 +220,7 @@ In: Proc. of NIPS 2014.
     </p>
     <p>
         &copy; Copyright 2016, Vlad Niculae.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
     </p>
   </div>
 </footer>

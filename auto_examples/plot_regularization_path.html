@@ -22,7 +22,8 @@
         VERSION:     '0.1.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -34,8 +35,6 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="polylearn 0.1.0 documentation" href="../index.html" />
-    <link rel="up" title="Examples" href="index.html" />
     <link rel="next" title="polylearn reference" href="../references.html" />
     <link rel="prev" title="Factorization machine decision boundary for XOR" href="plot_xor.html" />
 <meta charset='utf-8'>
@@ -89,7 +88,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="../_sources/auto_examples/plot_regularization_path.txt"
+  <a href="../_sources/auto_examples/plot_regularization_path.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -118,7 +117,7 @@ compute the regularization path for a polynomial network when optimizing
 for the <cite>beta</cite> regularization hyperparameter.</p>
 <img alt="../_images/plot_regularization_path_001.png" class="align-center" src="../_images/plot_regularization_path_001.png" />
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/plot_regularization_path.py" download=""><code class="xref download docutils literal"><span class="pre">plot_regularization_path.py</span></code></a></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
 
 <span class="c1"># Author: Vlad Niculae &lt;vlad@vene.ro&gt;</span>
 <span class="c1"># License: Simplified BSD</span>
@@ -153,7 +152,7 @@ for the <cite>beta</cite> regularization hyperparameter.</p>
 <span class="n">y_test_sc</span> <span class="o">=</span> <span class="n">scaler_y</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
 <span class="n">n_alphas</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">alphas</span> <span class="o">=</span> <a href="http://docs.scipy.org/doc/numpy-1.6.0/reference/generated/numpy.logspace.html#numpy.logspace"><span class="n">np</span><span class="o">.</span><span class="n">logspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">n_alphas</span><span class="p">)</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">n_alphas</span><span class="p">)</span>
 <span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">kernel_ridge</span> <span class="o">=</span> <span class="n">KernelRidge</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">coef0</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
@@ -172,7 +171,7 @@ for the <cite>beta</cite> regularization hyperparameter.</p>
     <span class="n">test_scores_kernel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_mse</span><span class="p">)</span>
 
 
-<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialNetworkRegressor</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialNetworkRegressor</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
                                   <span class="n">warm_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">test_scores_poly</span> <span class="o">=</span> <span class="p">[]</span>
@@ -183,19 +182,19 @@ for the <cite>beta</cite> regularization hyperparameter.</p>
     <span class="n">test_mse</span> <span class="o">=</span> <span class="n">mean_squared_error_scorer</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">X_test_sc</span><span class="p">,</span> <span class="n">y_test_sc</span><span class="p">)</span>
     <span class="n">test_scores_poly</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_mse</span><span class="p">)</span>
 
-<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">test_scores_ridge</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Linear ridge&quot;</span><span class="p">)</span>
-<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">test_scores_kernel</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kernel ridge&quot;</span><span class="p">)</span>
-<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot"><span class="n">plt</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">test_scores_poly</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Poly. network (rank=2)&quot;</span><span class="p">)</span>
-<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.ylabel"><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span></a><span class="p">(</span><span class="s2">&quot;Negated mean squared error (higher is better)&quot;</span><span class="p">)</span>
-<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.xlabel"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span></a><span class="p">(</span><span class="s2">&quot;Regularization amount&quot;</span><span class="p">)</span>
-<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.ylim"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span></a><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">test_scores_ridge</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Linear ridge&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">test_scores_kernel</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Kernel ridge&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">test_scores_poly</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Poly. network (rank=2)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Negated mean squared error (higher is better)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Regularization amount&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.15</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">()</span>
-<a href="http://matplotlib.org/api/legend_api.html#matplotlib.legend"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
-<a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.show"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the example:</strong>  29.17 seconds
-( 0 minutes  29.17 seconds)</p>
+<p><strong>Total running time of the example:</strong>  29.06 seconds
+( 0 minutes  29.06 seconds)</p>
 </div>
 
 
@@ -208,7 +207,7 @@ for the <cite>beta</cite> regularization hyperparameter.</p>
     </p>
     <p>
         &copy; Copyright 2016, Vlad Niculae.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
     </p>
   </div>
 </footer>
