@@ -42,14 +42,35 @@ Installation
 Binary packages are not yet available.
 
 The development version of polylearn can be installed from its git repository. In
-this case it is assumed that you have the git version control system, a working
-C++ compiler, Cython, lightning, and the numpy development libraries. In order to
-install the development version, type::
+this case it is assumed that you have a working
+C++ compiler.
 
-   git clone https://github.com/scikit-learn-contrib/polylearn.git
-   cd polylearn
-   python setup.py build
-   sudo python setup.py install
+1. Obtain the sources by::
+
+    git clone https://github.com/scikit-learn-contrib/polylearn.git
+ 
+or, if `git` is unavailable, `download as a ZIP from GitHub <https://github.com/scikit-learn-contrib/polylearn/archive/master.zip>`_.
+ 
+ 
+2. Install the dependencies::
+ 
+    # via pip
+
+    pip install numpy scipy scikit-learn nose
+    pip install sklearn-contrib-lightning
+
+ 
+    # via conda
+
+    conda install numpy scipy scikit-learn nose
+    conda install -c conda-forge sklearn-contrib-lightning
+
+
+3. Build and install polylearn::
+
+    cd polylearn
+    python setup.py build
+    sudo python setup.py install
 
 
 References
