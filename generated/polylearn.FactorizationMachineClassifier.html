@@ -1,20 +1,16 @@
 
 <!DOCTYPE html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
     <title>polylearn.FactorizationMachineClassifier &#8212; polylearn 0.1.0 documentation</title>
     
-    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/lightning.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-3.3.6/css/bootstrap-theme.min.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -43,7 +39,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
   </head>
-  <body role="document">
+  <body>
 
   <div id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -114,7 +110,7 @@
 <h1>polylearn.FactorizationMachineClassifier<a class="headerlink" href="#polylearn-factorizationmachineclassifier" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="polylearn.FactorizationMachineClassifier">
-<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">FactorizationMachineClassifier</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas='ones'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">polylearn.</code><code class="descname">FactorizationMachineClassifier</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss=’squared_hinge’</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower=’explicit’</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas=’ones’</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Factorization machine for classification.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -126,7 +122,7 @@
 interactions captured by the model. Currently only supports
 degrees up to 3.</p>
 </div></blockquote>
-<p><strong>loss</strong> : {&#8216;logistic&#8217;|&#8217;squared_hinge&#8217;|&#8217;squared&#8217;}, default: &#8216;squared_hinge&#8217;</p>
+<p><strong>loss</strong> : {‘logistic’|’squared_hinge’|’squared’}, default: ‘squared_hinge’</p>
 <blockquote>
 <div><p>Which loss function to use.</p>
 <ul class="simple">
@@ -152,13 +148,13 @@ low-rank parametrization.</p>
 <blockquote>
 <div><p>Tolerance for the stopping condition.</p>
 </div></blockquote>
-<p><strong>fit_lower</strong> : {&#8216;explicit&#8217;|&#8217;augment&#8217;<a href="#id1"><span class="problematic" id="id2">|</span></a>None}, default: &#8216;explicit&#8217;</p>
+<p><strong>fit_lower</strong> : {‘explicit’|’augment’<a href="#id1"><span class="problematic" id="id2">|</span></a>None}, default: ‘explicit’</p>
 <blockquote>
 <div><p>Whether and how to fit lower-order, non-homogeneous terms.</p>
 <ul class="simple">
-<li>&#8216;explicit&#8217;: fits a separate P directly for each lower order.</li>
+<li>‘explicit’: fits a separate P directly for each lower order.</li>
 <li><dl class="first docutils">
-<dt>&#8216;augment&#8217;: adds the required number of dummy columns (columns</dt>
+<dt>‘augment’: adds the required number of dummy columns (columns</dt>
 <dd>that are 1 everywhere) in order to capture lower-order terms.
 Adds <code class="docutils literal"><span class="pre">degree</span> <span class="pre">-</span> <span class="pre">2</span></code> columns if <code class="docutils literal"><span class="pre">fit_linear</span></code> is true, or
 <code class="docutils literal"><span class="pre">degree</span> <span class="pre">-</span> <span class="pre">1</span></code> columns otherwise, to account for the linear term.</dd>
@@ -180,12 +176,12 @@ effects if <code class="docutils literal"><span class="pre">fit_lower</span> <sp
 <div><p>Whether to use the existing solution, if available. Useful for
 computing regularization paths or pre-initializing the model.</p>
 </div></blockquote>
-<p><strong>init_lambdas</strong> : {&#8216;ones&#8217;|&#8217;random_signs&#8217;}, default: &#8216;ones&#8217;</p>
+<p><strong>init_lambdas</strong> : {‘ones’|’random_signs’}, default: ‘ones’</p>
 <blockquote>
 <div><p>How to initialize the predictive weights of each learned basis. The
 lambdas are not trained; using alternate signs can theoretically
 improve performance if the kernel degree is even.  The default value
-of &#8216;ones&#8217; matches the original formulation of factorization machines
+of ‘ones’ matches the original formulation of factorization machines
 (Rendle, 2010).</p>
 <p>To use custom values for the lambdas, <code class="docutils literal"><span class="pre">warm_start</span></code> may be used.</p>
 </div></blockquote>
@@ -266,7 +262,7 @@ In: Proceedings of IEEE 2010.</p>
 </table>
 <dl class="method">
 <dt id="polylearn.FactorizationMachineClassifier.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss='squared_hinge'</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower='explicit'</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas='ones'</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree=2</em>, <em>loss=’squared_hinge’</em>, <em>n_components=2</em>, <em>alpha=1</em>, <em>beta=1</em>, <em>tol=1e-06</em>, <em>fit_lower=’explicit’</em>, <em>fit_linear=True</em>, <em>warm_start=False</em>, <em>init_lambdas=’ones’</em>, <em>max_iter=10000</em>, <em>verbose=False</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/polylearn/factorization_machine.html#FactorizationMachineClassifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#polylearn.FactorizationMachineClassifier.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -375,7 +371,7 @@ contained subobjects that are estimators.</p>
 <dt id="polylearn.FactorizationMachineClassifier.predict_proba">
 <code class="descname">predict_proba</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#polylearn.FactorizationMachineClassifier.predict_proba" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute probability estimates for the test samples.</p>
-<p>Only available if <cite>loss=&#8217;logistic&#8217;</cite>.</p>
+<p>Only available if <cite>loss=’logistic’</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -437,7 +433,7 @@ each label set be correctly predicted.</p>
 <dd><p>Set the parameters of this estimator.</p>
 <p>The method works on simple estimators as well as on nested objects
 (such as pipelines). The latter have parameters of the form
-<code class="docutils literal"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it&#8217;s possible to update each
+<code class="docutils literal"><span class="pre">&lt;component&gt;__&lt;parameter&gt;</span></code> so that it’s possible to update each
 component of a nested object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -463,7 +459,7 @@ component of a nested object.</p>
     </p>
     <p>
         &copy; Copyright 2016, Vlad Niculae.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
     </p>
   </div>
 </footer>
