@@ -1,3 +1,5 @@
+# cython: language_level=3
+
 cdef class LossFunction:
 
      cdef double mu

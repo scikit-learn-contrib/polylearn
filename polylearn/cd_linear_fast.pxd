@@ -1,3 +1,5 @@
+# cython: language_level=3
+
 from lightning.impl.dataset_fast cimport ColumnDataset
 from .loss_fast cimport LossFunction
 
