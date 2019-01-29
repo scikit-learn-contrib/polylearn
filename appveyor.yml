@@ -9,24 +9,24 @@ environment:
 
   matrix:
     - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.8"
+      PYTHON_VERSION: "2.7.15"
       PYTHON_ARCH: "32"
       MINICONDA: "C:\\Miniconda"
 
     - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.8"
+      PYTHON_VERSION: "2.7.15"
       PYTHON_ARCH: "64"
       MINICONDA: "C:\\Miniconda-x64"
 
-    - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5.0"
+    - PYTHON: "C:\\Python37"
+      PYTHON_VERSION: "3.7.2"
       PYTHON_ARCH: "32"
-      MINICONDA: "C:\\Miniconda35"
+      MINICONDA: "C:\\Miniconda37"
 
-    - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5.0"
+    - PYTHON: "C:\\Python37-x64"
+      PYTHON_VERSION: "3.7.2"
       PYTHON_ARCH: "64"
-      MINICONDA: "C:\\Miniconda35-x64"
+      MINICONDA: "C:\\Miniconda37-x64"
 
 install:
   # Miniconda is pre-installed in the worker build
@@ -43,14 +43,10 @@ install:
   - rmdir C:\\cygwin /s /q
 
   # Update previous packages and install the build and runtime dependencies of the project.
-  # XXX: setuptools>23 is currently broken on Win+py3 with numpy
-  # (https://github.com/pypa/setuptools/issues/728)
-  - conda update --all --yes setuptools=23
+  - conda update --all --yes
   - conda install --quiet --yes numpy scipy cython nose scikit-learn wheel"
   - conda install --quiet --yes -c conda-forge sklearn-contrib-lightning
-  # there seems to be a problem with conda-build 1.21.0 on python27 and win64, avoid this
-  # by using a previous version
-  - conda install --quiet --yes conda-build=1.21.0
+  - conda install --quiet --yes conda-build
   - "%CMD_IN_ENV% python setup.py bdist_wheel bdist_wininst"
 
   - ps: "ls dist"
