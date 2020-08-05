@@ -7,7 +7,7 @@ from sklearn.base import BaseEstimator, ClassifierMixin, RegressorMixin
 from sklearn.preprocessing import LabelBinarizer
 from sklearn.utils.validation import check_X_y
 from sklearn.utils.multiclass import type_of_target
-from sklearn.externals import six
+import six
 
 from .loss import CLASSIFICATION_LOSSES, REGRESSION_LOSSES
 

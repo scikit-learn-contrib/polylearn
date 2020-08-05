@@ -11,7 +11,7 @@ from sklearn.preprocessing import add_dummy_feature
 from sklearn.utils import check_random_state
 from sklearn.utils.validation import check_array
 from sklearn.utils.extmath import safe_sparse_dot, row_norms
-from sklearn.externals import six
+import six
 
 try:
     from sklearn.exceptions import NotFittedError

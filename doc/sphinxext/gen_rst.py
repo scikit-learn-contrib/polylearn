@@ -20,7 +20,7 @@ import gzip
 import posixpath
 import subprocess
 import warnings
-from sklearn.externals import six
+import six
 
 
 # Try Python 2 first, otherwise load from Python 3

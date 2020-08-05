@@ -45,6 +45,10 @@ if __name__ == '__main__':
           name=DISTNAME,
           maintainer=MAINTAINER,
           include_package_data=True,
+          install_requires=[
+              'six',
+              'scikit-learn'
+          ],
           maintainer_email=MAINTAINER_EMAIL,
           description=DESCRIPTION,
           license=LICENSE,
